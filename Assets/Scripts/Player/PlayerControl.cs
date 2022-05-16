@@ -1,27 +1,30 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(DataPlayer))]
-public class PlayerControl : MonoBehaviour
+namespace Player
 {
-    private Rigidbody _rigidbody;
-    private DataPlayer _dataPlayer;
-
-    private void Start()
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(PlayerData))]
+    public class PlayerControl : MonoBehaviour
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        _dataPlayer = GetComponent<DataPlayer>();
-    }
+        private Rigidbody _rigidbody;
+        private PlayerData _playerData;
 
-    private void Update()
-    {
-        Vector3 directionMove = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-        
-        Move(directionMove);
-    }
+        private void Start()
+        {
+            _rigidbody = GetComponent<Rigidbody>();
+            _playerData = GetComponent<PlayerData>();
+        }
 
-    private void Move(Vector3 direction)
-    {
-        _rigidbody.MovePosition(_rigidbody.position + direction * _dataPlayer.Speed);
+        private void Update()
+        {
+            Vector3 directionMove = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+    
+            Move(directionMove);
+        }
+
+        private void Move(Vector3 direction)
+        {
+            _rigidbody.MovePosition(_rigidbody.position + direction * _playerData.Speed);
+        }
     }
 }
