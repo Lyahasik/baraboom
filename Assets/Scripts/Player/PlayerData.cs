@@ -7,5 +7,6 @@ namespace Player
         [SerializeField] private SOCharacterData _characterData;
 
         public float Speed => _characterData.Speed;
+        public int Damage => _characterData.Damage;
     }
 }
