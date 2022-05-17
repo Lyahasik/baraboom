@@ -1,16 +1,18 @@
 using System;
 using UnityEngine;
 
+using Items;
+
 namespace Environment
 {
     public class SpawnerBombs : MonoBehaviour
     {
-        public GameObject SpawnBomb(Vector3 playerPosition, GameObject prefabBomb, int damage)
+        public GameObject SpawnBomb(Vector3 playerPosition, GameObject prefabBomb, int range)
         {
-            Vector3 bombPosition = new Vector3((float)Math.Truncate(playerPosition.x), 0.0f, (float)Math.Truncate(playerPosition.z));
+            Vector3 bombPosition = new Vector3((float)Math.Round(playerPosition.x), 0.0f, (float)Math.Round(playerPosition.z));
 
             GameObject bomb = Instantiate(prefabBomb, bombPosition, Quaternion.identity);
-            bomb.GetComponent<Bomb>().Damage = damage;
+            bomb.GetComponent<Bomb>().Init(range);
             
             return bomb;
         }

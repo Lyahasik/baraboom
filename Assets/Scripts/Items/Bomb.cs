@@ -1,14 +1,42 @@
 using UnityEngine;
+using Environment.Explosions;
 
-public class Bomb : MonoBehaviour
+namespace Items
 {
-    private int _damage = 1;
-
-    public int Damage
+    public class Bomb : MonoBehaviour
     {
-        set
+        [SerializeField] private GameObject _prefabExplosion;
+        [SerializeField] private GameObject _prefabEffect;
+    
+        [SerializeField] private float _delayExplosion;
+        private float _timeExplosion;
+
+        private int _range;
+
+        private void Start()
         {
-            if (_damage > 1) _damage = value;
-        } 
+            _timeExplosion = Time.time + _delayExplosion;
+        }
+
+        public void Init(int range)
+        {
+            _range = range;
+        }
+
+        private void Update()
+        {
+            TryCreateExplosion();
+        }
+
+        private void TryCreateExplosion()
+        {
+            if (_timeExplosion <= Time.time)
+            {
+                GameObject explosion = Instantiate(_prefabExplosion, transform.position, Quaternion.identity);
+                explosion.GetComponent<Explosion>().Init(_prefabEffect, _range);
+            
+                Destroy(gameObject);
+            }
+        }
     }
 }

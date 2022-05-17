@@ -8,9 +8,9 @@ namespace Player
         private const float SPEED_FACTOR = 0.01f;
     
         [SerializeField] private float _speed;
-        [SerializeField] private int _damage;
+        [SerializeField] private int _range;
 
         public float Speed => _speed * SPEED_FACTOR;
-        public int Damage => _damage;
+        public int Range => _range;
     }
 }

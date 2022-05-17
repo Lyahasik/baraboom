@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+
 using Environment;
 
 namespace Player
@@ -55,7 +56,7 @@ namespace Player
         {
             if (_lastPlantBomb == null)
             {
-                _lastPlantBomb = _spawnerBombs.SpawnBomb(transform.position, _prefabBomb, _playerData.Damage);
+                _lastPlantBomb = _spawnerBombs.SpawnBomb(transform.position, _prefabBomb, _playerData.Range);
                 Physics.IgnoreCollision(_lastPlantBomb.GetComponent<Collider>(), GetComponent<Collider>(), true);
             }
         }

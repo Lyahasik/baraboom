@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: SOCharacterData
   m_EditorClassIdentifier: 
   _speed: 1
+  _range: 1
