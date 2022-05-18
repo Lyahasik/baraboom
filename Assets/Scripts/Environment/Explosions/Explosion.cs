@@ -71,7 +71,7 @@ namespace Environment.Explosions
             
                 if (positionCreateEffect != transform.position)
                 {
-                    Instantiate(_prefabEffect, positionCreateEffect, Quaternion.identity);
+                    TryCreateWaveEffect(positionCreateEffect);
                 
                     continue;
                 }
@@ -83,6 +83,11 @@ namespace Environment.Explosions
                 Destroy(gameObject);
             
             _currentRange++;
+        }
+
+        private void TryCreateWaveEffect(Vector3 positionEffect)
+        {
+            Instantiate(_prefabEffect, positionEffect, Quaternion.identity);
         }
     }
 }
