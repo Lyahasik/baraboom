@@ -11,7 +11,7 @@ namespace Environment.Explosions
         [SerializeField] private float _delayNextEffect;
         private float _timeNextEffect;
 
-        private LinkedList<DirectedWave> _waveDirections;
+        private LinkedList<DirectedWave> _directedWaves;
         private int _maxRange;
         private int _currentRange;
 
@@ -29,12 +29,12 @@ namespace Environment.Explosions
 
         private void GenerateWaves()
         {
-            _waveDirections = new LinkedList<DirectedWave>();
+            _directedWaves = new LinkedList<DirectedWave>();
 
-            _waveDirections.AddLast(new DirectedWave(Vector3.right, _maxRange));
-            _waveDirections.AddLast(new DirectedWave(-Vector3.right, _maxRange));
-            _waveDirections.AddLast(new DirectedWave(Vector3.forward, _maxRange));
-            _waveDirections.AddLast(new DirectedWave(-Vector3.forward, _maxRange));
+            _directedWaves.AddLast(new DirectedWave(Vector3.right, _maxRange));
+            _directedWaves.AddLast(new DirectedWave(-Vector3.right, _maxRange));
+            _directedWaves.AddLast(new DirectedWave(Vector3.forward, _maxRange));
+            _directedWaves.AddLast(new DirectedWave(-Vector3.forward, _maxRange));
         }
         
         private void Update()
@@ -65,29 +65,38 @@ namespace Environment.Explosions
 
         private void TryIncrementWaves()
         {
-            foreach (DirectedWave waveDirection in _waveDirections.ToArray())
+            foreach (DirectedWave directedWave in _directedWaves.ToArray())
             {
-                Vector3 positionCreateEffect = waveDirection.GetPositionCreateEffect(transform.position, _currentRange);
-            
-                if (positionCreateEffect != transform.position)
+                Vector3 positionCreateEffect = directedWave.GetPositionCreateEffect(transform.position, _currentRange);
+
+                if (positionCreateEffect == transform.position)
                 {
-                    TryCreateWaveEffect(positionCreateEffect);
-                
-                    continue;
+                    _directedWaves.Remove(directedWave);
                 }
-            
-                _waveDirections.Remove(waveDirection);
+                else
+                {
+                    TryCreateWaveEffect(directedWave, positionCreateEffect);
+                }
             }
             
-            if (_waveDirections.Count == 0)
+            if (_directedWaves.Count == 0)
                 Destroy(gameObject);
             
             _currentRange++;
         }
 
-        private void TryCreateWaveEffect(Vector3 positionEffect)
+        private void TryCreateWaveEffect(DirectedWave directedWave, Vector3 positionEffect)
         {
-            Instantiate(_prefabEffect, positionEffect, Quaternion.identity);
+            GameObject block = ManagerBlocksCensus.TryGetBlockByPosition(positionEffect);
+
+            if (block == null)
+            {
+                Instantiate(_prefabEffect, positionEffect, Quaternion.identity);
+            }
+            else
+            {
+                _directedWaves.Remove(directedWave);
+            }
         }
     }
 }
