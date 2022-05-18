@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Environment.Explosions
@@ -6,6 +7,13 @@ namespace Environment.Explosions
     {
         [SerializeField] private float _timeLife;
         private float _timeDeath;
+
+        private int _damage;
+
+        public int Damage
+        {
+            set => _damage = (value > 1) ? value : 1;
+        }
 
         private void Start()
         {
@@ -16,6 +24,16 @@ namespace Environment.Explosions
         {
             if (_timeDeath <= Time.time)
                 Destroy(gameObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            ITakingDamage takingDamage = other.GetComponent<ITakingDamage>();
+
+            if (takingDamage != null)
+            {
+                takingDamage.TakeDamage(_damage);
+            }
         }
     }
 }

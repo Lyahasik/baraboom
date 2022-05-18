@@ -14,15 +14,18 @@ namespace Environment.Explosions
         private LinkedList<DirectedWave> _directedWaves;
         private int _maxRange;
         private int _currentRange;
+        private int _damage;
+        
 
-        public void Init(GameObject prefabEffect, int range)
+        public void Init(GameObject prefabEffect, int range, int damage)
         {
             _prefabEffect = prefabEffect;
-            
+
             _timeNextEffect = Time.time;
             
             _maxRange = range;
             _currentRange = 0;
+            _damage = damage;
             
             GenerateWaves();
         }
@@ -58,7 +61,7 @@ namespace Environment.Explosions
             if (_currentRange != 0)
                 return;
             
-            Instantiate(_prefabEffect, transform.position, Quaternion.identity);
+            CreateEffect(transform.position);
                 
             _currentRange++;
         }
@@ -91,12 +94,21 @@ namespace Environment.Explosions
 
             if (block == null)
             {
-                Instantiate(_prefabEffect, positionEffect, Quaternion.identity);
+                CreateEffect(positionEffect);
             }
             else
             {
+                if (block.GetComponent<DestructibleBlock>() != null)
+                    CreateEffect(positionEffect);
+                    
                 _directedWaves.Remove(directedWave);
             }
+        }
+
+        private void CreateEffect(Vector3 position)
+        {
+            GameObject effect = Instantiate(_prefabEffect, position, Quaternion.identity);
+            effect.GetComponent<EffectExplosion>().Damage = _damage;
         }
     }
 }

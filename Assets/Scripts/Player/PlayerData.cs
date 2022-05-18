@@ -8,5 +8,6 @@ namespace Player
 
         public float Speed => _characterData.Speed;
         public int Range => _characterData.Range;
+        public int Damage => _characterData.Damage;
     }
 }

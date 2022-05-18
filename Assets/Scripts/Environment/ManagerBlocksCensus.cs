@@ -5,9 +5,20 @@ public static class ManagerBlocksCensus
 {
     private static LinkedList<GameObject> _blocks = new ();
 
+    //TODO при смене сцены очищать список
+    public static void ClearList()
+    {
+        _blocks.Clear();
+    }
+    
     public static void AddBlock(GameObject block)
     {
         _blocks.AddLast(block);
+    }
+
+    public static void RemoveBlock(GameObject block)
+    {
+        _blocks.Remove(block);
     }
 
     public static GameObject TryGetBlockByPosition(Vector3 position)
@@ -19,11 +30,5 @@ public static class ManagerBlocksCensus
         }
 
         return null;
-    }
-
-    //TODO при смене сцены очищать список
-    public static void ClearList()
-    {
-        _blocks.Clear();
     }
 }

@@ -56,7 +56,7 @@ namespace Player
         {
             if (_lastPlantBomb == null)
             {
-                _lastPlantBomb = _spawnerBombs.SpawnBomb(transform.position, _prefabBomb, _playerData.Range);
+                _lastPlantBomb = _spawnerBombs.SpawnBomb(transform.position, _prefabBomb, _playerData.Range, _playerData.Damage);
                 Physics.IgnoreCollision(_lastPlantBomb.GetComponent<Collider>(), GetComponent<Collider>(), true);
             }
         }

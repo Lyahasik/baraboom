@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class Block : MonoBehaviour
+namespace Environment
 {
-    private void Start()
+    public class Block : MonoBehaviour
     {
-        ManagerBlocksCensus.AddBlock(gameObject);
+        private void Start()
+        {
+            ManagerBlocksCensus.AddBlock(gameObject);
+        }
     }
 }
