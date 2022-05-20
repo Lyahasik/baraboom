@@ -1,5 +1,6 @@
 using UnityEngine;
 using Environment.Explosions;
+using Events;
 
 namespace Items
 {
@@ -37,6 +38,7 @@ namespace Items
                 GameObject explosion = Instantiate(_prefabExplosion, transform.position, Quaternion.identity);
                 explosion.GetComponent<Explosion>().Init(_prefabEffect, _range, _damage);
             
+                ManagerDataPlayer.DecrementNumberPlantedBombs();
                 Destroy(gameObject);
             }
         }

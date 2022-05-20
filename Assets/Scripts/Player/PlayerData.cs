@@ -7,6 +7,9 @@ namespace Player
     {
         [SerializeField] private SOCharacterData _characterData;
 
+        private int _maxNumberPlantedBombs;
+        private int _numberPlantedBombs;
+        
         private int _damage;
         private int _range;
         private float _speed;
@@ -17,6 +20,10 @@ namespace Player
 
         private void OnEnable()
         {
+            ManagerDataPlayer.OnIncrementMaxNumberPlantedBombs += IncrementMaxNumberPlantedBombs;
+            ManagerDataPlayer.OnIncrementNumberPlantedBombs += IncrementNumberPlantedBombs;
+            ManagerDataPlayer.OnDecrementNumberPlantedBombs += DecrementNumberPlantedBombs;
+            
             ManagerDataPlayer.OnIncrementDamage += IncrementDamage;
             ManagerDataPlayer.OnIncrementRange += IncrementRange;
             ManagerDataPlayer.OnAddSpeed += AddSpeed;
@@ -24,9 +31,32 @@ namespace Player
 
         private void Start()
         {
+            _maxNumberPlantedBombs = _characterData.MaxNumberPlantedBombs;
+            
             _damage = _characterData.Damage;
             _range = _characterData.Range;
             _speed = _characterData.Speed;
+        }
+
+        public void IncrementMaxNumberPlantedBombs()
+        {
+            _maxNumberPlantedBombs++;
+            Debug.Log("max number planted bombs: " + _maxNumberPlantedBombs);
+        }
+
+        public void IncrementNumberPlantedBombs()
+        {
+            _numberPlantedBombs++;
+        }
+
+        public void DecrementNumberPlantedBombs()
+        {
+            _numberPlantedBombs--;
+        }
+
+        public bool IsBombsLeft()
+        {
+            return _numberPlantedBombs < _maxNumberPlantedBombs;
         }
 
         public void IncrementDamage()

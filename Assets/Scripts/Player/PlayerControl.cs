@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 using Environment;
+using Events;
 
 namespace Player
 {
@@ -64,10 +65,13 @@ namespace Player
 
         private void PlantBomb()
         {
-            if (_lastPlantBomb == null)
+            if (_playerData.IsBombsLeft()
+                && _lastPlantBomb == null)
             {
                 _lastPlantBomb = _spawnerBombs.SpawnBomb(transform.position, _prefabBomb, _playerData.Range, _playerData.Damage);
                 Physics.IgnoreCollision(_lastPlantBomb.GetComponent<Collider>(), GetComponent<Collider>(), true);
+
+                ManagerDataPlayer.IncrementNumberPlantedBombs();
             }
         }
 

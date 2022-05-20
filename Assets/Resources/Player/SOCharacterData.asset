@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9407c33bb8c9ea740ac5c8926f06a5a4, type: 3}
   m_Name: SOCharacterData
   m_EditorClassIdentifier: 
-  _speed: 200
-  _range: 1
+  _maxNumberPlantedBombs: 1
   _damage: 1
+  _range: 1
+  _speed: 200
