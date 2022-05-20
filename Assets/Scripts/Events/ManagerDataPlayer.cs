@@ -8,6 +8,8 @@ namespace Events
         public static Action OnIncrementNumberPlantedBombs;
         public static Action OnDecrementNumberPlantedBombs;
         
+        public static Action<int> OnAddHealth;
+        public static Action<int> OnReduceHealth;
         public static Action OnIncrementDamage;
         public static Action OnIncrementRange;
         public static Action<float> OnAddSpeed;
@@ -37,6 +39,16 @@ namespace Events
         public static void DecrementNumberPlantedBombs()
         {
             OnDecrementNumberPlantedBombs?.Invoke();
+        }
+
+        public static void AddHealth(int value)
+        {
+            OnAddHealth?.Invoke(value);
+        }
+
+        public static void ReduceHealth(int value)
+        {
+            OnReduceHealth?.Invoke(value);
         }
 
         public static void IncrementDamage()

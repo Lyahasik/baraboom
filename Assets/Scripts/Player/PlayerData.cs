@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerData : MonoBehaviour
+    public class PlayerData : MonoBehaviour, ITakingDamage
     {
         [SerializeField] private SOCharacterData _characterData;
 
         private int _maxNumberPlantedBombs;
         private int _numberPlantedBombs;
-        
+
+        private int _health;
         private int _damage;
         private int _range;
         private float _speed;
@@ -24,6 +25,7 @@ namespace Player
             ManagerDataPlayer.OnIncrementNumberPlantedBombs += IncrementNumberPlantedBombs;
             ManagerDataPlayer.OnDecrementNumberPlantedBombs += DecrementNumberPlantedBombs;
             
+            ManagerDataPlayer.OnAddHealth += AddHealth;
             ManagerDataPlayer.OnIncrementDamage += IncrementDamage;
             ManagerDataPlayer.OnIncrementRange += IncrementRange;
             ManagerDataPlayer.OnAddSpeed += AddSpeed;
@@ -33,6 +35,7 @@ namespace Player
         {
             _maxNumberPlantedBombs = _characterData.MaxNumberPlantedBombs;
             
+            _health = _characterData.Health;
             _damage = _characterData.Damage;
             _range = _characterData.Range;
             _speed = _characterData.Speed;
@@ -57,6 +60,12 @@ namespace Player
         public bool IsBombsLeft()
         {
             return _numberPlantedBombs < _maxNumberPlantedBombs;
+        }
+
+        public void AddHealth(int value)
+        {
+            _health += value;
+            Debug.Log("health: " + _health);
         }
 
         public void IncrementDamage()
@@ -85,6 +94,22 @@ namespace Player
             {
                 activated.Activate();
             }
+        }
+
+        public void TakeDamage(int value)
+        {
+            _health -= value;
+            Debug.Log("health: " + _health);
+            ManagerDataPlayer.ReduceHealth(value);
+
+            if (_health <= 0)
+                Death();
+        }
+
+        private void Death()
+        {
+            Debug.Log("death");
+            Destroy(gameObject);
         }
     }
 }
