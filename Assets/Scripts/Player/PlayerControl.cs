@@ -18,6 +18,8 @@ namespace Player
         [SerializeField] private GameObject _prefabBomb;
         private GameObject _lastPlantBomb;
 
+        private Vector3 _directionMove;
+
         private void Start()
         {
             _spawnerBombs = FindObjectOfType<SpawnerBombs>();
@@ -33,23 +35,31 @@ namespace Player
                 PlantBomb();
             }
             
-            Vector3 directionMove = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-            Move(directionMove);
+            UpdateDirectionMove(new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")));
+        }
+
+        public void UpdateDirectionMove(Vector3 direction)
+        {
+            _directionMove = direction;
         }
 
         private void FixedUpdate()
         {
+            _rigidbody.velocity = Vector3.zero;
+            
             if (_lastPlantBomb != null
                 && CheckFarEnoughBomb())
             {
                 Physics.IgnoreCollision(_lastPlantBomb.GetComponent<Collider>(), GetComponent<Collider>(), false);
                 _lastPlantBomb = null;
             }
+            
+            Move();
         }
 
-        private void Move(Vector3 direction)
+        private void Move()
         {
-            _rigidbody.MovePosition(_rigidbody.position + direction * _playerData.Speed);
+            _rigidbody.AddForce(_directionMove * _playerData.Speed);
         }
 
         private void PlantBomb()
