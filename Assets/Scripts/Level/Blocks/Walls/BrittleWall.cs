@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Baraboom.Blocks
+namespace Baraboom.Level
 {
-    public class DestructibleBlock : Block, IDamageable
+    public sealed class BrittleWall : Wall, IDamageable
     {
         [SerializeField] private float _health;
     

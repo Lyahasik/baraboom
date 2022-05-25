@@ -15,8 +15,6 @@ namespace Baraboom
 
         public void SpawnBomb(Vector3 position)
         {
-            position = new Vector3(Mathf.Round(position.x), 0.0f, Mathf.Round(position.z));
-
             var bombObject = Instantiate(_bombPrefab, position, Quaternion.identity);
             var bomb = bombObject.GetComponent<IBomb>();
 

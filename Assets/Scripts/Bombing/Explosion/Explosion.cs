@@ -35,8 +35,8 @@ namespace Baraboom
             {
                 Vector3.right,
                 Vector3.left,
-                Vector3.forward,
-                Vector3.back
+                Vector3.up,
+                Vector3.down
             };
 
             void GenerateExplosionUnit(Vector3 position)
