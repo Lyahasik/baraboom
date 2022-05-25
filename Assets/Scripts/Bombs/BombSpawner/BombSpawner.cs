@@ -7,20 +7,24 @@ namespace Baraboom
     {
         #region facade
         
-        public event Action BombExploded;
+        event Action IBombSpawner.BombExploded
+        {
+            add => _bombExploded += value;
+            remove => _bombExploded -= value;
+        }
 
-        public float DamageMultiplier { private get; set; } = 1f;
+        float IBombSpawner.DamageMultiplier { set => _damageMultiplier = value; }
 
-        public int RangeIncrease { private get; set; }
+        int IBombSpawner.RangeIncrease { set => _rangeIncrease = value; }
 
-        public void SpawnBomb(Vector3 position)
+        void IBombSpawner.SpawnBomb(Vector3 position)
         {
             var bombObject = Instantiate(_bombPrefab, position, Quaternion.identity);
             var bomb = bombObject.GetComponent<IBomb>();
 
-            bomb.Exploded += () => BombExploded?.Invoke();
-            bomb.DamageMultiplier = DamageMultiplier;
-            bomb.RangeIncrease = RangeIncrease;
+            bomb.Exploded += () => _bombExploded?.Invoke();
+            bomb.DamageMultiplier = _damageMultiplier;
+            bomb.RangeIncrease = _rangeIncrease;
         }
 
         #endregion
@@ -28,6 +32,15 @@ namespace Baraboom
         #region interior
 
         [SerializeField] private GameObject _bombPrefab;
+
+        private Action _bombExploded;
+        private float _damageMultiplier;
+        private int _rangeIncrease;
+
+        private void Awake()
+        {
+            _damageMultiplier = 1;
+        }
 
         #endregion
     }

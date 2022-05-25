@@ -6,7 +6,7 @@ namespace Baraboom.Level
     {
         [SerializeField] private float _health;
     
-        public void TakeDamage(float damage)
+        void IDamageable.TakeDamage(float damage)
         {
             _health -= damage;
             if (_health <= 0)

@@ -4,9 +4,9 @@ namespace Baraboom
 {
 	public interface IBomb
 	{
-		public event Action Exploded;
+		event Action Exploded;
 
-		public float DamageMultiplier { set; }
-		public int RangeIncrease { set; }
+		float DamageMultiplier { set; }
+		int RangeIncrease { set; }
 	}
 }

@@ -5,11 +5,11 @@ namespace Baraboom
 {
 	public interface IBombSpawner
 	{
-		public event Action BombExploded;
+		event Action BombExploded;
 
-		public float DamageMultiplier { set; }
-		public int RangeIncrease { set; }
+		float DamageMultiplier { set; }
+		int RangeIncrease { set; }
 
-		public void SpawnBomb(Vector3 position);
+		void SpawnBomb(Vector3 position);
 	}
 }

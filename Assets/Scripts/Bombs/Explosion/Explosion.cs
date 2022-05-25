@@ -6,8 +6,8 @@ namespace Baraboom
     {
         #region facade
 
-        public float DamageMultiplier { private get; set; } = 1;
-        public int RangeIncrease { private get; set; }
+        float IExplosion.DamageMultiplier { set => _damageMultiplier = value; }
+        int IExplosion.RangeIncrease { set => _rangeIncrease = value; }
 
         #endregion
 
@@ -17,11 +17,19 @@ namespace Baraboom
         [SerializeField] private int _baseRange;
         [SerializeField] private GameObject _explosionUnitPrefab;
         [SerializeField] private float _explosionUnitGap;
+        
+        private float _damageMultiplier;
+        private int _rangeIncrease;
+
+        private void Awake()
+        {
+            _damageMultiplier = 1f;
+        }
 
         private void Start()
         {
-            var damage = _baseDamage * DamageMultiplier;
-            var range = _baseRange + RangeIncrease;
+            var damage = _baseDamage * _damageMultiplier;
+            var range = _baseRange + _rangeIncrease;
 
             GenerateWaves(damage, range);
             Destroy(gameObject);

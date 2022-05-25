@@ -2,7 +2,7 @@ namespace Baraboom
 {
 	public interface IExplosion
 	{
-		public float DamageMultiplier { set; }
-		public int RangeIncrease { set; }
+		float DamageMultiplier { set; }
+		int RangeIncrease { set; }
 	}
 }
