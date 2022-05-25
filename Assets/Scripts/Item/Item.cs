@@ -11,10 +11,10 @@ namespace Baraboom
 
         public void OnInvertedCollision(GameObject @object)
         {
-            var player = @object.GetComponent<IPlayer>();
-            if (player != null)
+            var recipient = @object.GetComponent<IEffectRecipient>();
+            if (recipient != null)
             {
-                player.ToMonoBehaviour().StartCoroutine(_effect.Apply(player));
+                _effect.TryApply(recipient);
                 Destroy(gameObject);
             }
         }

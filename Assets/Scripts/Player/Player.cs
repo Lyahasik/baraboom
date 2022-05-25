@@ -1,75 +1,64 @@
-using System;
+using Baraboom.Effects;
 using UnityEngine;
 
 namespace Baraboom
 {
-	public class Player : MonoBehaviour, IPlayer
+	public class Player :
+		MonoBehaviour,
+		IDamageable,
+		IAdditionalPlantingSlotRecipient,
+		IDamageBoosterRecipient,
+		IHealRecipient,
+		IRangeBoosterRecipient,
+		ISpeedBoosterRecipient,
+		IControllablePlayer
 	{
 		#region facade
 
-		public float Speed => _speed;
-		public float DamageMultiplier => _damageMultiplier;
-		public int RangeIncrease => _rangeIncrease;
-		public bool HaveBombs => _plantedBombsCount < _plantingSlots;
-
-		public void TakeDamage(float value)
+		void IDamageable.TakeDamage(float value)
 		{
 			_health -= value;
 			if (_health <= 0)
 				Destroy(gameObject);
 		}
 
-		public void Heal(float amount)
-		{
-			_health = Mathf.Min(_health + amount, _baseHealth);
-		}
-
-		public void BoostSpeed(float multiplier)
-		{
-			_speed = _baseSpeed * multiplier;
-		}
-
-		public void ResetSpeed()
-		{
-			_speed = _baseSpeed;
-		}
-
-		public void BoostDamage(float multiplier)
-		{
-			_damageMultiplier = multiplier;
-		}
-
-		public void ResetDamage()
-		{
-			_damageMultiplier = 1f;
-		}
-
-		public void BoostRange(int increase)
-		{
-			_rangeIncrease = increase;
-		}
-
-		public void ResetRange()
-		{
-			_rangeIncrease = 0;
-		}
-
-		public void AddPlantingSlot()
+		void IAdditionalPlantingSlotRecipient.AddPlantingSlot()
 		{
 			_plantingSlots++;
 		}
 
-		public void RemovePlantingSlot()
+		void IDamageBoosterRecipient.BoostDamage(float multiplier)
 		{
-			_plantingSlots = Math.Min(_plantingSlots - 1, _basePlantingSlots);
+			_damageMultiplier = multiplier;
 		}
 
-		public void AddPlantedBomb()
+		void IHealRecipient.Heal(int amount)
+		{
+			_health = Mathf.Min(_health + amount, _baseHealth);
+		}
+
+		void IRangeBoosterRecipient.BoostRange(int increase)
+		{
+			_rangeIncrease = increase;
+		}
+
+		void ISpeedBoosterRecipient.BoostSpeed(float multiplier)
+		{
+			_speed = _baseSpeed * multiplier;
+		}
+
+		float IControllablePlayer.DamageMultiplier => _damageMultiplier;
+		
+		int IControllablePlayer.RangeIncrease => _rangeIncrease;
+
+		bool IControllablePlayer.HaveBombs => _plantedBombsCount < _plantingSlots;
+
+		void IControllablePlayer.AddPlantedBomb()
 		{
 			_plantedBombsCount++;
 		}
 
-		public void RemovePlantedBomb()
+		void IControllablePlayer.RemovePlantedBomb()
 		{
 			_plantedBombsCount--;
 		}

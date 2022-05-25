@@ -5,18 +5,18 @@ namespace Baraboom
 {
     public class PlayerController : MonoBehaviour
     {
-        private Level.Level _level;
-        private IPlayer _player;
+        private ILevel _level;
+        private IControllablePlayer _controllablePlayer;
         private IBombSpawner _bombSpawner;
 
         private void Start()
         {
-            _player = GetComponent<IPlayer>();
+            _controllablePlayer = GetComponent<IControllablePlayer>();
 
             _bombSpawner = FindObjectOfType<BombSpawner>();
-            _bombSpawner.BombExploded += _player.RemovePlantedBomb;
+            _bombSpawner.BombExploded += _controllablePlayer.RemovePlantedBomb;
 
-            _level = GameObject.Find("Level").GetComponent<Level.Level>(); // TODO
+            _level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO
         }
 
         private void Update()
@@ -29,13 +29,13 @@ namespace Baraboom
         {
             if (!Input.GetKeyDown(KeyCode.Space))
                 return;
-            if (!_player.HaveBombs)
+            if (!_controllablePlayer.HaveBombs)
                 return;
 
-            _player.AddPlantedBomb();
+            _controllablePlayer.AddPlantedBomb();
 
-            _bombSpawner.DamageMultiplier = _player.DamageMultiplier;
-            _bombSpawner.RangeIncrease = _player.RangeIncrease;
+            _bombSpawner.DamageMultiplier = _controllablePlayer.DamageMultiplier;
+            _bombSpawner.RangeIncrease = _controllablePlayer.RangeIncrease;
             _bombSpawner.SpawnBomb(transform.position);
         }
 

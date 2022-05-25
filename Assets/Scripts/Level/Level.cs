@@ -3,16 +3,16 @@ using UnityEngine;
 namespace Baraboom.Level
 {
 	[RequireComponent(typeof(BlockMap))]
-	public class Level : MonoBehaviour
+	public class Level : MonoBehaviour, ILevel
 	{
 		#region facade
 
-		public Vector3Int WorldToCell(Vector3 position)
+		Vector3Int ILevel.WorldToCell(Vector3 position)
 		{
 			return _map.WorldToCell(position);
 		}
 		
-		public Block GetTopBlock(Vector3Int cellPosition)
+		Block ILevel.GetTopBlock(Vector3Int cellPosition)
 		{
 			return _map.GetTopBlock(cellPosition);
 		}
