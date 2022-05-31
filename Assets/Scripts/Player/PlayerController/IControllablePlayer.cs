@@ -4,6 +4,7 @@ namespace Baraboom
 	{
 		public float DamageMultiplier { get; }
 		public int RangeIncrease { get; }
+		public float Speed { get; }
 		public bool HaveBombs { get; }
 
 		

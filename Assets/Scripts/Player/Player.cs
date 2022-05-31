@@ -51,6 +51,8 @@ namespace Baraboom
 		
 		int IControllablePlayer.RangeIncrease => _rangeIncrease;
 
+		float IControllablePlayer.Speed => _speed;
+
 		bool IControllablePlayer.HaveBombs => _plantedBombsCount < _plantingSlots;
 
 		void IControllablePlayer.AddPlantedBomb()

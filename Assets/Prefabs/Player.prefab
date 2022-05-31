@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseHealth: 100
-  _baseSpeed: 3
+  _baseSpeed: 1
   _basePlantingSlots: 1
 --- !u!114 &4326589736445229970
 MonoBehaviour:
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91f81ad81f3b70b42aadf6039b0fc433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_StepDuration: 0.2
 --- !u!114 &6044271818305548711
 MonoBehaviour:
   m_ObjectHideFlags: 0
