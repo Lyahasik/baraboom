@@ -2,8 +2,8 @@ namespace Baraboom
 {
 	public interface IControllablePlayer
 	{
-		public float DamageMultiplier { get; }
-		public int RangeIncrease { get; }
+		public int ExplosionDamage { get; }
+		public int ExplosionRange { get; }
 		public float Speed { get; }
 		public bool HaveBombs { get; }
 

@@ -44,8 +44,8 @@ namespace Baraboom
 
             _controllablePlayer.AddPlantedBomb();
 
-            _bombSpawner.DamageMultiplier = _controllablePlayer.DamageMultiplier;
-            _bombSpawner.RangeIncrease = _controllablePlayer.RangeIncrease;
+            _bombSpawner.DamageMultiplier = _controllablePlayer.ExplosionDamage;
+            _bombSpawner.RangeIncrease = _controllablePlayer.ExplosionRange;
             _bombSpawner.SpawnBomb(transform.position);
         }
 

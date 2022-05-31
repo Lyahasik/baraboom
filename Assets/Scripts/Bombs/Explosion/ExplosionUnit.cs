@@ -7,7 +7,7 @@ namespace Baraboom
     {
         #region facade
 
-        public float Damage { private get; set; }
+        public int Damage { private get; set; }
 
         public void OnInvertedCollision(GameObject target)
         {

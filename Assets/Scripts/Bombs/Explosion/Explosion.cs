@@ -6,38 +6,28 @@ namespace Baraboom
     {
         #region facade
 
-        float IExplosion.DamageMultiplier { set => _damageMultiplier = value; }
-        int IExplosion.RangeIncrease { set => _rangeIncrease = value; }
+        int IExplosion.Damage { set => _damage = value; }
+        int IExplosion.Range { set => _range = value; }
 
         #endregion
 
         #region interior
 
-        [SerializeField] private float _baseDamage;
-        [SerializeField] private int _baseRange;
         [SerializeField] private GameObject _explosionUnitPrefab;
         [SerializeField] private float _explosionUnitGap;
         
-        private float _damageMultiplier;
-        private int _rangeIncrease;
-
-        private void Awake()
-        {
-            _damageMultiplier = 1f;
-        }
+        private int _damage;
+        private int _range;
 
         private void Start()
         {
-            var damage = _baseDamage * _damageMultiplier;
-            var range = _baseRange + _rangeIncrease;
-
-            GenerateWaves(damage, range);
+            GenerateWaves();
             Destroy(gameObject);
         }
 
         #endregion
 
-        private void GenerateWaves(float damage, int range)
+        private void GenerateWaves()
         {
             var directions = new[]
             {
@@ -50,7 +40,7 @@ namespace Baraboom
             void GenerateExplosionUnit(Vector3 position)
             {
                 var effect = Instantiate(_explosionUnitPrefab, position, Quaternion.identity);
-                effect.GetComponent<ExplosionUnit>().Damage = damage;
+                effect.GetComponent<ExplosionUnit>().Damage = _damage;
             }
 
             foreach (var direction in directions)
@@ -60,7 +50,7 @@ namespace Baraboom
 
                 var wave = waveObject.AddComponent<ExplosionWave>();
                 wave.Direction = direction;
-                wave.Range = range;
+                wave.Length = _range + 1;
                 wave.ExplosionGenerator = GenerateExplosionUnit;
                 wave.ExplosionUnitGap = _explosionUnitGap;
             }

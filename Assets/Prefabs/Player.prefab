@@ -133,6 +133,8 @@ MonoBehaviour:
   _baseHealth: 100
   _baseSpeed: 1
   _basePlantingSlots: 1
+  _baseExplosionDamage: 1
+  _baseExplosionRange: 1
 --- !u!114 &4326589736445229970
 MonoBehaviour:
   m_ObjectHideFlags: 0

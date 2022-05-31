@@ -4,11 +4,11 @@ namespace Baraboom.Effects
 {
 	public class DamageBooster : Effect<IDamageBoosterRecipient>
 	{
-		[SerializeField] private float _multiplier;
+		[SerializeField] private int _increase;
 
 		protected override void Apply(IDamageBoosterRecipient recipient)
 		{
-			recipient.BoostDamage(_multiplier);
+			recipient.BoostDamage(_increase);
 		}
 	}
 }

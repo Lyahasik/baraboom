@@ -15,7 +15,7 @@ namespace Baraboom
 	{
 		#region facade
 
-		void IDamageable.TakeDamage(float value)
+		void IDamageable.TakeDamage(int value)
 		{
 			_health -= value;
 			if (_health <= 0)
@@ -27,9 +27,9 @@ namespace Baraboom
 			_plantingSlots++;
 		}
 
-		void IDamageBoosterRecipient.BoostDamage(float multiplier)
+		void IDamageBoosterRecipient.BoostDamage(int increase)
 		{
-			_damageMultiplier = multiplier;
+			_explosionDamage += increase;
 		}
 
 		void IHealRecipient.Heal(int amount)
@@ -39,7 +39,7 @@ namespace Baraboom
 
 		void IRangeBoosterRecipient.BoostRange(int increase)
 		{
-			_rangeIncrease = increase;
+			_explosionRange += increase;
 		}
 
 		void ISpeedBoosterRecipient.BoostSpeed(float multiplier)
@@ -47,9 +47,9 @@ namespace Baraboom
 			_speed = _baseSpeed * multiplier;
 		}
 
-		float IControllablePlayer.DamageMultiplier => _damageMultiplier;
+		int IControllablePlayer.ExplosionDamage => _explosionDamage;
 		
-		int IControllablePlayer.RangeIncrease => _rangeIncrease;
+		int IControllablePlayer.ExplosionRange => _explosionRange;
 
 		float IControllablePlayer.Speed => _speed;
 
@@ -69,24 +69,26 @@ namespace Baraboom
 
 		#region interior
 
-		[SerializeField] private float _baseHealth;
+		[SerializeField] private int _baseHealth;
 		[SerializeField] private float _baseSpeed;
 		[SerializeField] private int _basePlantingSlots;
+		[SerializeField] private int _baseExplosionDamage;
+		[SerializeField] private int _baseExplosionRange;
 
-		private float _health;
+		private int _health;
 		private float _speed;
 		private int _plantingSlots;
 		private int _plantedBombsCount;
-		private float _damageMultiplier;
-		private int _rangeIncrease;
+		private int _explosionDamage;
+		private int _explosionRange;
 
 		private void Awake()
 		{
 			_health = _baseHealth;
 			_speed = _baseSpeed;
 			_plantingSlots = _basePlantingSlots;
-
-			_damageMultiplier = 1f;
+			_explosionDamage = _baseExplosionDamage;
+			_explosionRange = _baseExplosionRange;
 		}
 
 		#endregion

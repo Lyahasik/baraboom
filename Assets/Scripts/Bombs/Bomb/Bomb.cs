@@ -13,8 +13,8 @@ namespace Baraboom
 			remove => _exploded -= value;
 		}
 
-		float IBomb.DamageMultiplier {  set => _damageMultiplier = value; }
-		int IBomb.RangeIncrease {  set => _rangeIncrease = value; }
+		int IBomb.Damage {  set => _damage = value; }
+		int IBomb.Range {  set => _range = value; }
 
 		#endregion
 
@@ -24,16 +24,9 @@ namespace Baraboom
 		[SerializeField] private float _delay;
 
 		private Action _exploded;
-		private float _damageMultiplier;
-		private int _rangeIncrease;
 		private float _timeExplosion;
 		private int _range;
 		private int _damage;
-
-		private void Awake()
-		{
-			_damageMultiplier = 1;
-		}
 
 		private void Start()
 		{
@@ -45,8 +38,8 @@ namespace Baraboom
 			var explosionObject = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 
 			var explosion = explosionObject.GetComponent<IExplosion>();
-			explosion.DamageMultiplier = _damageMultiplier;
-			explosion.RangeIncrease = _rangeIncrease;
+			explosion.Damage = _damage;
+			explosion.Range = _range;
 
 			_exploded?.Invoke();
 			Destroy(gameObject);

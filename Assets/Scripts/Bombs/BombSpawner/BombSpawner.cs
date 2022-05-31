@@ -13,9 +13,9 @@ namespace Baraboom
             remove => _bombExploded -= value;
         }
 
-        float IBombSpawner.DamageMultiplier { set => _damageMultiplier = value; }
+        int IBombSpawner.DamageMultiplier { set => _damage = value; }
 
-        int IBombSpawner.RangeIncrease { set => _rangeIncrease = value; }
+        int IBombSpawner.RangeIncrease { set => _range = value; }
 
         void IBombSpawner.SpawnBomb(Vector3 position)
         {
@@ -23,8 +23,8 @@ namespace Baraboom
             var bomb = bombObject.GetComponent<IBomb>();
 
             bomb.Exploded += () => _bombExploded?.Invoke();
-            bomb.DamageMultiplier = _damageMultiplier;
-            bomb.RangeIncrease = _rangeIncrease;
+            bomb.Damage = _damage;
+            bomb.Range = _range;
         }
 
         #endregion
@@ -34,13 +34,8 @@ namespace Baraboom
         [SerializeField] private GameObject _bombPrefab;
 
         private Action _bombExploded;
-        private float _damageMultiplier;
-        private int _rangeIncrease;
-
-        private void Awake()
-        {
-            _damageMultiplier = 1;
-        }
+        private int _damage;
+        private int _range;
 
         #endregion
     }

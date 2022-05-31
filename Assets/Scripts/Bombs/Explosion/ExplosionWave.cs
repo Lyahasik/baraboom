@@ -9,7 +9,7 @@ namespace Baraboom
         #region facade
 
         public Vector3 Direction { private get; set; }
-        public int Range { private get; set; }
+        public int Length { private get; set; }
         public Action<Vector3> ExplosionGenerator { private get; set; }
         public float ExplosionUnitGap { private get; set; }
 
@@ -19,7 +19,7 @@ namespace Baraboom
 
         private IEnumerator Start()
         {
-            for (var currentRange = 0; currentRange < Range; currentRange++)
+            for (var currentRange = 0; currentRange < Length; currentRange++)
             {
                 ExplosionGenerator(transform.position);
                 transform.position += Direction;

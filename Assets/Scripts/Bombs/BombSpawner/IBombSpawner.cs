@@ -7,7 +7,7 @@ namespace Baraboom
 	{
 		event Action BombExploded;
 
-		float DamageMultiplier { set; }
+		int DamageMultiplier { set; }
 		int RangeIncrease { set; }
 
 		void SpawnBomb(Vector3 position);

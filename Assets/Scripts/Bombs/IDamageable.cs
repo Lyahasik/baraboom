@@ -2,5 +2,5 @@ using Tools;
 
 public interface IDamageable : IMonoBehaviour
 {
-    void TakeDamage(float damage);
+    void TakeDamage(int damage);
 }
