@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6879607781638813889}
   - component: {fileID: 8418057820167538481}
   - component: {fileID: 7634484447501565659}
+  - component: {fileID: 251262841009151716}
   m_Layer: 0
   m_Name: BrittleWall
   m_TagString: Untagged
@@ -141,3 +142,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c3469b0188b445a8edc90bbace73a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &251262841009151716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648061962535921133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577b48cb5aa040609fc6eb0f6633fb18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _probability: 0.4
