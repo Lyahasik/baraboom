@@ -1,9 +1,12 @@
 using System.Collections;
+using System.Diagnostics.Contracts;
 using Baraboom.Level;
+using Tools;
 using UnityEngine;
 
 namespace Baraboom
 {
+    [RequireComponent(typeof(DiscreteTransform))]
     public class PlayerController : MonoBehaviour
     {
         #region facade
@@ -14,10 +17,16 @@ namespace Baraboom
 
         #region interior
 
+        private DiscreteTransform _discreteTransform;
         private ILevel _level;
         private IControllablePlayer _controllablePlayer;
         private IBombSpawner _bombSpawner;
         private bool _isInAnimation;
+
+        private void Awake()
+        {
+            _discreteTransform = GetComponent<DiscreteTransform>();
+        }
 
         private void Start()
         {
@@ -58,26 +67,27 @@ namespace Baraboom
             if (movementDirection == null)
                 return;
 
-            var currentPosition = _level.WorldToCell(transform.position);
-            var desiredPosition = currentPosition + movementDirection;
+            var currentPositionD = _discreteTransform.DiscretePosition;
+            var desiredPositionD = currentPositionD + movementDirection.Value;
 
-            var block = _level.GetTopBlock(desiredPosition.Value);
+            var block = _level.GetTopBlock(desiredPositionD.xy());
             if (block is not Ground)
                 return;
 
-            StartCoroutine(StepRoutine(transform.position + movementDirection.Value));
+            var desiredPositionC = DiscreteTranslator.ToContinuous(desiredPositionD).WithZ(transform.position.z);
+            StartCoroutine(StepRoutine(desiredPositionC));
         }
 
-        private Vector3Int? GetMovementDirection()
+        private static Vector3Int? GetMovementDirection()
         {
             if (Input.GetKey(KeyCode.A))
-                return new Vector3Int(-1, 0, 0);
+                return new Vector3Int(-1, 0);
             if (Input.GetKey(KeyCode.D))
-                return new Vector3Int(+1, 0, 0);
+                return new Vector3Int(+1, 0);
             if (Input.GetKey(KeyCode.W))
-                return new Vector3Int(0, +1, 0);
+                return new Vector3Int(0, +1);
             if (Input.GetKey(KeyCode.S))
-                return new Vector3Int(0, -1, 0);
+                return new Vector3Int(0, -1);
 
             return null;
         }

@@ -7,25 +7,20 @@ namespace Baraboom.Level
 	{
 		#region facade
 
-		Vector3Int ILevel.WorldToCell(Vector3 position)
+		Block ILevel.GetTopBlock(Vector2Int cellPosition)
 		{
-			return _map.WorldToCell(position);
+			return _blocks.GetTopBlock(cellPosition);
 		}
-		
-		Block ILevel.GetTopBlock(Vector3Int cellPosition)
-		{
-			return _map.GetTopBlock(cellPosition);
-		}
-		
+
 		#endregion
 
 		#region interior
 
-		private BlockMap _map;
+		private BlockMap _blocks;
 
 		private void Awake()
 		{
-			_map = GetComponent<BlockMap>();
+			_blocks = GetComponent<BlockMap>();
 		}
 
 		#endregion

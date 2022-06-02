@@ -8,12 +8,7 @@ namespace Baraboom.Level
 	{
 		#region facade
 		
-		public Vector3Int WorldToCell(Vector3 worldPosition)
-		{
-			return _gridLayout.WorldToCell(worldPosition);
-		}
-
-		public Block GetTopBlock(Vector3Int cellPosition)
+		public Block GetTopBlock(Vector2Int cellPosition)
 		{
 			foreach (var layer in _layers.Reverse())
 			{
@@ -29,12 +24,10 @@ namespace Baraboom.Level
 
 		#region interior
 
-		private GridLayout _gridLayout;
 		private BlockLayer[] _layers;
 
 		private void Awake()
 		{
-			_gridLayout = GetComponent<GridLayout>();
 			_layers = GetComponentsInChildren<BlockLayer>();
 		}
 

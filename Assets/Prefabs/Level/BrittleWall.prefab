@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 5257640753249433660}
   - component: {fileID: 6879607781638813889}
   - component: {fileID: 8418057820167538481}
-  - component: {fileID: 7634484447501565659}
   - component: {fileID: 251262841009151716}
+  - component: {fileID: 1189470275850695276}
+  - component: {fileID: 8805278636760350998}
   m_Layer: 0
   m_Name: BrittleWall
   m_TagString: Untagged
@@ -130,18 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
---- !u!114 &7634484447501565659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2648061962535921133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3469b0188b445a8edc90bbace73a99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &251262841009151716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,3 +144,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _probability: 0.4
+--- !u!114 &1189470275850695276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648061962535921133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _discretePosition: {x: 0, y: 0, z: 0}
+--- !u!114 &8805278636760350998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2648061962535921133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9769f0ca5c794154b40d26593e93c240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

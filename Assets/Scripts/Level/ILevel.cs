@@ -1,12 +1,9 @@
-using Baraboom.Level;
 using UnityEngine;
 
-namespace Baraboom
+namespace Baraboom.Level
 {
 	public interface ILevel
 	{
-		public Vector3Int WorldToCell(Vector3 position);
-
-		public Block GetTopBlock(Vector3Int cellPosition);
+		public Block GetTopBlock(Vector2Int cellPosition);
 	}
 }

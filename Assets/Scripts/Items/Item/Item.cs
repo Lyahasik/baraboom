@@ -1,34 +1,26 @@
 using Baraboom.Effects;
-using Tools.CollisionInversion;
-using UnityEngine;
+using Tools;
 
 namespace Baraboom
 {
-    public class Item : MonoBehaviour, IInvertedTrigger
+    public sealed class Item : DiscreteCollider
     {
-        #region facade
+        private IEffect _effect;
 
-        public void OnInvertedCollision(GameObject @object)
+        protected override void Awake()
         {
-            var recipient = @object.GetComponent<IEffectRecipient>();
+            base.Awake();
+            _effect = GetComponent<IEffect>();
+        }
+
+        public override void OnCollision(DiscreteCollider other)
+        {
+            var recipient = other.GetComponent<IEffectRecipient>();
             if (recipient != null)
             {
                 _effect.TryApply(recipient);
                 Destroy(gameObject);
             }
         }
-
-        #endregion
-
-        #region interior
-
-        private IEffect _effect;
-
-        private void Awake()
-        {
-            _effect = GetComponent<IEffect>();
-        }
-
-        #endregion
     }
 }

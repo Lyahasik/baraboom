@@ -1,17 +1,16 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Tools;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace Baraboom.Level
 {
-	[RequireComponent(typeof(Tilemap))]
 	public class BlockLayer : MonoBehaviour
 	{
 		#region facade
 
 		[CanBeNull]
-		public Block GetBlock(Vector3Int cellPosition)
+		public Block GetBlock(Vector2Int cellPosition)
 		{
 			return _blocks.TryGetValue(cellPosition, out var result) ? result : null;
 		}
@@ -20,18 +19,16 @@ namespace Baraboom.Level
 
 		#region interior
 
-		private Tilemap _tilemap;
-		private readonly Dictionary<Vector3Int, Block> _blocks = new();
+		private readonly Dictionary<Vector2Int, Block> _blocks = new();
 
 		private void Awake()
 		{
-			_tilemap = GetComponent<Tilemap>();
 			for (var i = 0; i < transform.childCount; i++)
 			{
 				var child = transform.GetChild(i);
-				var cellPosition = _tilemap.WorldToCell(child.transform.position);
+				var position = DiscreteTranslator.ToDiscrete(child.transform.position).xy();
 
-				_blocks[cellPosition] = child.GetComponent<Block>();
+				_blocks[position] = child.GetComponent<Block>();
 			}
 		}
 

@@ -1,19 +1,21 @@
-using Tools.CollisionInversion;
+using Tools;
 using UnityEngine;
 
 namespace Baraboom
 {
-    public class ExplosionUnit : MonoBehaviour, IInvertedTrigger
+    public class ExplosionUnit : DiscreteCollider
     {
         #region facade
 
         public int Damage { private get; set; }
 
-        public void OnInvertedCollision(GameObject target)
+        public override void OnCollision(DiscreteCollider other)
         {
-            var damageable = target.GetComponent<IDamageable>();
+            var damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
                 damageable.TakeDamage(Damage);
+
+            Destroy(gameObject, _duration);
         }
 
         #endregion
