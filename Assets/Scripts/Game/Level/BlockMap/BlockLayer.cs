@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.Extensions;
@@ -10,8 +11,12 @@ namespace Baraboom.Game.Level
 	{
 		#region facade
 
+		public event Action Changed;
+
+		public Dictionary<Vector2Int, Block> Blocks => _blocks;
+
 		[CanBeNull]
-		public Block GetBlock(Vector2Int cellPosition)
+		public Block BlockAt(Vector2Int cellPosition)
 		{
 			return _blocks.TryGetValue(cellPosition, out var result) ? result : null;
 		}
@@ -30,6 +35,11 @@ namespace Baraboom.Game.Level
 				var position = DiscreteTranslator.ToDiscrete(child.transform.position).XY();
 
 				_blocks[position] = child.GetComponent<Block>();
+				_blocks[position].Destroyed += () =>
+				{
+					_blocks.Remove(position);
+					Changed?.Invoke();
+				};
 			}
 		}
 

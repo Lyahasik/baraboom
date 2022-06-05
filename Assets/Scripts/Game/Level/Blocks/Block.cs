@@ -1,6 +1,6 @@
-using UnityEngine;
+using Baraboom.Game.Tools;
 
 namespace Baraboom.Game.Level
 {
-	public abstract class Block : MonoBehaviour {}
+	public abstract class Block : VerboseBehaviour {}
 }

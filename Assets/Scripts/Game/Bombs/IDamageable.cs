@@ -1,8 +1,6 @@
-using Baraboom.Game.Tools;
-
 namespace Baraboom.Game.Bombs
 {
-    public interface IDamageable : IMonoBehaviour
+    public interface IDamageable
     {
         void TakeDamage(int damage);
     }
