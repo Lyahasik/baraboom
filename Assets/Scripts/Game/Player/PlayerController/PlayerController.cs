@@ -2,6 +2,7 @@ using System.Collections;
 using Baraboom.Game.Bombs;
 using Baraboom.Game.Level;
 using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 
 namespace Baraboom.Game.Player
@@ -70,7 +71,7 @@ namespace Baraboom.Game.Player
             var currentPositionD = _discreteTransform.DiscretePosition;
             var desiredPositionD = currentPositionD + movementDirection.Value;
 
-            var block = _level.GetTopBlock(desiredPositionD.xy());
+            var block = _level.GetTopBlock(desiredPositionD.XY());
             if (block is not Ground)
                 return;
 

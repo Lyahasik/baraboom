@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace Baraboom.Game.Tools
+namespace Baraboom.Game.Tools.Extensions
 {
 	public static class ExtensionVector3Int
 	{
 		// ReSharper disable once InconsistentNaming
-		public static Vector2Int xy(this Vector3Int @this)
+		public static Vector2Int XY(this Vector3Int @this)
 		{
 			return new Vector2Int(@this.x, @this.y);
 		}

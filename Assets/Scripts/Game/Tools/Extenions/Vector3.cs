@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Baraboom.Game.Tools
+namespace Baraboom.Game.Tools.Extensions
 {
 	public static class ExtensionVector3
 	{

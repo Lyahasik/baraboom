@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.Extensions;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -26,7 +27,7 @@ namespace Baraboom.Game.Level
 			for (var i = 0; i < transform.childCount; i++)
 			{
 				var child = transform.GetChild(i);
-				var position = DiscreteTranslator.ToDiscrete(child.transform.position).xy();
+				var position = DiscreteTranslator.ToDiscrete(child.transform.position).XY();
 
 				_blocks[position] = child.GetComponent<Block>();
 			}
