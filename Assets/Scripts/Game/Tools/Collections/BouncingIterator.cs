@@ -24,7 +24,7 @@ namespace Baraboom.Game.Tools.Collections
 				// This operations helps in two cases:
 				//   1. Collection contains only one element, so index can't be incremented.
 				//   2. Collection size have changed since last call. 
-				_nextIndex = Math.Max(_nextIndex, _collection.Count);
+				_nextIndex = Math.Min(_nextIndex, _collection.Count);
 
 				var currentIndex = _nextIndex;
 
