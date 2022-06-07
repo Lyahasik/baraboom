@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Baraboom.Game.Bots.Tools.PathFinder;
 using Baraboom.Game.Bots.Tools.StateMachine;
 using Baraboom.Game.Level;
+using Baraboom.Game.Tools.Collections;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 
@@ -29,11 +30,12 @@ namespace Baraboom.Game.Bots.States
 			var level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Injection
 			_pathFinder = new PathFinder(level);
 
-			if (FindClosestWayPoint(out var closestWayPointIndex, out var pathToClosestWayPoint))
-			{
-				_targetWayPointIndex = closestWayPointIndex;
-				_bot.MoveAlongPath(pathToClosestWayPoint);
-			}
+			var result = FindClosestReachableWayPoint(out var closestWayPointIndex, out var pathToClosestWayPoint);
+			if (!result)
+				throw new StateMachineException("Initial reachable way point is not found.");
+
+			_wayPointIterator = new BouncingIterator<WayPoint>(_bot.WayPoints, closestWayPointIndex);
+			_bot.MoveAlongPath(pathToClosestWayPoint);
 		}
 		
 		void IState.Deinitialize()
@@ -45,10 +47,7 @@ namespace Baraboom.Game.Bots.States
 		{
 			if (!_bot.IsMoving)
 			{
-				_targetWayPointIndex = Array.LoopIncrement(_targetWayPointIndex, _bot.WayPoints.Length);
-
-				var path = _pathFinder.FindPath(_bot.Position, _bot.WayPoints[_targetWayPointIndex].Position);
-				if (path != null)
+				if (TestNextWayPoint(out var path))
 					_bot.MoveAlongPath(path);
 			}
 		}
@@ -59,9 +58,9 @@ namespace Baraboom.Game.Bots.States
 
 		private readonly IControllableBot _bot;
 		private PathFinder _pathFinder;
-		private int _targetWayPointIndex;
+		private BouncingIterator<WayPoint> _wayPointIterator;
 
-		private bool FindClosestWayPoint(out int closestWayPointIndex, out Vector2Int[] pathToClosestWayPoint)
+		private bool FindClosestReachableWayPoint(out int closestWayPointIndex, out Vector2Int[] pathToClosestWayPoint)
 		{
 			closestWayPointIndex = -1;
 			pathToClosestWayPoint = null;
@@ -80,6 +79,12 @@ namespace Baraboom.Game.Bots.States
 			}
 
 			return closestWayPointIndex != -1;
+		}
+
+		private bool TestNextWayPoint(out Vector2Int[] pathToClosestWayPoint)
+		{
+			pathToClosestWayPoint = _pathFinder.FindPath(_bot.Position, _wayPointIterator.Next.Position);
+			return pathToClosestWayPoint != null;
 		}
 
 		#endregion

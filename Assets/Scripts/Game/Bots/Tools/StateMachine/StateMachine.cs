@@ -6,37 +6,87 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 	{
 		private IState _current;
 
-		protected abstract IState InitialState { get; } 
+		protected abstract IState InitialState { get; }
 
 		protected virtual void Start()
 		{
-			SwitchState(InitialState);
+			TrySwitchState(InitialState);
 		}
 
 		protected virtual void Update()
 		{
+			TryUpdateCurrentState();
 			if (_current == null)
 				return;
 
-			_current.Update();
-
 			foreach (var transition in _current.Transitions)
 			{
-				var next = transition.Evaluate(_current);
+				var next = TryEvaluateTransition(transition);
 				if (next != null)
-				{
-					SwitchState(next);
-					break;
-				}
+					TrySwitchState(next);
 			}
 		}
 
-		private void SwitchState(IState next)
+		private void TrySwitchState(IState next)
 		{
-			_current?.Deinitialize();
-
+			TryDeinitializeCurrentState();
 			_current = next;
-			_current.Initialize();
+			TryInitializeCurrentState();
+		}
+
+		private void TryInitializeCurrentState()
+		{
+			try
+			{
+				_current.Initialize();
+			}
+			catch (StateMachineException exception)
+			{
+				Debug.LogErrorFormat("Couldn't initialize state {0}: {1}", _current, exception);
+				_current = null;
+			}
+		}
+
+		private void TryDeinitializeCurrentState()
+		{
+			try
+			{
+				_current?.Deinitialize();
+			}
+			catch (StateMachineException exception)
+			{
+				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current, exception);
+			}
+			finally
+			{
+				_current = null;
+			}
+		}
+
+		private void TryUpdateCurrentState()
+		{
+			try
+			{
+				_current?.Update();
+			}
+			catch (StateMachineException exception)
+			{
+				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current, exception);
+				_current = null;
+			}
+		}
+
+		private IState TryEvaluateTransition(ITransition transition)
+		{
+			try
+			{
+				return transition.Evaluate(_current);
+			}
+			catch (StateMachineException exception)
+			{
+				Debug.LogErrorFormat("Couldn't evaluate transition {0}: {1}", transition, exception);
+				return null;
+			}
 		}
 	}
 }
