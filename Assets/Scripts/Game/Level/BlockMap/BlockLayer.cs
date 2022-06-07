@@ -32,7 +32,7 @@ namespace Baraboom.Game.Level
 			for (var i = 0; i < transform.childCount; i++)
 			{
 				var child = transform.GetChild(i);
-				var position = DiscreteTranslator.ToDiscrete(child.transform.position).XY();
+				var position = DiscreteTranslator.ToDiscrete(child.transform.position).Make2D();
 
 				_blocks[position] = child.GetComponent<Block>();
 				_blocks[position].Destroyed += () =>

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Baraboom.Game.Tools
 {
+	[ExecuteInEditMode]
 	[RequireComponent(typeof(Transform))]
 	public class DiscreteTransform : MonoBehaviour
 	{
@@ -16,20 +17,30 @@ namespace Baraboom.Game.Tools
 				transform.position = DiscreteTranslator.ToContinuous(_discretePosition);
 			}
 		}
-
+		
 		#endregion
 
 		#region interior
 
 		[SerializeField] private Vector3Int _discretePosition;
 
+		private void Awake()
+		{
+			FetchDiscretePosition();
+		}
+
 		private void Update()
 		{
 			if (transform.hasChanged)
 			{
-				_discretePosition = DiscreteTranslator.ToDiscrete(transform.position);
+				FetchDiscretePosition();
 				transform.hasChanged = false;
 			}
+		}
+
+		private void FetchDiscretePosition()
+		{
+			_discretePosition = DiscreteTranslator.ToDiscrete(transform.position);
 		}
 
 		#endregion

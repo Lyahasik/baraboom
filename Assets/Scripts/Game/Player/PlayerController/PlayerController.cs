@@ -71,7 +71,7 @@ namespace Baraboom.Game.Player
             var currentPositionD = _discreteTransform.DiscretePosition;
             var desiredPositionD = currentPositionD + movementDirection.Value;
 
-            var block = _level.TopBlockAt(desiredPositionD.XY());
+            var block = _level.TopBlockAt(desiredPositionD.Make2D());
             if (block is not Ground)
                 return;
 
