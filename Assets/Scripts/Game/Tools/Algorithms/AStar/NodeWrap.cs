@@ -34,14 +34,19 @@ namespace Baraboom.Game.Tools.Algorithms.AStar
 			return _node.ToString();
 		}
 
-		public bool Equals(TNode that)
+		public override bool Equals(object @object)
 		{
-			return _node.Equals(that);
+			if (@object is TNode node)
+				return _node.Equals(node);
+			if (@object is NodeWrap<TNode> nodeWrap)
+				return this._node.Equals(nodeWrap._node);
+
+			return false;
 		}
 
-		public bool Equals(NodeWrap<TNode> that)
+		public override int GetHashCode()
 		{
-			return this._node.Equals(that._node);
+			return _node.GetHashCode();
 		}
 
 		#endregion
