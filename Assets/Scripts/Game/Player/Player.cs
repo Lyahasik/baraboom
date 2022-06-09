@@ -25,8 +25,13 @@ namespace Baraboom.Game.Player
 		void IDamageable.TakeDamage(int value)
 		{
 			_health -= value;
+			Debug.LogFormat("[{0}] Took {1} damage.", nameof(Player), value);
+
 			if (_health <= 0)
+			{
+				Debug.LogFormat("[{0}] Died.", nameof(Player));
 				Destroy(gameObject);
+			}
 		}
 
 		void IAdditionalPlantingSlotRecipient.AddPlantingSlot()

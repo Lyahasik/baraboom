@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 1956517959367536719}
   - component: {fileID: 3797998543392183235}
   - component: {fileID: 7030506883671096481}
-  - component: {fileID: 1956517959367536707}
   - component: {fileID: 6282468859939074635}
+  - component: {fileID: 1956517959367536707}
+  - component: {fileID: 6625451040889547091}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -112,6 +113,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9769f0ca5c794154b40d26593e93c240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6282468859939074635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956517959367536716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ffa060167774ba9886a8fc3a0fbe8a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1956517959367536707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +140,7 @@ MonoBehaviour:
   _wayPoints:
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &6282468859939074635
+--- !u!114 &6625451040889547091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,6 +149,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1956517959367536716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffa060167774ba9886a8fc3a0fbe8a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5108dd4725bb4c5ba152dabd5b6e6eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 1
+  _pauseAfterSuccessfulAttack: 3

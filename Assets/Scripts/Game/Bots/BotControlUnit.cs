@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Baraboom.Game.Bots
 {
 	[RequireComponent(typeof(DiscreteTransform))]
-	public class BotController : MonoBehaviour, IControllableBot, IRoamingBot
+	public class BotControlUnit : MonoBehaviour, IControllableBot, IRoamingBot
 	{
 		#region facade
 

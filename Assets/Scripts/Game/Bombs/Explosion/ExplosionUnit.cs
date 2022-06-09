@@ -13,9 +13,10 @@ namespace Baraboom.Game.Bombs
         {
             var damageable = other.GetComponent<IDamageable>();
             if (damageable != null)
+            {
                 damageable.TakeDamage(Damage);
-
-            Destroy(gameObject, _duration);
+                Destroy(gameObject, _duration);
+            }
         }
 
         #endregion
