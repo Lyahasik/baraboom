@@ -8,23 +8,23 @@ using UnityEngine;
 namespace Baraboom.Game.Bots
 {
 	[RequireComponent(typeof(DiscreteTransform))]
-	public class BotController : MonoBehaviour, IControllableBot
+	public class BotController : MonoBehaviour, IControllableBot, IRoamingBot
 	{
 		#region facade
-
-		WayPoint[] IControllableBot.WayPoints => _wayPoints;
 
 		Vector2Int IControllableBot.Position => _discreteTransform.DiscretePosition.Make2D();
 
 		bool IControllableBot.IsMoving => _movementCoroutine != null;
 
-		void IControllableBot.MoveAlongPath(IEnumerable<Vector2Int> path)
+		void IControllableBot.Move(IEnumerable<Vector2Int> path)
 		{
 			if (_movementCoroutine != null)
 				StopCoroutine(_movementCoroutine);
 
 			_movementCoroutine = StartCoroutine(MovementRoutine(path));
 		}
+
+		WayPoint[] IRoamingBot.WayPoints => _wayPoints;
 
 		#endregion
 		

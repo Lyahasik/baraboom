@@ -1,12 +1,8 @@
-using System.Collections.Generic;
-
 namespace Baraboom.Game.Bots.Tools.StateMachine
 {
 	public interface IState
 	{
-		IEnumerable<ITransition> Transitions { get; }
-
-		void Initialize();
+		void Initialize(IContext context);
 
 		void Deinitialize();
 

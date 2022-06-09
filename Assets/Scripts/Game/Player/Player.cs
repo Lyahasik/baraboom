@@ -1,9 +1,14 @@
+using System;
 using Baraboom.Game.Bombs;
+using Baraboom.Game.Bots;
 using Baraboom.Game.Items;
+using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 
 namespace Baraboom.Game.Player
 {
+	[RequireComponent(typeof(DiscreteTransform))]
 	public class Player :
 		MonoBehaviour,
 		IDamageable,
@@ -12,7 +17,8 @@ namespace Baraboom.Game.Player
 		IHealRecipient,
 		IRangeBoosterRecipient,
 		ISpeedBoosterRecipient,
-		IControllablePlayer
+		IControllablePlayer,
+		IObservablePlayer
 	{
 		#region facade
 
@@ -64,6 +70,17 @@ namespace Baraboom.Game.Player
 		void IControllablePlayer.RemovePlantedBomb()
 		{
 			_plantedBombsCount--;
+		}
+
+		event Action IObservablePlayer.PositionChanged
+		{
+			add => GetComponent<DiscreteTransform>().DiscretePositionChanged += value;
+			remove => GetComponent<DiscreteTransform>().DiscretePositionChanged += value;
+		}
+
+		Vector2Int IObservablePlayer.Position
+		{
+			get => GetComponent<DiscreteTransform>().DiscretePosition.Make2D();
 		}
 
 		#endregion

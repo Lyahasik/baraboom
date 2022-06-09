@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using Baraboom.Game.Bots.Tools.PathFinder;
 using Baraboom.Game.Bots.Tools.StateMachine;
-using Baraboom.Game.Level;
 using Baraboom.Game.Tools.Collections;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
@@ -12,43 +10,32 @@ namespace Baraboom.Game.Bots.States
 	{
 		#region facade
 
-		public Roaming(IControllableBot bot)
+		void IState.Initialize(IContext abstractContext)
 		{
-			_bot = bot;
-		}
+			var context = (BotStateMachineContext)abstractContext;
 
-		IEnumerable<ITransition> IState.Transitions
-		{
-			get
-			{
-				yield break;
-			}
-		}
+			_pathFinder = context.PathFinder;
 
-		void IState.Initialize()
-		{
-			var level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Injection
-			_pathFinder = new PathFinder(level);
+			_bot = context.Bot as IRoamingBot;
+			if (_bot == null)
+				throw new StateMachineException("Provided bot doesn't support roaming."); 
 
 			var result = FindClosestReachableWayPoint(out var closestWayPointIndex, out var pathToClosestWayPoint);
 			if (!result)
 				throw new StateMachineException("Initial reachable way point is not found.");
 
 			_wayPointIterator = new BouncingIterator<WayPoint>(_bot.WayPoints, closestWayPointIndex);
-			_bot.MoveAlongPath(pathToClosestWayPoint);
+			_bot.Move(pathToClosestWayPoint);
 		}
 		
-		void IState.Deinitialize()
-		{
-			_pathFinder.Dispose();
-		}
+		void IState.Deinitialize() {}
 
 		void IState.Update()
 		{
 			if (!_bot.IsMoving)
 			{
 				if (TestNextWayPoint(out var path))
-					_bot.MoveAlongPath(path);
+					_bot.Move(path);
 			}
 		}
 
@@ -56,8 +43,8 @@ namespace Baraboom.Game.Bots.States
 
 		#region interior
 
-		private readonly IControllableBot _bot;
 		private PathFinder _pathFinder;
+		private IRoamingBot _bot;
 		private BouncingIterator<WayPoint> _wayPointIterator;
 
 		private bool FindClosestReachableWayPoint(out int closestWayPointIndex, out Vector2Int[] pathToClosestWayPoint)

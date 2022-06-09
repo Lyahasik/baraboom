@@ -1,61 +1,89 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Baraboom.Game.Bots.Tools.StateMachine
 {
 	public abstract class StateMachine : MonoBehaviour
 	{
+		#region facade
+		
+		protected abstract IContext Context { get; }
+
+		protected abstract StateGraph Graph { get;  }
+
+		#endregion
+
+		#region interior
+
 		private IState _current;
+		private IContext _context;
+		private StateGraph _graph;
+		private readonly Dictionary<Type, ICondition> _conditions = new();
 
-		protected abstract IState InitialState { get; }
-
-		protected virtual void Start()
+		private void Start()
 		{
-			TrySwitchState(InitialState);
+			_context = Context;
+			_graph = Graph;
+
+			SwitchState(Graph.InitialState);
 		}
 
-		protected virtual void Update()
+		private void OnDestroy()
 		{
-			TryUpdateCurrentState();
+			_context?.Dispose();
+		}
+
+		private void Update()
+		{
+			UpdateCurrentState();
 			if (_current == null)
 				return;
 
-			foreach (var transition in _current.Transitions)
+			foreach (var transition in _graph.GetTransitions(_current.GetType()))
 			{
-				var next = TryEvaluateTransition(transition);
-				if (next != null)
-					TrySwitchState(next);
+				if (EvaluateCondition(transition.Condition))
+				{
+					SwitchState(transition.TargetState);
+					break;
+				}
 			}
 		}
 
-		private void TrySwitchState(IState next)
+		private void SwitchState(Type stateType)
 		{
-			TryDeinitializeCurrentState();
-			_current = next;
-			TryInitializeCurrentState();
+			Debug.LogFormat("[{0}] Switching state from '{1}' to '{2}'", nameof(StateMachine), _current?.GetType(), stateType);
+			
+			DeinitializeCurrentState();
+
+			if ((_current = InstantiateState(stateType)) != null)
+				InitializeCurrentState();
 		}
 
-		private void TryInitializeCurrentState()
+		private void InitializeCurrentState()
 		{
 			try
 			{
-				_current.Initialize();
+				Debug.LogFormat("[{0}] Initializing state {1}", nameof(StateMachine), _current?.GetType());
+				_current.Initialize(Context);
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't initialize state {0}: {1}", _current, exception);
+				Debug.LogErrorFormat("Couldn't initialize state {0}: {1}", _current?.GetType(), exception);
 				_current = null;
 			}
 		}
 
-		private void TryDeinitializeCurrentState()
+		private void DeinitializeCurrentState()
 		{
 			try
 			{
+				Debug.LogFormat("[{0}] Deinitializing state {1}", nameof(StateMachine), _current?.GetType());
 				_current?.Deinitialize();
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current, exception);
+				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
 			}
 			finally
 			{
@@ -63,7 +91,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			}
 		}
 
-		private void TryUpdateCurrentState()
+		private void UpdateCurrentState()
 		{
 			try
 			{
@@ -71,22 +99,53 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current, exception);
+				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
 				_current = null;
 			}
 		}
 
-		private IState TryEvaluateTransition(ITransition transition)
+		private bool EvaluateCondition(Type conditionType)
 		{
 			try
 			{
-				return transition.Evaluate(_current);
+				return GetOrInstantiateCondition(conditionType)?.Evaluate(Context) ?? false;
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't evaluate transition {0}: {1}", transition, exception);
+				Debug.LogErrorFormat("Couldn't evaluate condition {0}: {1}", conditionType, exception);
+				return false;
+			}
+		}
+
+		private IState InstantiateState(Type type)
+		{
+			try
+			{
+				return (IState)Activator.CreateInstance(type);
+			}
+			catch (Exception exception)
+			{
+				Debug.LogErrorFormat("Couldn't instantiate state of type {0}: {1}", type, exception);
 				return null;
 			}
 		}
+
+		private ICondition GetOrInstantiateCondition(Type type)
+		{
+			if (_conditions.TryGetValue(type, out var result))
+				return result;
+
+			try
+			{
+				return _conditions[type] = (ICondition)Activator.CreateInstance(type);
+			}
+			catch (Exception exception)
+			{
+				Debug.LogErrorFormat("Can't instantiate condition of type {0}: {1}", type, exception);
+				return null;
+			}
+		}
+
+		#endregion
 	}
 }

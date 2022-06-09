@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Baraboom.Game.Tools
@@ -17,12 +18,20 @@ namespace Baraboom.Game.Tools
 				transform.position = DiscreteTranslator.ToContinuous(_discretePosition);
 			}
 		}
+
+		public event Action DiscretePositionChanged
+		{
+			add => _discretePositionChanged += value;
+			remove => _discretePositionChanged -= value;
+		}
 		
 		#endregion
 
 		#region interior
 
 		[SerializeField] private Vector3Int _discretePosition;
+
+		private Action _discretePositionChanged;
 
 		private void Awake()
 		{
@@ -34,6 +43,8 @@ namespace Baraboom.Game.Tools
 			if (transform.hasChanged)
 			{
 				FetchDiscretePosition();
+				_discretePositionChanged?.Invoke();
+
 				transform.hasChanged = false;
 			}
 		}
