@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Baraboom.Game.Level
 {
@@ -8,8 +6,6 @@ namespace Baraboom.Game.Level
 	{
 		event Action Changed;
 
-		public Dictionary<Vector2Int, Block> TopBlocks { get; }
-
-		public Block TopBlockAt(Vector2Int cellPosition);
+		public ReadOnlyBlockMap BlockMap { get; }
 	}
 }

@@ -9,7 +9,7 @@ namespace Baraboom.Game.Bots
 	{
 		#region facade
 
-		public Vector2Int Position => _discreteTransform.DiscretePosition.Make2D();
+		public Vector2Int Position => _discreteTransform.DiscretePosition.XY();
 		
 		#endregion
 

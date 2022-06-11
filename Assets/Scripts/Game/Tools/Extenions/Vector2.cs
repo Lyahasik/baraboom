@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Baraboom.Game.Tools.Extensions
 {
-	public static class ExtensionVector3
+	public static class ExtensionVector2
 	{
-		public static Vector3 WithZ(this Vector3 @this, float z)
+		public static Vector3 WithZ(this Vector2 @this, float z)
 		{
 			return new Vector3(@this.x, @this.y, z);
 		}

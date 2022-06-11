@@ -2335,7 +2335,6 @@ GameObject:
   - component: {fileID: 714966014}
   - component: {fileID: 714966016}
   - component: {fileID: 714966015}
-  - component: {fileID: 714966017}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -2465,18 +2464,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &714966017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714966013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5618af2d067984d228c203585360116b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &737624113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4294,6 +4281,7 @@ GameObject:
   - component: {fileID: 1269482265}
   - component: {fileID: 1269482264}
   - component: {fileID: 1269482267}
+  - component: {fileID: 1269482266}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -4331,6 +4319,18 @@ Transform:
   m_Father: {fileID: 1885731082}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269482266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269482263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f347efbce10458bb997e39a76050f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1269482267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4340,7 +4340,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1269482263}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40af4e9835b44a1687be6c3fc4debf38, type: 3}
+  m_Script: {fileID: 11500000, guid: 45c2c33251704bc19e0b44084b81d699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1283643475
@@ -4593,7 +4593,6 @@ GameObject:
   - component: {fileID: 1344527061}
   - component: {fileID: 1344527063}
   - component: {fileID: 1344527062}
-  - component: {fileID: 1344527064}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -4763,18 +4762,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1344527064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344527060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5618af2d067984d228c203585360116b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1398692250
 PrefabInstance:
   m_ObjectHideFlags: 0

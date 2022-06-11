@@ -49,7 +49,7 @@ namespace Baraboom.Game.Bots.Tools.PathFinder
 
 		private void FetchLevel()
 		{
-			_descriptor = new LevelDescriptor(_level.TopBlocks);
+			_descriptor = new LevelDescriptor(_level.BlockMap);
 		}
 
 		private void OnLevelChanged()

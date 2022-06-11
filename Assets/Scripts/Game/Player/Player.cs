@@ -85,7 +85,7 @@ namespace Baraboom.Game.Player
 
 		Vector2Int IObservablePlayer.Position
 		{
-			get => GetComponent<DiscreteTransform>().DiscretePosition.Make2D();
+			get => GetComponent<DiscreteTransform>().DiscretePosition.XY();
 		}
 
 		#endregion

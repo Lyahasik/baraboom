@@ -68,36 +68,36 @@ namespace Baraboom.Game.Player
             if (movementDirection == null)
                 return;
 
-            var currentPositionD = _discreteTransform.DiscretePosition;
-            var desiredPositionD = currentPositionD + movementDirection.Value;
+            var currentPosition = _discreteTransform.DiscretePosition.XY();
+            var desiredPosition = currentPosition + movementDirection.Value;
 
-            var block = _level.TopBlockAt(desiredPositionD.Make2D());
-            if (block is not Ground)
+            var column = _level.BlockMap.GetColumn(desiredPosition);
+            if (column is null || column.Top is Wall)
                 return;
 
-            var desiredPositionC = DiscreteTranslator.ToContinuous(desiredPositionD).WithZ(transform.position.z);
-            StartCoroutine(StepRoutine(desiredPositionC));
+            StartCoroutine(StepRoutine(desiredPosition));
         }
 
-        private static Vector3Int? GetMovementDirection()
+        private static Vector2Int? GetMovementDirection()
         {
             if (Input.GetKey(KeyCode.A))
-                return new Vector3Int(-1, 0);
+                return new Vector2Int(-1, 0);
             if (Input.GetKey(KeyCode.D))
-                return new Vector3Int(+1, 0);
+                return new Vector2Int(+1, 0);
             if (Input.GetKey(KeyCode.W))
-                return new Vector3Int(0, +1);
+                return new Vector2Int(0, +1);
             if (Input.GetKey(KeyCode.S))
-                return new Vector3Int(0, -1);
+                return new Vector2Int(0, -1);
 
             return null;
         }
 
-        private IEnumerator StepRoutine(Vector3 targetPosition)
+        private IEnumerator StepRoutine(Vector2Int columnPosition)
         {
-            _isInAnimation = true;
-
             var startPosition = transform.position;
+            var targetPosition = DiscreteTranslator.ToContinuous(columnPosition).WithZ(startPosition.z);
+
+            _isInAnimation = true;
 
             var duration = m_StepDuration / _controllablePlayer.Speed;
             var startTime = Time.time;

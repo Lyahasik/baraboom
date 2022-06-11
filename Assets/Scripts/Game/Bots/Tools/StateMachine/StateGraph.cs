@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Baraboom.Game.Tools.Extensions;
+using Enumerable = System.Linq.Enumerable;
 
 namespace Baraboom.Game.Bots.Tools.StateMachine
 {
@@ -24,15 +25,13 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			where TTarget : IState
 			where TCondition : ICondition
 		{
-			var sourceState = typeof(TSource);
-			var targetState = typeof(TTarget);
-			var condition = typeof(TCondition);
+			var transitionDescription = new TransitionDescription
+			{
+				TargetState = typeof(TTarget),
+				Condition = typeof(TCondition)
+			};
 
-			if (!_transitions.TryGetValue(sourceState, out var transitions))
-				transitions = _transitions[sourceState] = new List<TransitionDescription>();
-
-			transitions.Add(new TransitionDescription { TargetState = targetState, Condition = condition });
-
+			_transitions.GetOrInit(typeof(TSource)).Add(transitionDescription);
 			return this;
 		}
 

@@ -10,11 +10,11 @@ namespace Baraboom.Game.Bots.Tools.PathFinder
 	{
 		#region facade
 
-		public LevelDescriptor(Dictionary<Vector2Int, Block> reference)
+		public LevelDescriptor(ReadOnlyBlockMap blockMap)
 		{
-			_blocksByPosition = reference.ToDictionary(
-				entry => entry.Key,
-				entry => new BlockDescriptor(entry.Key, entry.Value is Ground)
+			_blocksByPosition = blockMap.ToDictionary(
+				column => column.Position,
+				column => new BlockDescriptor(column.Position, column.Top is Ground)
 			);
 		}
 

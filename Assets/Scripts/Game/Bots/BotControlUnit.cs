@@ -12,7 +12,7 @@ namespace Baraboom.Game.Bots
 	{
 		#region facade
 
-		Vector2Int IControllableBot.Position => _discreteTransform.DiscretePosition.Make2D();
+		Vector2Int IControllableBot.Position => _discreteTransform.DiscretePosition.XY();
 
 		bool IControllableBot.IsMoving => _movementCoroutine != null;
 
@@ -56,7 +56,7 @@ namespace Baraboom.Game.Bots
 			// TODO Refactor discrete position
 			var z = transform.position.z;
 
-			_discreteTransform.DiscretePosition = position.Make3D(0);
+			_discreteTransform.DiscretePosition = position.WithZ(0);
 			transform.position = transform.position.WithZ(z);
 		}
 
