@@ -12,13 +12,7 @@ namespace Baraboom.Game.Characters.Player
     [RequireComponent(typeof(DiscreteTransform))]
     public class PlayerController : MonoBehaviour
     {
-        #region facade
-
-        [SerializeField] private float m_StepDuration;
-
-        #endregion
-
-        #region interior
+        [SerializeField] private float _stepDuration;
 
         private Logger _logger;
         private DiscreteTransform _discreteTransform;
@@ -104,7 +98,7 @@ namespace Baraboom.Game.Characters.Player
 
             _isInAnimation = true;
 
-            var duration = m_StepDuration / _controllablePlayer.Speed;
+            var duration = _stepDuration / _controllablePlayer.Speed;
             var startTime = Time.time;
             var finishTime = startTime + duration;
 
@@ -118,7 +112,5 @@ namespace Baraboom.Game.Characters.Player
 
             _isInAnimation = false;
         }
-
-        #endregion
     }
 }

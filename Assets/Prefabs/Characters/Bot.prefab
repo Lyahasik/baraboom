@@ -151,10 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7974985b8b574d8cac11550c7b18be5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  _stepDuration: 0.45
   _pauseBetweenSteps: 0.5
+  _botId: -1
 --- !u!114 &6625451040889547091
 MonoBehaviour:
   m_ObjectHideFlags: 0

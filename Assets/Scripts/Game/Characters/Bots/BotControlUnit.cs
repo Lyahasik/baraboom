@@ -23,7 +23,10 @@ namespace Baraboom.Game.Characters.Bots
 		void IControllableBot.Move(IEnumerable<Vector2Int> path)
 		{
 			if (_movementCoroutine != null)
-				StopCoroutine(_movementCoroutine);
+			{
+				_logger.LogError("Shouldn't request new movement before previous is completed or stopped.");
+				return;
+			}
 
 			_movementCoroutine = StartCoroutine(MovementRoutine(path));
 		}
@@ -45,7 +48,7 @@ namespace Baraboom.Game.Characters.Bots
 
 		#region interior
 
-		[SerializeField] private float _pauseBetweenSteps;
+		[SerializeField] private float _stepDuration;
 		[SerializeField] private int _botId = -1;
 
 		private Logger _logger;
@@ -68,34 +71,47 @@ namespace Baraboom.Game.Characters.Bots
 
 			foreach (var nextPosition in path)
 			{
-				SetPosition(nextPosition);
+				yield return StepRoutine(nextPosition);
+				if (gameObject == null)
+					yield break;
 
 				if (_isStopRequested)
 				{
 					_logger.Log("Stopping at position {0}", _discreteTransform.DiscretePosition);
+
+					_movementCoroutine = null;
 
 					_isStopRequested = false;
 
 					_onStopped?.Invoke();
 					_onStopped = null;
 
-					break;
-				}
-
-				yield return new WaitForSeconds(_pauseBetweenSteps);
-				if (gameObject == null)
 					yield break;
+				}
 			}
 
 			_movementCoroutine = null;
 		}
 
-		private void SetPosition(Vector2Int positionDiscrete)
+		private IEnumerator StepRoutine(Vector2Int columnPosition)
 		{
-			var positionContinuous = DiscreteTranslator.ToContinuous(positionDiscrete);
+			var startPosition = transform.position;
+			var targetPosition = DiscreteTranslator.ToContinuous(columnPosition).WithZ(startPosition.z);
 
-			// TODO Preserve offset
-			transform.position = positionContinuous.WithZ(transform.position.z);
+			var duration = _stepDuration;
+			var startTime = Time.time;
+			var finishTime = startTime + duration;
+
+			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.time)
+			{
+				transform.position = Vector3.Lerp(startPosition, targetPosition, (currentTime - startTime) / duration);
+				yield return null;
+
+				if (gameObject == null)
+					yield break;
+			}
+
+			transform.position = targetPosition;
 		}
 
 		#endregion

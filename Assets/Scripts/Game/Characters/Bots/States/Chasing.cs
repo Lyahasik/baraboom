@@ -10,7 +10,7 @@ namespace Baraboom.Game.Characters.Bots.States
 		protected override void OnInitialized(BotStateMachineContext _)
 		{
 			Player.PositionChanged += OnPlayerPositionChanged;
-			
+
 			ChasePlayer();
 		}
 
@@ -21,7 +21,7 @@ namespace Baraboom.Game.Characters.Bots.States
 
 		protected override void OnLevelChanged()
 		{
-			RequestBotStop(ChasePlayer);
+			ChasePlayer();
 		}
 
 		#endregion
@@ -30,6 +30,12 @@ namespace Baraboom.Game.Characters.Bots.States
 
 		private void ChasePlayer()
 		{
+			if (IsBotMoving)
+			{
+				RequestBotStop(ChasePlayer);
+				return;
+			}
+
 			var path = PathFinder.FindPath(BotPosition, Player.Position);
 			if (path == null)
 				return;
