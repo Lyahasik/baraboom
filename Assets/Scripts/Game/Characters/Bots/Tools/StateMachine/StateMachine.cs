@@ -40,7 +40,11 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 
 		private void OnDestroy()
 		{
+			_current?.Deinitialize();
+			_current = null;
+
 			_context?.Dispose();
+			_context = null;
 		}
 
 		private void Update()
