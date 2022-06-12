@@ -11,9 +11,13 @@ namespace Baraboom.Game.Bots.Tools
 
 		public Vector2Int Position => _discreteTransform.DiscretePosition.XY();
 
+		public int BotId => _botId;
+
 		#endregion
 
 		#region interior
+
+		[SerializeField] private int _botId = -1;
 
 		private DiscreteTransform _discreteTransform;
 

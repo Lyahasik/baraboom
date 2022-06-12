@@ -1520,6 +1520,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5718062157364565363, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
+      propertyPath: _botId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7223166734625069286, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
       propertyPath: _discretePosition.x
       value: -4
@@ -1534,7 +1538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7626433876408829695, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
       propertyPath: m_Name
-      value: WayPoint1
+      value: WayPointA
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
@@ -3413,7 +3417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1079347358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4243,13 +4247,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5718062157364565363, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
+      propertyPath: _botId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7223166734625069286, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
       propertyPath: _discretePosition.z
       value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 7626433876408829695, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
       propertyPath: m_Name
-      value: WayPoint1
+      value: WayPointA
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
@@ -6075,9 +6083,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5718062157364565363, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
+      propertyPath: _botId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7626433876408829695, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
       propertyPath: m_Name
-      value: WayPoint1
+      value: WayPointA
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8b5d37bcaf14459f9c8b4150e44f0db, type: 3}
@@ -6403,6 +6415,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1885731082}
     m_Modifications:
     - target: {fileID: 1956517959367536707, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: _botId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956517959367536707, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: _wayPoints.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -6464,7 +6480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1956517959367536716, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: m_Name
-      value: Bot
+      value: BotA
       objectReference: {fileID: 0}
     - target: {fileID: 6625451040889547091, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: _damage

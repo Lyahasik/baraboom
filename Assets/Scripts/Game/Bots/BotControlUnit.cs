@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Baraboom.Game.Bots.States;
 using Baraboom.Game.Bots.Tools;
 using Baraboom.Game.Tools;
@@ -44,11 +45,12 @@ namespace Baraboom.Game.Bots
 
 		#region interior
 
-		[SerializeField] private WayPoint[] _wayPoints;
 		[SerializeField] private float _pauseBetweenSteps;
+		[SerializeField] private int _botId = -1;
 
 		private Logger _logger;
 		private DiscreteTransform _discreteTransform;
+		private WayPoint[] _wayPoints;
 		private Coroutine _movementCoroutine;
 		private bool _isStopRequested;
 		private Action _onStopped;
@@ -57,6 +59,7 @@ namespace Baraboom.Game.Bots
 		{
 			_logger = Logger.For<BotControlUnit>();
 			_discreteTransform = GetComponent<DiscreteTransform>();
+			_wayPoints = WayPointCollector.Collect(_botId).ToArray();
 		}
 
 		private IEnumerator MovementRoutine(IEnumerable<Vector2Int> path)
