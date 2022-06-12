@@ -29,7 +29,7 @@ namespace Baraboom.Game.Bots.States
 		void IState.Deinitialize()
 		{
 			_level.Changed -= OnLevelChanged;
-		
+
 			OnDeinitialized();
 		}
 
@@ -41,7 +41,7 @@ namespace Baraboom.Game.Bots.States
 		#endregion
 
 		#region extension
-		
+
 		protected PathFinder PathFinder { get; private set; }
 
 		protected IObservablePlayer Player { get; private set; }
@@ -69,7 +69,7 @@ namespace Baraboom.Game.Bots.States
 		protected virtual void OnLevelChanged() {}
 
 		#endregion
-		
+
 		#region interior
 
 		private ILevel _level;

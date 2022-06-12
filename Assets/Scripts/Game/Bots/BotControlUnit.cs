@@ -67,10 +67,6 @@ namespace Baraboom.Game.Bots
 			{
 				SetPosition(nextPosition);
 
-				yield return new WaitForSeconds(_pauseBetweenSteps);
-				if (gameObject == null)
-					yield break;
-
 				if (_isStopRequested)
 				{
 					_logger.Log("Stopping at position {0}", _discreteTransform.DiscretePosition);
@@ -82,6 +78,10 @@ namespace Baraboom.Game.Bots
 
 					break;
 				}
+
+				yield return new WaitForSeconds(_pauseBetweenSteps);
+				if (gameObject == null)
+					yield break;
 			}
 
 			_movementCoroutine = null;
