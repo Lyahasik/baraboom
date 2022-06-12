@@ -93,22 +93,13 @@ namespace Baraboom.Game.Characters.Player
 
         private IEnumerator StepRoutine(Vector2Int columnPosition)
         {
-            var startPosition = transform.position;
-            var targetPosition = DiscreteTranslator.ToContinuous(columnPosition).WithZ(startPosition.z);
-
             _isInAnimation = true;
 
-            var duration = _stepDuration / _controllablePlayer.Speed;
-            var startTime = Time.time;
-            var finishTime = startTime + duration;
-
-            for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.time)
-            {
-                transform.position = Vector3.Lerp(startPosition, targetPosition, (currentTime - startTime) / duration);
-                yield return null;
-            }
-
-            transform.position = targetPosition;
+            yield return Coroutines.Move(
+                transform,
+                DiscreteTranslator.ToContinuous(columnPosition).WithZ(transform.position.z),
+                _stepDuration / _controllablePlayer.Speed
+            );
 
             _isInAnimation = false;
         }

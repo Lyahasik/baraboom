@@ -95,23 +95,11 @@ namespace Baraboom.Game.Characters.Bots
 
 		private IEnumerator StepRoutine(Vector2Int columnPosition)
 		{
-			var startPosition = transform.position;
-			var targetPosition = DiscreteTranslator.ToContinuous(columnPosition).WithZ(startPosition.z);
-
-			var duration = _stepDuration;
-			var startTime = Time.time;
-			var finishTime = startTime + duration;
-
-			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.time)
-			{
-				transform.position = Vector3.Lerp(startPosition, targetPosition, (currentTime - startTime) / duration);
-				yield return null;
-
-				if (gameObject == null)
-					yield break;
-			}
-
-			transform.position = targetPosition;
+			return Coroutines.Move(
+				transform,
+				DiscreteTranslator.ToContinuous(columnPosition).WithZ(transform.position.z),
+				_stepDuration
+			);
 		}
 
 		#endregion
