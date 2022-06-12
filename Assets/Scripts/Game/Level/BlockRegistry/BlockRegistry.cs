@@ -24,7 +24,13 @@ namespace Baraboom.Game.Level
 		void IBlockRegistry.Register(Block block)
 		{
 			_blockAdded?.Invoke(block);
-			block.Destroyed += () => _blockRemoved?.Invoke(block);
+			Debug.LogFormat("[{0}] Registered block {1} at {2}", typeof(BlockRegistry), block.GetType(), block.DiscretePosition);
+
+			block.Destroyed += () =>
+			{
+				_blockRemoved?.Invoke(block);
+				Debug.LogFormat("[{0}] Unregistered block {1} at {2}", typeof(BlockRegistry), block.GetType(), block.DiscretePosition);
+			};
 		}
 
 		IEnumerator<Block> IEnumerable<Block>.GetEnumerator()

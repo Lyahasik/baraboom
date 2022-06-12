@@ -80,7 +80,7 @@ namespace Baraboom.Game.Player
 		event Action IObservablePlayer.PositionChanged
 		{
 			add => GetComponent<DiscreteTransform>().DiscretePositionChanged += value;
-			remove => GetComponent<DiscreteTransform>().DiscretePositionChanged += value;
+			remove => GetComponent<DiscreteTransform>().DiscretePositionChanged -= value;
 		}
 
 		Vector2Int IObservablePlayer.Position

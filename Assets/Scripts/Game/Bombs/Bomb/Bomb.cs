@@ -1,9 +1,10 @@
 using System;
+using Baraboom.Game.Level;
 using UnityEngine;
 
 namespace Baraboom.Game.Bombs
 {
-	public class Bomb : MonoBehaviour, IBomb
+	public class Bomb : Block, IBomb
 	{
 		#region facade
 
@@ -28,13 +29,18 @@ namespace Baraboom.Game.Bombs
 		private int _range;
 		private int _damage;
 
-		private void Start()
+		protected override void Start()
 		{
+			base.Start();
+
+			Debug.LogFormat("[{0}] Spawned at {1}", typeof(Bomb), DiscretePosition);
 			Invoke(nameof(Explode), _delay);
 		}
 
 		private void Explode()
 		{
+			Debug.LogFormat("[{0}] Exploding at {1}", typeof(Bomb), DiscretePosition);
+
 			var explosionObject = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 
 			var explosion = explosionObject.GetComponent<IExplosion>();

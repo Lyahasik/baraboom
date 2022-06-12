@@ -140,6 +140,7 @@ MonoBehaviour:
   _wayPoints:
   - {fileID: 0}
   - {fileID: 0}
+  _pauseBetweenSteps: 0.5
 --- !u!114 &6625451040889547091
 MonoBehaviour:
   m_ObjectHideFlags: 0

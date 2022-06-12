@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,5 +11,7 @@ namespace Baraboom.Game.Bots.States
 		bool IsMoving { get; }
 
 		void Move(IEnumerable<Vector2Int> path);
+
+		void RequestStop(Action onFinish);
 	}
 }

@@ -9,9 +9,14 @@ namespace Baraboom.Game.Tools
 	{
 		#region facade
 
+		public event Action DiscretePositionChanged;
+
 		public Vector3Int DiscretePosition
 		{
-			get => _discretePosition;
+			get
+			{
+				return _discretePosition;
+			}
 			set
 			{
 				_discretePosition = value;
@@ -19,39 +24,37 @@ namespace Baraboom.Game.Tools
 			}
 		}
 
-		public event Action DiscretePositionChanged
-		{
-			add => _discretePositionChanged += value;
-			remove => _discretePositionChanged -= value;
-		}
-		
 		#endregion
 
 		#region interior
 
 		[SerializeField] private Vector3Int _discretePosition;
 
-		private Action _discretePositionChanged;
+		private bool _discretePositionDirty;
 
 		private void Awake()
 		{
-			FetchDiscretePosition();
+			_discretePosition = DiscreteTranslator.ToDiscrete(transform.position);
 		}
 
 		private void Update()
 		{
-			if (transform.hasChanged)
-			{
-				FetchDiscretePosition();
-				_discretePositionChanged?.Invoke();
-
-				transform.hasChanged = false;
-			}
+			CheckPositionChange();
 		}
 
-		private void FetchDiscretePosition()
+		private void CheckPositionChange()
 		{
-			_discretePosition = DiscreteTranslator.ToDiscrete(transform.position);
+			if (!transform.hasChanged)
+				return;
+
+			var newDiscretePosition = DiscreteTranslator.ToDiscrete(transform.position);
+			if (newDiscretePosition == _discretePosition)
+				return;
+
+			_discretePosition = newDiscretePosition;
+			DiscretePositionChanged?.Invoke();
+
+			transform.hasChanged = false;
 		}
 
 		#endregion

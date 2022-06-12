@@ -75,6 +75,7 @@ namespace Baraboom.Game.Player
             if (column is null || column.Top is Wall)
                 return;
 
+            Debug.LogFormat("[{0}] Moving to {1}", typeof(PlayerController), desiredPosition);
             StartCoroutine(StepRoutine(desiredPosition));
         }
 

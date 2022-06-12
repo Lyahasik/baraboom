@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Baraboom.Game.Level;
+using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
 
@@ -18,9 +19,9 @@ namespace Baraboom.Game.Bots.Tools.PathFinder
 			);
 		}
 
-		public BlockDescriptor FindBlock(Vector2Int position)
+		public BlockDescriptor GetBlock(Vector2Int position)
 		{
-			return _blocksByPosition[position];
+			return _blocksByPosition.Get(position);
 		}
 
 		IEnumerable<BlockDescriptor> AStar.IGraph<BlockDescriptor>.GetNeighbors(BlockDescriptor node)

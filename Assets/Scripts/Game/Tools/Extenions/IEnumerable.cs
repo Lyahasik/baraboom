@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Baraboom.Game.Tools.Extensions
@@ -6,6 +7,9 @@ namespace Baraboom.Game.Tools.Extensions
 	{
 		public static IEnumerable<(T, int)> Enumerate<T>(this IEnumerable<T> @this)
 		{
+			if (@this is null)
+				throw new ArgumentNullException();
+
 			using var enumerator = @this.GetEnumerator();
 
 			var index = 0;

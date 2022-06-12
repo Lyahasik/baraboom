@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Baraboom.Game.Bots.States;
+using Baraboom.Game.Bots.Tools;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
@@ -24,16 +26,30 @@ namespace Baraboom.Game.Bots
 			_movementCoroutine = StartCoroutine(MovementRoutine(path));
 		}
 
-		WayPoint[] IRoamingBot.WayPoints => _wayPoints;
+		void IControllableBot.RequestStop(Action onStopped)
+		{
+			Debug.LogFormat("[{0}] Stop requested", typeof(BotControlUnit));
+
+			_isStopRequested = true;
+			_onStopped = onStopped;
+		}
+
+		WayPoint[] IRoamingBot.WayPoints
+		{
+			get => _wayPoints;
+		}
 
 		#endregion
 		
 		#region interior
 
 		[SerializeField] private WayPoint[] _wayPoints;
+		[SerializeField] private float _pauseBetweenSteps;
 
 		private DiscreteTransform _discreteTransform;
 		private Coroutine _movementCoroutine;
+		private bool _isStopRequested;
+		private Action _onStopped;
 
 		private void Awake()
 		{
@@ -42,10 +58,24 @@ namespace Baraboom.Game.Bots
 
 		private IEnumerator MovementRoutine(IEnumerable<Vector2Int> path)
 		{
+			Debug.LogFormat("[{0}] Moving along path {1}", typeof(BotControlUnit), path);
+
 			foreach (var nextPosition in path)
 			{
 				SetPosition(nextPosition);
-				yield return new WaitForSeconds(0.8f);
+				yield return new WaitForSeconds(_pauseBetweenSteps);
+
+				if (_isStopRequested)
+				{
+					Debug.LogFormat("[{0}] Stopping at position {1}", typeof(BotControlUnit), _discreteTransform.DiscretePosition);
+
+					_isStopRequested = false;
+
+					_onStopped?.Invoke();
+					_onStopped = null;
+
+					break;
+				}
 			}
 
 			_movementCoroutine = null;

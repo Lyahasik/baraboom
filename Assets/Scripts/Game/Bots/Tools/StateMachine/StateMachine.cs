@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 	public abstract class StateMachine : MonoBehaviour
 	{
 		#region facade
-		
+
 		protected abstract IContext Context { get; }
 
 		protected abstract StateGraph Graph { get;  }
@@ -21,11 +22,12 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 		private StateGraph _graph;
 		private readonly Dictionary<Type, ICondition> _conditions = new();
 
-		private void Start()
+		private IEnumerator Start()
 		{
 			_context = Context;
 			_graph = Graph;
 
+			yield return null; // TODO Remove this hack
 			SwitchState(Graph.InitialState);
 		}
 
@@ -70,7 +72,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			catch (StateMachineException exception)
 			{
 				Debug.LogErrorFormat("Couldn't initialize state {0}: {1}", _current?.GetType(), exception);
-				_current = null;
+				DeinitializeCurrentState();
 			}
 		}
 
@@ -100,7 +102,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			catch (StateMachineException exception)
 			{
 				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
-				_current = null;
+				DeinitializeCurrentState();
 			}
 		}
 

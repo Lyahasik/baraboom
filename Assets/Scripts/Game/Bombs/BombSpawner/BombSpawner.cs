@@ -19,6 +19,8 @@ namespace Baraboom.Game.Bombs
 
         void IBombSpawner.SpawnBomb(Vector3 position)
         {
+            Debug.LogFormat("[{0}] Spawning bomb at {1}", nameof(BombSpawner), position);
+
             var bombObject = Instantiate(_bombPrefab, position, Quaternion.identity);
             var bomb = bombObject.GetComponent<IBomb>();
 

@@ -17,12 +17,15 @@ namespace Baraboom.Game.Bots.Tools.PathFinder
 			FetchLevel();
 		}
 
-		public Vector2Int[] FindPath(Vector2Int from, Vector2Int to)
+		public Path FindPath(Vector2Int start, Vector2Int target)
 		{
 			try
 			{
-				var path = AStar.Solver.Solve(_descriptor, _descriptor.FindBlock(from), _descriptor.FindBlock(to), EuclideanHeuristic);
-				return path.Select(block => block.Position).ToArray();
+				var startBlock = _descriptor.GetBlock(start);
+				var targetBlock = _descriptor.GetBlock(target);
+
+				var pathRaw = AStar.Solver.Solve(_descriptor, startBlock, targetBlock, EuclideanHeuristic);
+				return new Path(pathRaw.Select(block => block.Position));
 			}
 			catch (AStar.PathNotFoundException)
 			{

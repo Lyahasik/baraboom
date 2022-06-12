@@ -10,8 +10,13 @@ namespace Baraboom.Game.Tools.Collections
 		public BouncingIterator(IList<T> collection, int startIndex = 0)
 		{
 			_collection = collection;
-			_nextIndex = startIndex;
+			_currentIndex = startIndex;
 			_step = 1;
+		}
+
+		public T Current
+		{
+			get => _collection[_currentIndex];
 		}
 
 		public T Next
@@ -24,15 +29,15 @@ namespace Baraboom.Game.Tools.Collections
 				// This operations helps in two cases:
 				//   1. Collection contains only one element, so index can't be incremented.
 				//   2. Collection size have changed since last call. 
-				_nextIndex = Math.Min(_nextIndex, _collection.Count);
+				_currentIndex = Math.Min(_currentIndex, _collection.Count);
 
-				var currentIndex = _nextIndex;
+				var currentIndex = _currentIndex;
 
-				if (_nextIndex == _collection.Count - 1)
+				if (_currentIndex == _collection.Count - 1)
 					_step = -1;
-				if (_nextIndex == 0)
+				if (_currentIndex == 0)
 					_step = +1;
-				_nextIndex += _step;
+				_currentIndex += _step;
 
 				return _collection[currentIndex];
 			}
@@ -43,7 +48,7 @@ namespace Baraboom.Game.Tools.Collections
 		#region interior
 
 		private readonly IList<T> _collection;
-		private int _nextIndex;
+		private int _currentIndex;
 		private int _step;
 
 		#endregion

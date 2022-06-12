@@ -25,11 +25,10 @@ namespace Baraboom.Game.Bots
 			{
 				var level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
 				var pathFinder = new PathFinder(level);
-
 				var bot = GetComponent<BotControlUnit>();
 				var player = GameObject.Find("Player").GetComponent<IObservablePlayer>(); // TODO Inject 
 
-				return new BotStateMachineContext(pathFinder, bot, player);
+				return new BotStateMachineContext(level, pathFinder, bot, player);
 			}
 		}
 	}

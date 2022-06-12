@@ -2,7 +2,7 @@ using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 
-namespace Baraboom.Game.Bots
+namespace Baraboom.Game.Bots.Tools
 {
 	[RequireComponent(typeof(DiscreteTransform))]
 	public sealed class WayPoint : MonoBehaviour
@@ -10,7 +10,7 @@ namespace Baraboom.Game.Bots
 		#region facade
 
 		public Vector2Int Position => _discreteTransform.DiscretePosition.XY();
-		
+
 		#endregion
 
 		#region interior
