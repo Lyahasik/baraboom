@@ -1,5 +1,6 @@
 using System;
 using Baraboom.Game.Level;
+using Baraboom.Game.Level.Environment;
 using UnityEngine;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 

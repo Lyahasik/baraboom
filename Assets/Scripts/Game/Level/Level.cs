@@ -1,4 +1,5 @@
 using System;
+using Baraboom.Game.Level.Environment;
 using UnityEngine;
 
 namespace Baraboom.Game.Level
