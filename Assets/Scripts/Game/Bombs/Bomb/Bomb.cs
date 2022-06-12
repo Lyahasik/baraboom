@@ -1,6 +1,7 @@
 using System;
 using Baraboom.Game.Level;
 using UnityEngine;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Bombs
 {
@@ -24,22 +25,30 @@ namespace Baraboom.Game.Bombs
 		[SerializeField] private GameObject _explosionPrefab;
 		[SerializeField] private float _delay;
 
+		private Logger _logger;
 		private Action _exploded;
 		private float _timeExplosion;
 		private int _range;
 		private int _damage;
 
+		protected override void Awake()
+		{
+			base.Awake();
+
+			_logger = Logger.For<Bomb>();
+		}
+
 		protected override void Start()
 		{
 			base.Start();
 
-			Debug.LogFormat("[{0}] Spawned at {1}", typeof(Bomb), DiscretePosition);
+			_logger.Log("Spawned at {0}", DiscretePosition);
 			Invoke(nameof(Explode), _delay);
 		}
 
 		private void Explode()
 		{
-			Debug.LogFormat("[{0}] Exploding at {1}", typeof(Bomb), DiscretePosition);
+			_logger.Log("Exploding at {0}", DiscretePosition);
 
 			var explosionObject = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 

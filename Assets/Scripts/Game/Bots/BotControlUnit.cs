@@ -6,6 +6,7 @@ using Baraboom.Game.Bots.Tools;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Bots
 {
@@ -28,7 +29,7 @@ namespace Baraboom.Game.Bots
 
 		void IControllableBot.RequestStop(Action onStopped)
 		{
-			Debug.LogFormat("[{0}] Stop requested", typeof(BotControlUnit));
+			_logger.Log("Stop requested");
 
 			_isStopRequested = true;
 			_onStopped = onStopped;
@@ -40,12 +41,13 @@ namespace Baraboom.Game.Bots
 		}
 
 		#endregion
-		
+
 		#region interior
 
 		[SerializeField] private WayPoint[] _wayPoints;
 		[SerializeField] private float _pauseBetweenSteps;
 
+		private Logger _logger;
 		private DiscreteTransform _discreteTransform;
 		private Coroutine _movementCoroutine;
 		private bool _isStopRequested;
@@ -53,12 +55,13 @@ namespace Baraboom.Game.Bots
 
 		private void Awake()
 		{
+			_logger = Logger.For<BotControlUnit>();
 			_discreteTransform = GetComponent<DiscreteTransform>();
 		}
 
 		private IEnumerator MovementRoutine(IEnumerable<Vector2Int> path)
 		{
-			Debug.LogFormat("[{0}] Moving along path {1}", typeof(BotControlUnit), path);
+			_logger.Log("Moving along path {0}", path);
 
 			foreach (var nextPosition in path)
 			{
@@ -67,7 +70,7 @@ namespace Baraboom.Game.Bots
 
 				if (_isStopRequested)
 				{
-					Debug.LogFormat("[{0}] Stopping at position {1}", typeof(BotControlUnit), _discreteTransform.DiscretePosition);
+					_logger.Log("Stopping at position {0}", _discreteTransform.DiscretePosition);
 
 					_isStopRequested = false;
 

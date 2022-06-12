@@ -4,6 +4,7 @@ using Baraboom.Game.Level;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Player
 {
@@ -18,6 +19,7 @@ namespace Baraboom.Game.Player
 
         #region interior
 
+        private Logger _logger;
         private DiscreteTransform _discreteTransform;
         private ILevel _level;
         private IControllablePlayer _controllablePlayer;
@@ -26,6 +28,7 @@ namespace Baraboom.Game.Player
 
         private void Awake()
         {
+            _logger = Logger.For<PlayerController>();
             _discreteTransform = GetComponent<DiscreteTransform>();
         }
 
@@ -75,7 +78,7 @@ namespace Baraboom.Game.Player
             if (column is null || column.Top is Wall)
                 return;
 
-            Debug.LogFormat("[{0}] Moving to {1}", typeof(PlayerController), desiredPosition);
+            _logger.Log("Moving to {0}", desiredPosition);
             StartCoroutine(StepRoutine(desiredPosition));
         }
 
@@ -103,7 +106,7 @@ namespace Baraboom.Game.Player
             var duration = m_StepDuration / _controllablePlayer.Speed;
             var startTime = Time.time;
             var finishTime = startTime + duration;
-            
+
             for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.time)
             {
                 transform.position = Vector3.Lerp(startPosition, targetPosition, (currentTime - startTime) / duration);

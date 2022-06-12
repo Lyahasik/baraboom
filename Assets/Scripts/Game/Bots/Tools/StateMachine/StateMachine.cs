@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Bots.Tools.StateMachine
 {
@@ -17,10 +18,16 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 
 		#region interior
 
+		private Logger _logger;
 		private IState _current;
 		private IContext _context;
 		private StateGraph _graph;
 		private readonly Dictionary<Type, ICondition> _conditions = new();
+
+		private void Awake()
+		{
+			_logger = Logger.For<StateMachine>();
+		}
 
 		private IEnumerator Start()
 		{
@@ -54,8 +61,8 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 
 		private void SwitchState(Type stateType)
 		{
-			Debug.LogFormat("[{0}] Switching state from '{1}' to '{2}'", nameof(StateMachine), _current?.GetType(), stateType);
-			
+			_logger.Log("Switching state from '{0}' to '{1}'", _current?.GetType(), stateType);
+
 			DeinitializeCurrentState();
 
 			if ((_current = InstantiateState(stateType)) != null)
@@ -66,12 +73,12 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 		{
 			try
 			{
-				Debug.LogFormat("[{0}] Initializing state {1}", nameof(StateMachine), _current?.GetType());
-				_current.Initialize(Context);
+				_logger.Log("Initializing state {0}", _current?.GetType());
+				_current?.Initialize(Context);
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't initialize state {0}: {1}", _current?.GetType(), exception);
+				_logger.LogError("Couldn't initialize state {0}: {1}", _current?.GetType(), exception);
 				DeinitializeCurrentState();
 			}
 		}
@@ -80,12 +87,12 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 		{
 			try
 			{
-				Debug.LogFormat("[{0}] Deinitializing state {1}", nameof(StateMachine), _current?.GetType());
+				_logger.Log("Deinitializing state {0}", _current?.GetType());
 				_current?.Deinitialize();
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
+				_logger.LogError("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
 			}
 			finally
 			{
@@ -101,7 +108,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
+				_logger.LogError("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
 				DeinitializeCurrentState();
 			}
 		}
@@ -114,7 +121,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			}
 			catch (StateMachineException exception)
 			{
-				Debug.LogErrorFormat("Couldn't evaluate condition {0}: {1}", conditionType, exception);
+				_logger.LogError("Couldn't evaluate condition {0}: {1}", conditionType, exception);
 				return false;
 			}
 		}
@@ -127,7 +134,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			}
 			catch (Exception exception)
 			{
-				Debug.LogErrorFormat("Couldn't instantiate state of type {0}: {1}", type, exception);
+				_logger.LogError("Couldn't instantiate state of type {0}: {1}", type, exception);
 				return null;
 			}
 		}
@@ -143,7 +150,7 @@ namespace Baraboom.Game.Bots.Tools.StateMachine
 			}
 			catch (Exception exception)
 			{
-				Debug.LogErrorFormat("Can't instantiate condition of type {0}: {1}", type, exception);
+				_logger.LogError("Can't instantiate condition of type {0}: {1}", type, exception);
 				return null;
 			}
 		}

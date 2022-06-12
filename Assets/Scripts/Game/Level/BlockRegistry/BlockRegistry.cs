@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Level
 {
@@ -12,24 +13,24 @@ namespace Baraboom.Game.Level
 		event Action<Block> IBlockRegistry.BlockAdded
 		{
 			add => _blockAdded += value;
-			remove => _blockAdded -= value; 
+			remove => _blockAdded -= value;
 		}
 
 		event Action<Block> IBlockRegistry.BlockRemoved
 		{
 			add => _blockRemoved += value;
-			remove => _blockRemoved -= value; 
+			remove => _blockRemoved -= value;
 		}
 
 		void IBlockRegistry.Register(Block block)
 		{
 			_blockAdded?.Invoke(block);
-			Debug.LogFormat("[{0}] Registered block {1} at {2}", typeof(BlockRegistry), block.GetType(), block.DiscretePosition);
+			_logger.Log("Registered block {0} at {1}", block.GetType(), block.DiscretePosition);
 
 			block.Destroyed += () =>
 			{
 				_blockRemoved?.Invoke(block);
-				Debug.LogFormat("[{0}] Unregistered block {1} at {2}", typeof(BlockRegistry), block.GetType(), block.DiscretePosition);
+				_logger.Log("Unregistered block {0} at {1}", block.GetType(), block.DiscretePosition);
 			};
 		}
 
@@ -42,14 +43,20 @@ namespace Baraboom.Game.Level
 		{
 			return (this as IEnumerable<Block>).GetEnumerator();
 		}
-		
+
 		#endregion
-		
+
 		#region interior
 
+		private Logger _logger;
 		private Action<Block> _blockAdded;
 		private Action<Block> _blockRemoved;
 		private readonly HashSet<Block> _blocks = new();
+
+		private void Awake()
+		{
+			_logger = Logger.For<BlockRegistry>();
+		}
 
 		#endregion
 	}

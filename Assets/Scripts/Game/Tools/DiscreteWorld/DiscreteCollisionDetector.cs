@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Tools
 {
@@ -17,7 +18,7 @@ namespace Baraboom.Game.Tools
 				var index = _colliders.FindIndex(test => test == collider);
 				if (index == -1)
 				{
-					Debug.LogError("Collider not found");
+					_logger.LogError("Collider not found");
 					return;
 				}
 
@@ -30,8 +31,14 @@ namespace Baraboom.Game.Tools
 
 		#region interior
 
+		private Logger _logger;
 		private readonly List<DiscreteCollider> _colliders = new();
 		private readonly List<DiscreteTransform> _transforms = new();
+
+		private void Awake()
+		{
+			_logger = Logger.For<DiscreteCollisionDetector>();
+		}
 
 		private void FixedUpdate()
 		{

@@ -5,6 +5,7 @@ using Baraboom.Game.Items;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Player
 {
@@ -25,11 +26,11 @@ namespace Baraboom.Game.Player
 		void IDamageable.TakeDamage(int value)
 		{
 			_health -= value;
-			Debug.LogFormat("[{0}] Took {1} damage.", nameof(Player), value);
+			_logger.Log("Took {0} damage.", value);
 
 			if (_health <= 0)
 			{
-				Debug.LogFormat("[{0}] Died.", nameof(Player));
+				_logger.Log("Died.");
 				Destroy(gameObject);
 			}
 		}
@@ -60,7 +61,7 @@ namespace Baraboom.Game.Player
 		}
 
 		int IControllablePlayer.ExplosionDamage => _explosionDamage;
-		
+
 		int IControllablePlayer.ExplosionRange => _explosionRange;
 
 		float IControllablePlayer.Speed => _speed;
@@ -98,6 +99,7 @@ namespace Baraboom.Game.Player
 		[SerializeField] private int _baseExplosionDamage;
 		[SerializeField] private int _baseExplosionRange;
 
+		private Logger _logger;
 		private int _health;
 		private float _speed;
 		private int _plantingSlots;
@@ -107,6 +109,8 @@ namespace Baraboom.Game.Player
 
 		private void Awake()
 		{
+			_logger = Logger.For<Player>();
+
 			_health = _baseHealth;
 			_speed = _baseSpeed;
 			_plantingSlots = _basePlantingSlots;
