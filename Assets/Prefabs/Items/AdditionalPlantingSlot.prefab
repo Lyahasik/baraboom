@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2479469023502716792}
   - component: {fileID: 4738398452677243080}
   - component: {fileID: 8363122283418121731}
-  - component: {fileID: 6093537018279919701}
   - component: {fileID: 2027118896900590120}
   - component: {fileID: 1769325700460192130}
+  - component: {fileID: 1236499620178537174}
   m_Layer: 0
   m_Name: AdditionalPlantingSlot
   m_TagString: Untagged
@@ -86,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6093537018279919701
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3034963296540050528}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2027118896900590120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,4 +110,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a33f7507dff4a40a0e659cfe4bebeab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 5
+--- !u!114 &1236499620178537174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3034963296540050528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _discretePosition: {x: 0, y: 0, z: 0}
