@@ -11,7 +11,7 @@ namespace Baraboom.Game.Bombs
 
         public override void OnCollision(DiscreteCollider other)
         {
-            var damageable = other.GetComponent<IDamageable>();
+            var damageable = other.GetComponent<IBombTarget>();
             if (damageable != null)
             {
                 damageable.TakeDamage(Damage);

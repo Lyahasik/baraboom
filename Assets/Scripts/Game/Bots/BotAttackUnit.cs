@@ -13,7 +13,7 @@ namespace Baraboom.Game.Bots
 			if (_isPaused)
 				return;
 
-			var damageable = other.GetComponent<IDamageable>();
+			var damageable = other.GetComponent<IBotTarget>();
 			if (damageable != null)
 			{
 				damageable.TakeDamage(_damage);

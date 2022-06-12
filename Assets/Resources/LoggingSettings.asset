@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92913e62230244dc9049ed0aab086ba2, type: 3}
   m_Name: LoggingSettings
   m_EditorClassIdentifier: 
-  _enabled: 0
+  _enabled: 1
   _excludedDomains: []

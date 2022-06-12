@@ -5,11 +5,11 @@ using UnityEngine;
 namespace Baraboom.Game.Level
 {
     [RequireComponent(typeof(IItemSpawner))]
-    public sealed class BrittleWall : Wall, IDamageable
+    public sealed class BrittleWall : Wall, IBombTarget
     {
         [SerializeField] private int _health;
-    
-        void IDamageable.TakeDamage(int damage)
+
+        void IBombTarget.TakeDamage(int damage)
         {
             _health -= damage;
             if (_health <= 0)

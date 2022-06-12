@@ -10,9 +10,10 @@ using Logger = Baraboom.Game.Tools.Logging.Logger;
 namespace Baraboom.Game.Player
 {
 	[RequireComponent(typeof(DiscreteTransform))]
-	public class Player :
+	public class PlayerData :
 		MonoBehaviour,
-		IDamageable,
+		IBombTarget,
+		IBotTarget,
 		IAdditionalPlantingSlotRecipient,
 		IDamageBoosterRecipient,
 		IHealRecipient,
@@ -23,16 +24,14 @@ namespace Baraboom.Game.Player
 	{
 		#region facade
 
-		void IDamageable.TakeDamage(int value)
+		void IBombTarget.TakeDamage(int value)
 		{
-			_health -= value;
-			_logger.Log("Took {0} damage.", value);
+			TakeDamage(value, "bomb");
+		}
 
-			if (_health <= 0)
-			{
-				_logger.Log("Died.");
-				Destroy(gameObject);
-			}
+		void IBotTarget.TakeDamage(int value)
+		{
+			TakeDamage(value, "bot");
 		}
 
 		void IAdditionalPlantingSlotRecipient.AddPlantingSlot()
@@ -109,13 +108,25 @@ namespace Baraboom.Game.Player
 
 		private void Awake()
 		{
-			_logger = Logger.For<Player>();
+			_logger = Logger.For<PlayerData>();
 
 			_health = _baseHealth;
 			_speed = _baseSpeed;
 			_plantingSlots = _basePlantingSlots;
 			_explosionDamage = _baseExplosionDamage;
 			_explosionRange = _baseExplosionRange;
+		}
+
+		private void TakeDamage(int value, string attacker)
+		{
+			_health -= value;
+			_logger.Log("Took {0} damage from {1}", value, attacker);
+
+			if (_health <= 0)
+			{
+				_logger.Log("Died.");
+				Destroy(gameObject);
+			}
 		}
 
 		#endregion

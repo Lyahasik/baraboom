@@ -7,7 +7,6 @@ namespace Baraboom.Game.Player
 		public float Speed { get; }
 		public bool HaveBombs { get; }
 
-		
 		public void AddPlantedBomb();
 		public void RemovePlantedBomb();
 	}

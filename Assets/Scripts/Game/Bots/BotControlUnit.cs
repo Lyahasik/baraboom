@@ -66,7 +66,10 @@ namespace Baraboom.Game.Bots
 			foreach (var nextPosition in path)
 			{
 				SetPosition(nextPosition);
+
 				yield return new WaitForSeconds(_pauseBetweenSteps);
+				if (gameObject == null)
+					yield break;
 
 				if (_isStopRequested)
 				{
