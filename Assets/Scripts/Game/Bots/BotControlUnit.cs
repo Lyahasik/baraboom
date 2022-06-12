@@ -87,13 +87,12 @@ namespace Baraboom.Game.Bots
 			_movementCoroutine = null;
 		}
 
-		private void SetPosition(Vector2Int position)
+		private void SetPosition(Vector2Int positionDiscrete)
 		{
-			// TODO Refactor discrete position
-			var z = transform.position.z;
+			var positionContinuous = DiscreteTranslator.ToContinuous(positionDiscrete);
 
-			_discreteTransform.DiscretePosition = position.WithZ(0);
-			transform.position = transform.position.WithZ(z);
+			// TODO Preserve offset
+			transform.position = positionContinuous.WithZ(transform.position.z);
 		}
 
 		#endregion
