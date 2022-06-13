@@ -16,7 +16,8 @@ namespace Baraboom.Game.Characters.Bots.States
 
 		protected override void OnDeinitialized()
 		{
-			Player.PositionChanged -= OnPlayerPositionChanged;
+			if (Player.IsNotNull())
+				Player.PositionChanged -= OnPlayerPositionChanged;
 		}
 
 		protected override void OnLevelChanged()
