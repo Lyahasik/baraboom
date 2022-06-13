@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Baraboom.Game.Characters.Bots.States
+namespace Baraboom.Game.Characters.Bots.Protocols
 {
-	public interface IControllableBot
+	public interface IBotController
 	{
 		Vector2Int Position { get; }
 

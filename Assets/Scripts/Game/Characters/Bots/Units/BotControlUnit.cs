@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.States;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Tools;
@@ -9,18 +10,18 @@ using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
-namespace Baraboom.Game.Characters.Bots
+namespace Baraboom.Game.Characters.Bots.Units
 {
 	[RequireComponent(typeof(DiscreteTransform))]
-	public class BotControlUnit : MonoBehaviour, IControllableBot, IRoamingBot
+	public class BotControlUnit : MonoBehaviour, IBotController, IRoamingData
 	{
 		#region facade
 
-		Vector2Int IControllableBot.Position => _discreteTransform.DiscretePosition.XY();
+		Vector2Int IBotController.Position => _discreteTransform.DiscretePosition.XY();
 
-		bool IControllableBot.IsMoving => _movementCoroutine != null;
+		bool IBotController.IsMoving => _movementCoroutine != null;
 
-		void IControllableBot.Move(IEnumerable<Vector2Int> path)
+		void IBotController.Move(IEnumerable<Vector2Int> path)
 		{
 			if (_movementCoroutine != null)
 			{
@@ -31,7 +32,7 @@ namespace Baraboom.Game.Characters.Bots
 			_movementCoroutine = StartCoroutine(MovementRoutine(path));
 		}
 
-		void IControllableBot.RequestStop(Action onStopped)
+		void IBotController.RequestStop(Action onStopped)
 		{
 			_logger.Log("Stop requested");
 
@@ -39,7 +40,7 @@ namespace Baraboom.Game.Characters.Bots
 			_onStopped = onStopped;
 		}
 
-		WayPoint[] IRoamingBot.WayPoints
+		WayPoint[] IRoamingData.WayPoints
 		{
 			get => _wayPoints;
 		}

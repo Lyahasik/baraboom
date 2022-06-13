@@ -1,8 +1,8 @@
 using Baraboom.Game.Characters.Bots.Tools;
 
-namespace Baraboom.Game.Characters.Bots.States
+namespace Baraboom.Game.Characters.Bots.Protocols
 {
-	public interface IRoamingBot
+	public interface IRoamingData
 	{
 		WayPoint[] WayPoints { get; }
 	}

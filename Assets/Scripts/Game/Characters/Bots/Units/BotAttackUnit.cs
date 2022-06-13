@@ -1,7 +1,8 @@
+using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Tools;
 using UnityEngine;
 
-namespace Baraboom.Game.Characters.Bots
+namespace Baraboom.Game.Characters.Bots.Units
 {
 	public class BotAttackUnit : DiscreteCollider
 	{

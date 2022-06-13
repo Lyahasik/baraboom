@@ -1,13 +1,13 @@
 using System;
-using Baraboom.Game.Characters.Bots.Tools;
-using Baraboom.Game.Characters.Bots.Tools.PathFinder;
+using Baraboom.Game.Characters.Bots.Protocols;
+using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using Baraboom.Game.Level;
 using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.States
 {
-	public abstract class Base : IState
+	public abstract class BotState : IState
 	{
 		#region facade
 
@@ -15,11 +15,11 @@ namespace Baraboom.Game.Characters.Bots.States
 		{
 			var context = (BotStateMachineContext)abstractContext;
 
-			PathFinder = context.PathFinder;
+			PathFinder = context.BotProtocolResolver.Resolve<IBotPathFinder>();
 			Player = context.Player;
 
 			_level = context.Level;
-			_bot = context.Bot;
+			_botController = context.BotProtocolResolver.Resolve<IBotController>();
 
 			_level.Changed += OnLevelChanged;
 
@@ -42,22 +42,22 @@ namespace Baraboom.Game.Characters.Bots.States
 
 		#region extension
 
-		protected PathFinder PathFinder { get; private set; }
+		protected IBotPathFinder PathFinder { get; private set; }
 
 		protected IObservablePlayer Player { get; private set; }
 
-		protected bool IsBotMoving => _bot.IsMoving;
+		protected bool IsBotMoving => _botController.IsMoving;
 
-		protected Vector2Int BotPosition => _bot.Position;
+		protected Vector2Int BotPosition => _botController.Position;
 
 		protected void MoveBot(Path path)
 		{
-			_bot.Move(path);
+			_botController.Move(path);
 		}
 
 		protected void RequestBotStop(Action onStopped = null)
 		{
-			_bot.RequestStop(onStopped);
+			_botController.RequestStop(onStopped);
 		}
 
 		protected virtual void OnInitialized(BotStateMachineContext context) {}
@@ -73,7 +73,8 @@ namespace Baraboom.Game.Characters.Bots.States
 		#region interior
 
 		private ILevel _level;
-		private IControllableBot _bot;
+		private IBotController _botController;
+		private IBotPathFinder _pathFinder;
 
 		#endregion
 	}

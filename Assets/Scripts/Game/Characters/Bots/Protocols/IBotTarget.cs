@@ -1,4 +1,4 @@
-namespace Baraboom.Game.Characters.Bots
+namespace Baraboom.Game.Characters.Bots.Protocols
 {
 	public interface IBotTarget
 	{

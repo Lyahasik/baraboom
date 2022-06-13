@@ -1,6 +1,6 @@
-using Baraboom.Game.Characters.Bots.States;
-using Baraboom.Game.Characters.Bots.Tools.PathFinder;
+using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Level;
+using Baraboom.Game.Tools.Protocols;
 using StateMachine = Baraboom.Game.Characters.Bots.Tools.StateMachine;
 
 namespace Baraboom.Game.Characters.Bots
@@ -9,23 +9,15 @@ namespace Baraboom.Game.Characters.Bots
 	{
 		public ILevel Level { get; }
 
-		public PathFinder PathFinder { get; }
-
-		public IControllableBot Bot { get; }
-
 		public IObservablePlayer Player { get; }
 
-		public BotStateMachineContext(ILevel level, PathFinder pathFinder, IControllableBot bot, IObservablePlayer player)
+		public IProtocolResolver BotProtocolResolver { get; }
+
+		public BotStateMachineContext(ILevel level, IObservablePlayer player, IProtocolResolver botProtocolResolver)
 		{
 			Level = level;
-			PathFinder = pathFinder;
-			Bot = bot;
 			Player = player;
-		}
-
-		void StateMachine.IContext.Dispose()
-		{
-			PathFinder?.Dispose();
+			BotProtocolResolver = botProtocolResolver;
 		}
 	}
 }

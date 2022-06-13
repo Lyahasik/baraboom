@@ -1,4 +1,6 @@
+using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
+using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using Baraboom.Game.Tools.Collections;
 using Baraboom.Game.Tools.Extensions;
@@ -7,16 +9,17 @@ using JetBrains.Annotations;
 namespace Baraboom.Game.Characters.Bots.States
 {
 	[UsedImplicitly]
-	public class Roaming : Base
+	public class BotStateRoaming : BotState
 	{
 		#region facade
 
 		protected override void OnInitialized(BotStateMachineContext context)
 		{
-			if (context.Bot is not IRoamingBot roamingBot)
+			var roamingData = context.BotProtocolResolver.TryResolve<IRoamingData>();
+			if (roamingData is null)
 				throw new StateMachineException("Bot doesn't support roaming behaviour.");
 
-			_wayPoints = roamingBot.WayPoints;
+			_wayPoints = roamingData.WayPoints;
 
 			var result = FindClosestReachableWayPoint(out var closestWayPointIndex, out var pathToClosestWayPoint);
 			if (!result)

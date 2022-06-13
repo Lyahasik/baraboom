@@ -43,7 +43,6 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			_current?.Deinitialize();
 			_current = null;
 
-			_context?.Dispose();
 			_context = null;
 		}
 
@@ -78,7 +77,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			try
 			{
 				_logger.Log("Initializing state {0}", _current?.GetType());
-				_current?.Initialize(Context);
+				_current?.Initialize(_context);
 			}
 			catch (StateMachineException exception)
 			{
@@ -121,7 +120,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 		{
 			try
 			{
-				return GetOrInstantiateCondition(conditionType)?.Evaluate(Context) ?? false;
+				return GetOrInstantiateCondition(conditionType)?.Evaluate(_context) ?? false;
 			}
 			catch (StateMachineException exception)
 			{

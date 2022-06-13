@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 namespace Baraboom.Game.Characters.Bots.States
 {
 	[UsedImplicitly]
-	public class Chasing : Base
+	public class BotStateChasing : BotState
 	{
 		#region facade
 

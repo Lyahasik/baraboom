@@ -1,7 +1,7 @@
 using UnityEngine;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
 
-namespace Baraboom.Game.Characters.Bots.Tools.PathFinder
+namespace Baraboom.Game.Characters.Bots.Tools.Navigation
 {
 	public class BlockDescriptor : AStar.INode
 	{

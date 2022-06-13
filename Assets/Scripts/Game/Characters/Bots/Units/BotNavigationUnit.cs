@@ -1,21 +1,15 @@
 using System.Linq;
+using Baraboom.Game.Characters.Bots.Protocols;
+using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Level;
 using UnityEngine;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
 
-namespace Baraboom.Game.Characters.Bots.Tools.PathFinder
+namespace Baraboom.Game.Characters.Bots.Units
 {
-	public class PathFinder
+	public class BotNavigationUnit : MonoBehaviour, IBotPathFinder
 	{
 		#region facade
-
-		public PathFinder(ILevel level)
-		{
-			_level = level;
-			_level.Changed += OnLevelChanged;
-			
-			FetchLevel();
-		}
 
 		public Path FindPath(Vector2Int start, Vector2Int target)
 		{
@@ -32,18 +26,26 @@ namespace Baraboom.Game.Characters.Bots.Tools.PathFinder
 				return null;
 			}
 		}
-		
-		public void Dispose()
+
+		#endregion
+
+		#region interior
+
+		private ILevel _level;
+		private LevelDescriptor _descriptor;
+
+		private void Awake()
+		{
+			_level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
+			_level.Changed += OnLevelChanged;
+
+			FetchLevel();
+		}
+
+		private void OnDestroy()
 		{
 			_level.Changed -= OnLevelChanged;
 		}
-		
-		#endregion
-	
-		#region interior
-
-		private readonly ILevel _level;
-		private LevelDescriptor _descriptor;
 
 		private static float EuclideanHeuristic(BlockDescriptor a, BlockDescriptor b)
 		{
@@ -59,7 +61,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.PathFinder
 		{
 			FetchLevel();
 		}
-		
+
 		#endregion
 	}
 }

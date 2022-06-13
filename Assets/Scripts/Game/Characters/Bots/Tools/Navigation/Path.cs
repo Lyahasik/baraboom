@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Baraboom.Game.Characters.Bots.Tools
+namespace Baraboom.Game.Characters.Bots.Tools.Navigation
 {
 	public class Path : IEnumerable<Vector2Int>
 	{

@@ -1,6 +1,6 @@
 using System;
 using Baraboom.Game.Bombs;
-using Baraboom.Game.Characters.Bots;
+using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Level.Items;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.Extensions;

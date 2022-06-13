@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Baraboom.Game.Characters.Bots
+namespace Baraboom.Game.Characters.Bots.Protocols
 {
 	public interface IObservablePlayer
 	{

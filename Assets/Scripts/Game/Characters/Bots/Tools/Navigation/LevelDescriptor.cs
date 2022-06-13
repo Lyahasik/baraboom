@@ -6,7 +6,7 @@ using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
 
-namespace Baraboom.Game.Characters.Bots.Tools.PathFinder
+namespace Baraboom.Game.Characters.Bots.Tools.Navigation
 {
 	public class LevelDescriptor : AStar.IGraph<BlockDescriptor>
 	{
@@ -33,9 +33,9 @@ namespace Baraboom.Game.Characters.Bots.Tools.PathFinder
 					yield return neighbor;
 			}
 		}
-	
+
 		#endregion
-		
+
 		#region interior
 
 		private static IEnumerable<Vector2Int> NeighborsOffsets
@@ -48,7 +48,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.PathFinder
 				yield return Vector2Int.right;
 			}
 		}
-		
+
 		private readonly Dictionary<Vector2Int, BlockDescriptor> _blocksByPosition;
 
 		#endregion
