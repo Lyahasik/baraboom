@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Baraboom.Game.Tools
+namespace Baraboom.Game.Tools.DiscreteWorld
 {
 	[ExecuteInEditMode]
 	[RequireComponent(typeof(Transform))]
@@ -9,12 +9,15 @@ namespace Baraboom.Game.Tools
 	{
 		#region facade
 
+		public event Action DiscretePositionChanging;
+
 		public event Action DiscretePositionChanged;
 
 		public Vector3Int DiscretePosition
 		{
 			get
 			{
+				InitializeIfNeeded();
 				return _discretePosition;
 			}
 			set
@@ -30,16 +33,24 @@ namespace Baraboom.Game.Tools
 
 		[SerializeField] private Vector3Int _discretePosition;
 
-		private bool _discretePositionDirty;
+		private bool _isInitialized;
 
 		private void Awake()
 		{
-			_discretePosition = DiscreteTranslator.ToDiscrete(transform.position);
+			InitializeIfNeeded();
 		}
 
 		private void Update()
 		{
 			CheckPositionChange();
+		}
+
+		private void InitializeIfNeeded()
+		{
+			if (!_isInitialized)
+				_discretePosition = DiscreteTranslator.ToDiscrete(transform.position);
+
+			_isInitialized = true;
 		}
 
 		private void CheckPositionChange()
@@ -51,6 +62,7 @@ namespace Baraboom.Game.Tools
 			if (newDiscretePosition == _discretePosition)
 				return;
 
+			DiscretePositionChanging?.Invoke();
 			_discretePosition = newDiscretePosition;
 			DiscretePositionChanged?.Invoke();
 

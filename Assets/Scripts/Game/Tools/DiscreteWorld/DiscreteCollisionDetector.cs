@@ -1,58 +1,30 @@
-using System.Collections.Generic;
+using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Tools
 {
 	public class DiscreteCollisionDetector : MonoBehaviour
 	{
-		#region facade
-
-		public void RegisterCollider(DiscreteCollider collider)
-		{
-			_colliders.Add(collider);
-			_transforms.Add(collider.GetComponent<DiscreteTransform>());
-
-			collider.Destroyed += () =>
-			{
-				var index = _colliders.FindIndex(test => test == collider);
-				if (index == -1)
-				{
-					_logger.LogError("Collider not found");
-					return;
-				}
-
-				_colliders.RemoveAt(index);
-				_transforms.RemoveAt(index);
-			};
-		}
-
-		#endregion
-
-		#region interior
-
-		private Logger _logger;
-		private readonly List<DiscreteCollider> _colliders = new();
-		private readonly List<DiscreteTransform> _transforms = new();
+		private DiscreteColliderRegistry _colliderRegistry;
 
 		private void Awake()
 		{
-			_logger = Logger.For<DiscreteCollisionDetector>();
+			_colliderRegistry = GameObject.Find("DiscreteColliderRegistry").GetComponent<DiscreteColliderRegistry>();
 		}
 
 		private void FixedUpdate()
 		{
-			for (var i = 0; i < _colliders.Count; i++)
-			for (var j = i + 1; j < _colliders.Count; j++)
+			var colliders = _colliderRegistry.AllColliders;
+
+			for (var i = 0; i < colliders.Count; i++)
+			for (var j = i + 1; j < colliders.Count; j++)
 			{
-				if (_transforms[i].DiscretePosition != _transforms[j].DiscretePosition)
+				if (colliders[i].Transform.DiscretePosition != colliders[j].Transform.DiscretePosition)
 					continue;
 
-				_colliders[i].OnCollision(_colliders[j]);
-				_colliders[j].OnCollision(_colliders[i]);
+				colliders[i].gameObject.BroadcastMessage("OnDiscreteCollision", colliders[j], SendMessageOptions.DontRequireReceiver);
+				colliders[j].gameObject.BroadcastMessage("OnDiscreteCollision", colliders[i], SendMessageOptions.DontRequireReceiver);
 			}
 		}
-
-		#endregion
 	}
 }

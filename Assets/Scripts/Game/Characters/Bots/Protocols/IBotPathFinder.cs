@@ -5,6 +5,6 @@ namespace Baraboom.Game.Characters.Bots.Protocols
 {
 	public interface IBotPathFinder
 	{
-		Path FindPath(Vector2Int start, Vector2Int target);
+		Path FindPath(Vector3Int start, Vector3Int target);
 	}
 }

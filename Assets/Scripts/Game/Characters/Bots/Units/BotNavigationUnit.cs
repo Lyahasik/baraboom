@@ -2,8 +2,10 @@ using System.Linq;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Level;
+using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Units
 {
@@ -11,12 +13,18 @@ namespace Baraboom.Game.Characters.Bots.Units
 	{
 		#region facade
 
-		public Path FindPath(Vector2Int start, Vector2Int target)
+		public Path FindPath(Vector3Int start, Vector3Int target)
 		{
+			if (start.z != target.z)
+			{
+				_logger.LogError("Start and target position has different z value!");
+				return null;
+			}
+
 			try
 			{
-				var startBlock = _descriptor.GetBlock(start);
-				var targetBlock = _descriptor.GetBlock(target);
+				var startBlock = _descriptor.GetBlock(start.XY());
+				var targetBlock = _descriptor.GetBlock(target.XY());
 
 				var pathRaw = AStar.Solver.Solve(_descriptor, startBlock, targetBlock, EuclideanHeuristic);
 				return new Path(pathRaw.Select(block => block.Position));
@@ -31,11 +39,13 @@ namespace Baraboom.Game.Characters.Bots.Units
 
 		#region interior
 
+		private Logger _logger;
 		private ILevel _level;
 		private LevelDescriptor _descriptor;
 
 		private void Awake()
 		{
+			_logger = Logger.For<BotNavigationUnit>();
 			_level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
 			_level.Changed += OnLevelChanged;
 

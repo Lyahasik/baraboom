@@ -1,26 +1,27 @@
 using System;
 using UnityEngine;
 
-namespace Baraboom.Game.Tools
+namespace Baraboom.Game.Tools.DiscreteWorld
 {
 	[RequireComponent(typeof(DiscreteTransform))]
-	public class DiscreteCollider : MonoBehaviour
+	public sealed class DiscreteCollider : MonoBehaviour
 	{
 		#region facade
 
+		public DiscreteTransform Transform { get; private set; }
+
 		public event Action Destroyed;
 
-		public virtual void OnCollision(DiscreteCollider other)
-		{}
-
 		#endregion
-		
+
 		#region interior
 
-		protected virtual void Awake()
+		private void Awake()
 		{
-			var discreteCollisionDetector = GameObject.Find("DiscreteCollisionDetector").GetComponent<DiscreteCollisionDetector>(); // TODO Inject
-			discreteCollisionDetector.RegisterCollider(this);
+			Transform = GetComponent<DiscreteTransform>();
+
+			var discreteColliderRegistry = GameObject.Find("DiscreteColliderRegistry").GetComponent<DiscreteColliderRegistry>(); // TODO Inject
+			discreteColliderRegistry.RegisterCollider(this);
 		}
 
 		private void OnDestroy()

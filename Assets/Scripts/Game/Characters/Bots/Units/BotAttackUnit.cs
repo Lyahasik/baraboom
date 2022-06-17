@@ -1,14 +1,20 @@
 using Baraboom.Game.Characters.Bots.Protocols;
-using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.DiscreteWorld;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.Units
 {
-	public class BotAttackUnit : DiscreteCollider
+	[RequireComponent(typeof(DiscreteCollider))]
+	public class BotAttackUnit : MonoBehaviour
 	{
-		#region facade
+		[SerializeField] private int _damage;
+		[SerializeField] private float _pauseAfterSuccessfulAttack;
 
-		public override void OnCollision(DiscreteCollider other)
+		private bool _isPaused;
+
+		[UsedImplicitly]
+		private void OnDiscreteCollision(DiscreteCollider other)
 		{
 			if (_isPaused)
 				return;
@@ -21,15 +27,6 @@ namespace Baraboom.Game.Characters.Bots.Units
 			}
 		}
 
-		#endregion
-
-		#region interior
-
-		[SerializeField] private int _damage;
-		[SerializeField] private float _pauseAfterSuccessfulAttack;
-
-		private bool _isPaused;
-
 		private void Pause()
 		{
 			_isPaused = true;
@@ -40,7 +37,5 @@ namespace Baraboom.Game.Characters.Bots.Units
 		{
 			_isPaused = false;
 		}
-
-		#endregion
 	}
 }

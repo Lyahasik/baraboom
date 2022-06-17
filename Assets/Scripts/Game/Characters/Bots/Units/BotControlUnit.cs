@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Baraboom.Game.Characters.Bots.Protocols;
-using Baraboom.Game.Characters.Bots.States;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
@@ -17,7 +17,7 @@ namespace Baraboom.Game.Characters.Bots.Units
 	{
 		#region facade
 
-		Vector2Int IBotController.Position => _discreteTransform.DiscretePosition.XY();
+		Vector3Int IBotController.Position => _discreteTransform.DiscretePosition;
 
 		bool IBotController.IsMoving => _movementCoroutine != null;
 

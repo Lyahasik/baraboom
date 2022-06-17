@@ -1,4 +1,5 @@
 using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
 
 namespace Baraboom.Game.Level.Environment

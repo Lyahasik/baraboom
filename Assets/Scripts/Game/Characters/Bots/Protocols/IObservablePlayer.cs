@@ -8,6 +8,6 @@ namespace Baraboom.Game.Characters.Bots.Protocols
 	{
 		event Action PositionChanged;
 
-		Vector2Int Position { get; }
+		Vector3Int Position { get; }
 	}
 }

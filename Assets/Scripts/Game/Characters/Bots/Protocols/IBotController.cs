@@ -6,7 +6,7 @@ namespace Baraboom.Game.Characters.Bots.Protocols
 {
 	public interface IBotController
 	{
-		Vector2Int Position { get; }
+		Vector3Int Position { get; }
 
 		bool IsMoving { get; }
 

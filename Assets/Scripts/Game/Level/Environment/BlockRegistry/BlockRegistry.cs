@@ -25,13 +25,7 @@ namespace Baraboom.Game.Level.Environment
 		void IBlockRegistry.Register(Block block)
 		{
 			_blockAdded?.Invoke(block);
-			_logger.Log("Registered block {0} at {1}", block.GetType(), block.DiscretePosition);
-
-			block.Destroyed += () =>
-			{
-				_blockRemoved?.Invoke(block);
-				_logger.Log("Unregistered block {0} at {1}", block.GetType(), block.DiscretePosition);
-			};
+			block.Destroyed += () => _blockRemoved?.Invoke(block);
 		}
 
 		IEnumerator<Block> IEnumerable<Block>.GetEnumerator()
@@ -48,15 +42,9 @@ namespace Baraboom.Game.Level.Environment
 
 		#region interior
 
-		private Logger _logger;
 		private Action<Block> _blockAdded;
 		private Action<Block> _blockRemoved;
 		private readonly HashSet<Block> _blocks = new();
-
-		private void Awake()
-		{
-			_logger = Logger.For<BlockRegistry>();
-		}
 
 		#endregion
 	}

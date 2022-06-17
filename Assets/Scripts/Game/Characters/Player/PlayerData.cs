@@ -2,8 +2,7 @@ using System;
 using Baraboom.Game.Bombs;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Level.Items;
-using Baraboom.Game.Tools;
-using Baraboom.Game.Tools.Extensions;
+using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
@@ -83,9 +82,9 @@ namespace Baraboom.Game.Characters.Player
 			remove => GetComponent<DiscreteTransform>().DiscretePositionChanged -= value;
 		}
 
-		Vector2Int IObservablePlayer.Position
+		Vector3Int IObservablePlayer.Position
 		{
-			get => GetComponent<DiscreteTransform>().DiscretePosition.XY();
+			get => GetComponent<DiscreteTransform>().DiscretePosition;
 		}
 
 		#endregion

@@ -1,5 +1,4 @@
-using Baraboom.Game.Tools;
-using Baraboom.Game.Tools.Extensions;
+using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.Tools
@@ -9,7 +8,7 @@ namespace Baraboom.Game.Characters.Bots.Tools
 	{
 		#region facade
 
-		public Vector2Int Position => _discreteTransform.DiscretePosition.XY();
+		public Vector3Int Position => _discreteTransform.DiscretePosition;
 
 		public int BotId => _botId;
 

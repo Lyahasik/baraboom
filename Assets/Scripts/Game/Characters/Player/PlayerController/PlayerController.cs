@@ -3,6 +3,7 @@ using Baraboom.Game.Bombs;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
 using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using Logger = Baraboom.Game.Tools.Logging.Logger;

@@ -1,18 +1,21 @@
-using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.DiscreteWorld;
+using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Baraboom.Game.Level.Items
 {
-    public sealed class Item : DiscreteCollider
+    [RequireComponent(typeof(DiscreteCollider))]
+    public sealed class Item : MonoBehaviour
     {
         private IEffect _effect;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             _effect = GetComponent<IEffect>();
         }
 
-        public override void OnCollision(DiscreteCollider other)
+        [UsedImplicitly]
+        private void OnDiscreteCollision(DiscreteCollider other)
         {
             var recipient = other.GetComponent<IEffectRecipient>();
             if (recipient != null)

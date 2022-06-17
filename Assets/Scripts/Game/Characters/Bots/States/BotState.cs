@@ -48,7 +48,7 @@ namespace Baraboom.Game.Characters.Bots.States
 
 		protected bool IsBotMoving => _botController.IsMoving;
 
-		protected Vector2Int BotPosition => _botController.Position;
+		protected Vector3Int BotPosition => _botController.Position;
 
 		protected void MoveBot(Path path)
 		{

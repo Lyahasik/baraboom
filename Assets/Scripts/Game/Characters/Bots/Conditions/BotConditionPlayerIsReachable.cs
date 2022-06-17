@@ -10,11 +10,13 @@ namespace Baraboom.Game.Characters.Bots.Conditions
 		bool ICondition.Evaluate(IContext abstractContext)
 		{
 			var context = (BotStateMachineContext)abstractContext;
+			if (context.Player.IsNull())
+				return false;
 
-			var controls = context.BotProtocolResolver.Resolve<IBotController>();
+			var controller = context.BotProtocolResolver.Resolve<IBotController>();
 			var pathFinder = context.BotProtocolResolver.Resolve<IBotPathFinder>();
 
-			return pathFinder.FindPath(controls.Position, context.Player.Position) != null;
+			return pathFinder.FindPath(controller.Position, context.Player.Position) != null;
 		}
 	}
 }

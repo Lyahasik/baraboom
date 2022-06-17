@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7008746302868033443}
   - component: {fileID: 211363629623717907}
   - component: {fileID: 3973020638355175128}
+  - component: {fileID: 8929890986089879788}
+  - component: {fileID: 2100602042940920085}
   - component: {fileID: 7950115550607646928}
   - component: {fileID: 7397561901579553393}
-  - component: {fileID: 8929890986089879788}
   m_Layer: 0
   m_Name: SpeedBooster
   m_TagString: Untagged
@@ -86,6 +87,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8929890986089879788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580294130587174075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _discretePosition: {x: 0, y: 0, z: 0}
+--- !u!114 &2100602042940920085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580294130587174075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9769f0ca5c794154b40d26593e93c240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7950115550607646928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,16 +137,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _multiplier: 1.3
---- !u!114 &8929890986089879788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7580294130587174075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _discretePosition: {x: 0, y: 0, z: 0}
