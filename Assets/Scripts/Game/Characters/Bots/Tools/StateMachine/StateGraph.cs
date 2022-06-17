@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Baraboom.Game.Tools.Collections;
 using Baraboom.Game.Tools.Extensions;
 using Enumerable = System.Linq.Enumerable;
 
@@ -31,7 +32,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 				Condition = typeof(TCondition)
 			};
 
-			_transitions.GetOrInit(typeof(TSource)).Add(transitionDescription);
+			_transitions.Add(typeof(TSource), transitionDescription);
 			return this;
 		}
 
@@ -39,10 +40,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 
 		public IEnumerable<TransitionDescription> GetTransitions(Type stateType)
 		{
-			if (_transitions.TryGetValue(stateType, out var transitions))
-				return transitions;
-
-			return Enumerable.Empty<TransitionDescription>();
+			return _transitions.Get(stateType);
 		}
 
 		#endregion
@@ -50,7 +48,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 		#region interior
 
 		private readonly Type _initialState;
-		private readonly Dictionary<Type, List<TransitionDescription>> _transitions = new();
+		private readonly MultiDictionary<Type, TransitionDescription> _transitions = new();
 
 		private StateGraph(Type initialState)
 		{

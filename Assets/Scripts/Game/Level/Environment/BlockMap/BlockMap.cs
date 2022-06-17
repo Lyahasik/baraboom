@@ -33,7 +33,10 @@ namespace Baraboom.Game.Level.Environment
 		public void AddBlock(Block block)
 		{
 			var columnPosition = block.DiscretePosition.XY();
-			_columns.GetOrInit(columnPosition, () => new BlockColumn(columnPosition)).Add(block);
+
+			if (!_columns.TryGetValue(columnPosition, out var column))
+				column = _columns[columnPosition] = new BlockColumn(columnPosition);
+			column.Add(block);
 		}
 
 		public void RemoveBlock(Block block)
