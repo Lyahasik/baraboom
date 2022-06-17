@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Baraboom.Game.Tools.Extensions;
+using Baraboom.Game.Tools.Collections;
 using UnityEngine;
 
 namespace Baraboom.Game.Tools.DiscreteWorld
@@ -8,9 +8,9 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 	{
 		#region facade
 
-		public IReadOnlyList<DiscreteCollider> AllColliders => _colliders;
+		public IEnumerable<DiscreteCollider> AllColliders => _colliders;
 
-		public DiscreteCollider GetCollider(Vector3Int position)
+		public IEnumerable<DiscreteCollider> GetCollider(Vector3Int position)
 		{
 			return _collidersByPosition.Get(position);
 		}
@@ -18,22 +18,22 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 		public void RegisterCollider(DiscreteCollider collider)
 		{
 			_colliders.Add(collider);
-			_collidersByPosition[collider.Transform.DiscretePosition] = collider;
+			_collidersByPosition.Add(collider.Transform.DiscretePosition, collider);
 
 			collider.Transform.DiscretePositionChanging += () =>
 			{
-				_collidersByPosition.Remove(collider.Transform.DiscretePosition);
+				_collidersByPosition.RemoveValueByHint(collider.Transform.DiscretePosition, collider);
 			};
 
 			collider.Transform.DiscretePositionChanged += () =>
 			{
-				_collidersByPosition[collider.Transform.DiscretePosition] = collider;
+				_collidersByPosition.Add(collider.Transform.DiscretePosition, collider);
 			};
 
 			collider.Destroyed += () =>
 			{
 				_colliders.Remove(collider);
-				_collidersByPosition.Remove(collider.Transform.DiscretePosition);
+				_collidersByPosition.RemoveValueByHint(collider.Transform.DiscretePosition, collider);
 			};
 		}
 
@@ -42,7 +42,7 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 		#region interior
 
 		private readonly List<DiscreteCollider> _colliders = new();
-		private readonly Dictionary<Vector3Int, DiscreteCollider> _collidersByPosition = new();
+		private readonly MultiDictionary<Vector3Int, DiscreteCollider> _collidersByPosition = new();
 
 		#endregion
 	}

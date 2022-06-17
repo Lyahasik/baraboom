@@ -24,6 +24,12 @@ namespace Baraboom.Game.Tools.Collections
 			list.Add(value);
 		}
 
+		public void RemoveValueByHint(TKey hint, TValue value)
+		{
+			if (_data.TryGetValue(hint, out var list))
+				list.Remove(value);
+		}
+
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
 		{
 			foreach (var (key, list) in _data)
