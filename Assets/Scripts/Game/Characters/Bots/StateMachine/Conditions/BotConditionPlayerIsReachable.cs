@@ -2,12 +2,12 @@ using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using JetBrains.Annotations;
 
-namespace Baraboom.Game.Characters.Bots.Conditions
+namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 {
 	[UsedImplicitly]
 	public class BotConditionPlayerIsReachable : ICondition
 	{
-		bool ICondition.Evaluate(IContext abstractContext)
+		bool ICondition.Evaluate(Context abstractContext)
 		{
 			var context = (BotStateMachineContext)abstractContext;
 			if (context.Player.IsNull())

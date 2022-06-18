@@ -6,7 +6,7 @@ using Baraboom.Game.Tools.Collections;
 using Baraboom.Game.Tools.Extensions;
 using JetBrains.Annotations;
 
-namespace Baraboom.Game.Characters.Bots.States
+namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
 	[UsedImplicitly]
 	public class BotStateRoaming : BotState
@@ -26,7 +26,8 @@ namespace Baraboom.Game.Characters.Bots.States
 				throw new StateMachineException("Initial reachable way point is not found.");
 
 			_wayPointIterator = new BouncingIterator<WayPoint>(_wayPoints, closestWayPointIndex);
-			MoveBot(pathToClosestWayPoint);
+			if (!IsBotMoving)
+				MoveBot(pathToClosestWayPoint);
 		}
 
 		protected override void OnUpdated()

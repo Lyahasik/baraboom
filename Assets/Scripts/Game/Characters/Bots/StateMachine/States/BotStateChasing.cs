@@ -1,6 +1,6 @@
 using JetBrains.Annotations;
 
-namespace Baraboom.Game.Characters.Bots.States
+namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
 	[UsedImplicitly]
 	public class BotStateChasing : BotState

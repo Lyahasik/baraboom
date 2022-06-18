@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 1956517959367536719}
   - component: {fileID: 3797998543392183235}
   - component: {fileID: 7030506883671096481}
+  - component: {fileID: 5840477643562870336}
   - component: {fileID: -2238918492452312145}
-  - component: {fileID: 6282468859939074635}
   - component: {fileID: 1956517959367536707}
   - component: {fileID: 6625451040889547091}
+  - component: {fileID: 6345098617098366090}
   m_Layer: 0
-  m_Name: Bot
+  m_Name: Bot Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,6 +115,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9769f0ca5c794154b40d26593e93c240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5840477643562870336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956517959367536716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47ebd4e369b5483e89a0526d7446363b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _context: {fileID: 11400000, guid: ef05470e1581f45e1b7fa5c96dd6b1fc, type: 2}
+  _graph: {fileID: 0}
 --- !u!114 &-2238918492452312145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,18 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _baseHealth: 3
---- !u!114 &6282468859939074635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956517959367536716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ffa060167774ba9886a8fc3a0fbe8a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1956517959367536707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stepDuration: 0.45
-  _pauseBetweenSteps: 0.5
   _botId: -1
 --- !u!114 &6625451040889547091
 MonoBehaviour:
@@ -168,3 +170,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 1
   _pauseAfterSuccessfulAttack: 3
+--- !u!114 &6345098617098366090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956517959367536716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9aefb5a32924be8984a44d17b675540, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

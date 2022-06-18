@@ -5,13 +5,13 @@ using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using Baraboom.Game.Level;
 using UnityEngine;
 
-namespace Baraboom.Game.Characters.Bots.States
+namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
 	public abstract class BotState : IState
 	{
 		#region facade
 
-		void IState.Initialize(IContext abstractContext)
+		void IState.Initialize(Context abstractContext)
 		{
 			var context = (BotStateMachineContext)abstractContext;
 

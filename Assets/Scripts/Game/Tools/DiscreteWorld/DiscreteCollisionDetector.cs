@@ -1,3 +1,4 @@
+using System.Linq;
 using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
 
@@ -14,10 +15,10 @@ namespace Baraboom.Game.Tools
 
 		private void FixedUpdate()
 		{
-			var colliders = _colliderRegistry.AllColliders;
+			var colliders = _colliderRegistry.AllColliders.ToArray();
 
-			for (var i = 0; i < colliders.Count; i++)
-			for (var j = i + 1; j < colliders.Count; j++)
+			for (var i = 0; i < colliders.Length; i++)
+			for (var j = i + 1; j < colliders.Length; j++)
 			{
 				if (colliders[i].Transform.DiscretePosition != colliders[j].Transform.DiscretePosition)
 					continue;

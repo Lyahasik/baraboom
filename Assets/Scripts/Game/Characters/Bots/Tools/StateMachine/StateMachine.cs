@@ -6,36 +6,25 @@ using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {
-	public abstract class StateMachine : MonoBehaviour
+	public sealed class StateMachine : MonoBehaviour
 	{
-		#region facade
-
-		protected abstract IContext Context { get; }
-
-		protected abstract StateGraph Graph { get;  }
-
-		#endregion
-
-		#region interior
+		[SerializeReference] private Context _context;
+		[SerializeReference] private StateGraph _graph;
 
 		private Logger _logger;
 		private IState _current;
-		private IContext _context;
-		private StateGraph _graph;
 		private readonly Dictionary<Type, ICondition> _conditions = new();
 
 		private void Awake()
 		{
 			_logger = Logger.For<StateMachine>();
+			_context.Initialize(gameObject);
 		}
 
 		private IEnumerator Start()
 		{
-			_context = Context;
-			_graph = Graph;
-
 			yield return null; // TODO Remove this hack
-			SwitchState(Graph.InitialState);
+			SwitchState(_graph.InitialState);
 		}
 
 		private void OnDestroy()
@@ -54,7 +43,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 
 			foreach (var transition in _graph.GetTransitions(_current.GetType()))
 			{
-				if (EvaluateCondition(transition.Condition))
+				if (EvaluateCondition(transition))
 				{
 					SwitchState(transition.TargetState);
 					break;
@@ -116,15 +105,19 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			}
 		}
 
-		private bool EvaluateCondition(Type conditionType)
+		private bool EvaluateCondition(StateGraph.TransitionDescription transition)
 		{
 			try
 			{
-				return GetOrInstantiateCondition(conditionType)?.Evaluate(_context) ?? false;
+				var condition = GetOrInstantiateCondition(transition.Condition);
+				if (condition == null)
+					return false;
+
+				return condition.Evaluate(_context) ^ transition.Negate;
 			}
 			catch (StateMachineException exception)
 			{
-				_logger.LogError("Couldn't evaluate condition {0}: {1}", conditionType, exception);
+				_logger.LogError("Couldn't evaluate condition {0}: {1}", transition.Condition, exception);
 				return false;
 			}
 		}
@@ -157,7 +150,5 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 				return null;
 			}
 		}
-
-		#endregion
 	}
 }

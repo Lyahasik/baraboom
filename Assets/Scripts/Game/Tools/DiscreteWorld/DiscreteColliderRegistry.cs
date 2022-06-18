@@ -10,7 +10,7 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 
 		public IEnumerable<DiscreteCollider> AllColliders => _colliders;
 
-		public IEnumerable<DiscreteCollider> GetCollider(Vector3Int position)
+		public IEnumerable<DiscreteCollider> GetColliders(Vector3Int position)
 		{
 			return _collidersByPosition.Get(position);
 		}
