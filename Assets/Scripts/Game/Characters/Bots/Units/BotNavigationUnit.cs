@@ -48,11 +48,13 @@ namespace Baraboom.Game.Characters.Bots.Units
 		private void Awake()
 		{
 			_logger = Logger.For<BotNavigationUnit>();
-			_level.Changed += OnLevelChanged;
 		}
 
 		private void Start()
 		{
+			// Level fetching is costly operation, so we started fetching only after level is completely initialized.
+			_level.Changed += OnLevelChanged;
+
 			FetchLevel();
 		}
 
