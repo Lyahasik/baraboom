@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
@@ -10,6 +11,9 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 	[RequireComponent(typeof(StateGraph))]
 	public sealed class StateMachine : MonoBehaviour
 	{
+		[Inject] private IConditionFactory _conditionFactory;
+		[Inject] private IStateFactory _stateFactory;
+
 		private Logger _logger;
 		private IContext _context;
 		private StateGraph _graph;
@@ -131,7 +135,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 		{
 			try
 			{
-				return (IState)Activator.CreateInstance(type);
+				return _stateFactory.Instantiate(type);
 			}
 			catch (Exception exception)
 			{
@@ -147,7 +151,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 
 			try
 			{
-				return _conditions[type] = (ICondition)Activator.CreateInstance(type);
+				return _conditions[type] = _conditionFactory.Instantiate(type);
 			}
 			catch (Exception exception)
 			{

@@ -4,6 +4,7 @@ using System.Linq;
 using Baraboom.Game.Tools.Algorithms.Bresenham;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Tools.DiscreteWorld
 {
@@ -27,12 +28,7 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 
 		#region interior
 
-		private DiscreteColliderRegistry _colliderRegistry;
-
-		private void Awake()
-		{
-			_colliderRegistry = GameObject.Find("DiscreteColliderRegistry").GetComponent<DiscreteColliderRegistry>();
-		}
+		[Inject] private DiscreteColliderRegistry _colliderRegistry;
 
 		#endregion
 	}

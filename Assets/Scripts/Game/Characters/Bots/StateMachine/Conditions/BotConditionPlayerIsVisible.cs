@@ -1,22 +1,19 @@
 using System.Linq;
 using Baraboom.Game.Characters.Bots.Protocols;
-using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using Baraboom.Game.Tools.DiscreteWorld;
 using JetBrains.Annotations;
-using UnityEngine;
+using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 {
 	[UsedImplicitly]
-	public class BotConditionPlayerIsVisible : ICondition
+	public class BotConditionPlayerIsVisible : BotCondition
 	{
-		bool ICondition.Evaluate(IContext abstractContext)
-		{
-			return false;
-			var rayCaster = GameObject.Find("DiscreteRayCaster").GetComponent<DiscreteRayCaster>(); // TODO Inject
+		[Inject] private DiscreteRayCaster _rayCaster;
 
-			var context = (BotStateMachineContext)abstractContext;
+		protected override bool Evaluate(BotStateMachineContext context)
+		{
 			if (context.Player.IsNull())
 				return false;
 
@@ -26,7 +23,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 			if (botPosition == playerPosition)
 				return true;
 
-			var colliders = rayCaster.CastRay2D(botPosition, playerPosition).ToArray();
+			var colliders = _rayCaster.CastRay2D(botPosition, playerPosition).ToArray();
 			if (colliders.Length == 0)
 			{
 				Logger.For<BotConditionPlayerIsVisible>().LogWarning("Ray haven't collided with any entity!");
