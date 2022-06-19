@@ -4,6 +4,7 @@ using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Level;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
+using Zenject;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
@@ -39,14 +40,14 @@ namespace Baraboom.Game.Characters.Bots.Units
 
 		#region interior
 
+		[Inject] private ILevel _level;
+
 		private Logger _logger;
-		private ILevel _level;
 		private LevelDescriptor _descriptor;
 
 		private void Awake()
 		{
 			_logger = Logger.For<BotNavigationUnit>();
-			_level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
 			_level.Changed += OnLevelChanged;
 		}
 

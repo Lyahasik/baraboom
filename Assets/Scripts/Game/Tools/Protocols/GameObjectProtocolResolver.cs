@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Baraboom.Game.Tools.Protocols
 {
+	// TODO Inject
 	public class GameObjectProtocolResolver : IProtocolResolver
 	{
 		#region facade

@@ -1,17 +1,13 @@
 using System.Linq;
 using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Tools
 {
 	public class DiscreteCollisionDetector : MonoBehaviour
 	{
-		private DiscreteColliderRegistry _colliderRegistry;
-
-		private void Awake()
-		{
-			_colliderRegistry = GameObject.Find("DiscreteColliderRegistry").GetComponent<DiscreteColliderRegistry>();
-		}
+		[Inject] private DiscreteColliderRegistry _colliderRegistry;
 
 		private void FixedUpdate()
 		{

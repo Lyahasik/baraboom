@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Tools.DiscreteWorld
 {
@@ -16,12 +17,12 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 
 		#region interior
 
+		[Inject] private DiscreteColliderRegistry _colliderRegistry;
+
 		private void Awake()
 		{
 			Transform = GetComponent<DiscreteTransform>();
-
-			var discreteColliderRegistry = GameObject.Find("DiscreteColliderRegistry").GetComponent<DiscreteColliderRegistry>(); // TODO Inject
-			discreteColliderRegistry.RegisterCollider(this);
+			_colliderRegistry.RegisterCollider(this);
 		}
 
 		private void OnDestroy()

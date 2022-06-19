@@ -6,6 +6,7 @@ using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
+using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Player
@@ -15,9 +16,10 @@ namespace Baraboom.Game.Characters.Player
     {
         [SerializeField] private float _stepDuration;
 
+        [Inject] private ILevel _level;
+
         private Logger _logger;
         private DiscreteTransform _discreteTransform;
-        private ILevel _level;
         private IControllablePlayer _controllablePlayer;
         private IBombSpawner _bombSpawner;
         private bool _isInAnimation;
@@ -34,8 +36,6 @@ namespace Baraboom.Game.Characters.Player
 
             _bombSpawner = FindObjectOfType<BombSpawner>();
             _bombSpawner.BombExploded += _controllablePlayer.RemovePlantedBomb;
-
-            _level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Injection
         }
 
         private void Update()

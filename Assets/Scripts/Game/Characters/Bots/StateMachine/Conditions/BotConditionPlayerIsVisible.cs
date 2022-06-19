@@ -13,6 +13,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 	{
 		bool ICondition.Evaluate(IContext abstractContext)
 		{
+			return false;
 			var rayCaster = GameObject.Find("DiscreteRayCaster").GetComponent<DiscreteRayCaster>(); // TODO Inject
 
 			var context = (BotStateMachineContext)abstractContext;

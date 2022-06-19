@@ -8,6 +8,7 @@ using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
+using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Units
@@ -59,11 +60,16 @@ namespace Baraboom.Game.Characters.Bots.Units
 		private bool _isStopRequested;
 		private Action _onStopped;
 
+		[Inject]
+		private void Initialize(WayPointProvider wayPointProvider)
+		{
+			_wayPoints = wayPointProvider.GetWayPoints(_botId).ToArray();
+		}
+
 		private void Awake()
 		{
 			_logger = Logger.For<BotControlUnit>();
 			_discreteTransform = GetComponent<DiscreteTransform>();
-			_wayPoints = WayPointCollector.Collect(_botId).ToArray();
 		}
 
 		private IEnumerator MovementRoutine(IEnumerable<Vector2Int> path)

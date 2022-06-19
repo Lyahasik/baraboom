@@ -1,6 +1,7 @@
 using System;
 using Baraboom.Game.Level.Environment;
 using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Level
 {
@@ -23,13 +24,13 @@ namespace Baraboom.Game.Level
 
 		#region interior
 
-		private IBlockRegistry _blockRegistry;
+		[Inject] private IBlockRegistry _blockRegistry;
+
 		private Action _changed;
 		private readonly BlockMap _map = new();
 
 		private void Awake()
 		{
-			_blockRegistry = GetComponent<IBlockRegistry>(); // TODO Inject
 			_blockRegistry.BlockAdded += OnBlockAdded;
 			_blockRegistry.BlockRemoved += OnBlockRemoved;
 

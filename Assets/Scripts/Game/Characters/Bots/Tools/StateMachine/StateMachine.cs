@@ -24,8 +24,11 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			_graph = GetComponent<StateGraph>();
 		}
 
-		private void Start()
+		private IEnumerator Start()
 		{
+			// Wait one frame for other components to initialize.
+			yield return null;
+
 			SwitchState(_graph.InitialState);
 		}
 

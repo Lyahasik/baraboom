@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Level.Items
 {
@@ -23,13 +24,7 @@ namespace Baraboom.Game.Level.Items
 		#region interior
 
 		[SerializeField] private float _probability;
-
-		private ItemStore _store;
-
-		private void Awake()
-		{
-			_store = GameObject.Find("ItemStore").GetComponent<ItemStore>(); // TODO Injection
-		}
+		[Inject] private ItemStore _store;
 
 		#endregion
 	}

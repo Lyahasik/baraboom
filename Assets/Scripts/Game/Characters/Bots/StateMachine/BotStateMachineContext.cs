@@ -3,15 +3,19 @@ using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using Baraboom.Game.Level;
 using Baraboom.Game.Tools.Protocols;
 using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine
 {
+	// TODO Inject
 	public class BotStateMachineContext : MonoBehaviour, IContext
 	{
 		#region facade
 
+		[Inject]
 		public ILevel Level { get; private set; }
 
+		[Inject]
 		public IObservablePlayer Player { get; private set; }
 
 		public IProtocolResolver BotProtocolResolver { get; private set; }
@@ -22,8 +26,6 @@ namespace Baraboom.Game.Characters.Bots.StateMachine
 
 		private void Awake()
 		{
-			Level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
-			Player = GameObject.Find("Player").GetComponent<IObservablePlayer>(); // TODO Inject
 			BotProtocolResolver = new GameObjectProtocolResolver(gameObject);
 		}
 
