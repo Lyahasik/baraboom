@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Enumerable = Baraboom.Game.Tools.Extensions.Enumerable;
+using Baraboom.Game.Tools.Extensions;
 
 namespace Baraboom.Game.Tools.Algorithms.AStar
 {
@@ -26,7 +26,7 @@ namespace Baraboom.Game.Tools.Algorithms.AStar
 
 		public IEnumerable<TNode> Path
 		{
-			get => Enumerable.Flatten(this, node => node._parent).Reverse().Select(wrap => wrap._node);
+			get => ExtensionEnumerable.Flatten(this, node => node._parent).Reverse().Select(wrap => wrap._node);
 		}
 
 		public override string ToString()
