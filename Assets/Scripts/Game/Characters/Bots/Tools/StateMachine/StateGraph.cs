@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {
-	public abstract class StateGraph : ScriptableObject
+	public abstract class StateGraph : MonoBehaviour
 	{
 		#region facade
 

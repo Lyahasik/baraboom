@@ -6,19 +6,22 @@ using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {
+	[RequireComponent(typeof(IContext))]
+	[RequireComponent(typeof(StateGraph))]
 	public sealed class StateMachine : MonoBehaviour
 	{
-		[SerializeReference] private Context _context;
-		[SerializeReference] private StateGraph _graph;
-
 		private Logger _logger;
+		private IContext _context;
+		private StateGraph _graph;
 		private IState _current;
 		private readonly Dictionary<Type, ICondition> _conditions = new();
 
 		private void Awake()
 		{
 			_logger = Logger.For<StateMachine>();
-			_context.Initialize(gameObject);
+
+			_context = GetComponent<IContext>();
+			_graph = GetComponent<StateGraph>();
 		}
 
 		private IEnumerator Start()

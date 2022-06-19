@@ -7,7 +7,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 	[UsedImplicitly]
 	public class BotConditionPlayerIsReachable : ICondition
 	{
-		bool ICondition.Evaluate(Context abstractContext)
+		bool ICondition.Evaluate(IContext abstractContext)
 		{
 			var context = (BotStateMachineContext)abstractContext;
 			if (context.Player.IsNull())

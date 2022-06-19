@@ -11,7 +11,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 	[UsedImplicitly]
 	public class BotConditionPlayerIsVisible : ICondition
 	{
-		bool ICondition.Evaluate(Context abstractContext)
+		bool ICondition.Evaluate(IContext abstractContext)
 		{
 			var rayCaster = GameObject.Find("DiscreteRayCaster").GetComponent<DiscreteRayCaster>(); // TODO Inject
 

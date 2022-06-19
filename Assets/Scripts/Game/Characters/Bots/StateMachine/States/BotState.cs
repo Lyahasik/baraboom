@@ -11,7 +11,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 	{
 		#region facade
 
-		void IState.Initialize(Context abstractContext)
+		void IState.Initialize(IContext abstractContext)
 		{
 			var context = (BotStateMachineContext)abstractContext;
 

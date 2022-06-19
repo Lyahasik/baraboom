@@ -6,20 +6,27 @@ using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine
 {
-	[CreateAssetMenu(fileName = "BotStateMachineContext", menuName = "Baraboom/Bot/Context")]
-	public class BotStateMachineContext : Context
+	public class BotStateMachineContext : MonoBehaviour, IContext
 	{
-		public override void Initialize(GameObject @object)
-		{
-			Level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
-			Player = GameObject.Find("Player").GetComponent<IObservablePlayer>(); // TODO Inject
-			BotProtocolResolver = new GameObjectProtocolResolver(@object);
-		}
+		#region facade
 
 		public ILevel Level { get; private set; }
 
 		public IObservablePlayer Player { get; private set; }
 
 		public IProtocolResolver BotProtocolResolver { get; private set; }
+
+		#endregion
+
+		#region interior
+
+		private void Awake()
+		{
+			Level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
+			Player = GameObject.Find("Player").GetComponent<IObservablePlayer>(); // TODO Inject
+			BotProtocolResolver = new GameObjectProtocolResolver(gameObject);
+		}
+
+		#endregion
 	}
 }
