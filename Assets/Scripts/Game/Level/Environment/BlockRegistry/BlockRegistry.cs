@@ -24,8 +24,14 @@ namespace Baraboom.Game.Level.Environment
 
 		void IBlockRegistry.Register(Block block)
 		{
+			_blocks.Add(block);
 			_blockAdded?.Invoke(block);
-			block.Destroyed += () => _blockRemoved?.Invoke(block);
+
+			block.Destroyed += () =>
+			{
+				_blocks.Remove(block);
+				_blockRemoved?.Invoke(block);
+			};
 		}
 
 		IEnumerator<Block> IEnumerable<Block>.GetEnumerator()

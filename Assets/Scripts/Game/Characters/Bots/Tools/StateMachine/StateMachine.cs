@@ -24,9 +24,8 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			_graph = GetComponent<StateGraph>();
 		}
 
-		private IEnumerator Start()
+		private void Start()
 		{
-			yield return null; // Wait one frame for all block to register self. TODO Remove the hack.
 			SwitchState(_graph.InitialState);
 		}
 

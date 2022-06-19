@@ -20,7 +20,7 @@ namespace Baraboom.Game.Level
 		}
 
 		#endregion
-		
+
 		#region interior
 
 		private IBlockRegistry _blockRegistry;
@@ -48,7 +48,7 @@ namespace Baraboom.Game.Level
 			_map.AddBlock(block);
 			_changed?.Invoke();
 		}
-		
+
 		private void OnBlockRemoved(Block block)
 		{
 			_map.RemoveBlock(block);

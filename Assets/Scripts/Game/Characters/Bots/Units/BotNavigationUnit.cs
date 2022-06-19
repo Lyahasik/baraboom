@@ -48,7 +48,10 @@ namespace Baraboom.Game.Characters.Bots.Units
 			_logger = Logger.For<BotNavigationUnit>();
 			_level = GameObject.Find("Level").GetComponent<ILevel>(); // TODO Inject
 			_level.Changed += OnLevelChanged;
+		}
 
+		private void Start()
+		{
 			FetchLevel();
 		}
 

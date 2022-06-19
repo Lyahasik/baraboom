@@ -20,10 +20,6 @@ namespace Baraboom.Game.Level.Environment
 		protected virtual void Awake()
 		{
 			_discreteTransform = GetComponent<DiscreteTransform>();
-		}
-
-		protected virtual void Start()
-		{
 			GameObject.Find("Level").GetComponent<IBlockRegistry>().Register(this);
 		}
 

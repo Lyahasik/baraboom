@@ -39,10 +39,8 @@ namespace Baraboom.Game.Bombs
 			_logger = Logger.For<Bomb>();
 		}
 
-		protected override void Start()
+		private void Start()
 		{
-			base.Start();
-
 			_logger.Log("Spawned at {0}", DiscretePosition);
 			Invoke(nameof(Explode), _delay);
 		}
