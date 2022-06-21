@@ -50,7 +50,7 @@ namespace Baraboom.Game.Tools.Logging
 		private Logger(Type hostType)
 		{
 			_hostTypeName = hostType.FullName;
-			_isLogged = ILoggingSettings.Instance.ShouldLogEntity(_hostTypeName);
+			_isLogged = LoggingSettings.Instance.ShouldLogEntity(_hostTypeName);
 		}
 
 		#endregion

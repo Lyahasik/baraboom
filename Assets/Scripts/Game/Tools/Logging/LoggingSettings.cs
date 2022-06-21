@@ -4,11 +4,22 @@ using UnityEngine;
 namespace Baraboom.Game.Tools.Logging
 {
 	[CreateAssetMenu(fileName = "LoggingSettings", menuName = "Baraboom/LoggingSettings", order = 1)]
-	public class LoggingSettings : ScriptableObject, ILoggingSettings
+	public class LoggingSettings : ScriptableObject
 	{
 		#region facade
 
-		bool ILoggingSettings.ShouldLogEntity(string entity)
+		public static LoggingSettings Instance
+		{
+			get
+			{
+				if (_instance == null)
+					_instance = Resources.Load<LoggingSettings>("Logging");
+
+				return _instance;
+			}
+		}
+
+		public bool ShouldLogEntity(string entity)
 		{
 			if (!_enabled)
 				return false;
@@ -21,6 +32,8 @@ namespace Baraboom.Game.Tools.Logging
 		#endregion
 
 		#region interior
+
+		private static LoggingSettings _instance;
 
 		[SerializeField] private bool _enabled;
 		[SerializeField] private string[] _excludedDomains;
