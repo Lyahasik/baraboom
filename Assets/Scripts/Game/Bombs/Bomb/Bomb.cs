@@ -1,22 +1,27 @@
 using System;
 using Baraboom.Game.Level.Environment;
 using UnityEngine;
+using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Object = UnityEngine.Object;
 
 namespace Baraboom.Game.Bombs
 {
-	public class Bomb : Block, IBomb
+	public class Bomb : Block
 	{
 		#region facade
 
-		event Action IBomb.Exploded
+		public event Action Exploded;
+
+		public int Damage
 		{
-			add => _exploded += value;
-			remove => _exploded -= value;
+			set => _damage = value;
 		}
 
-		int IBomb.Damage {  set => _damage = value; }
-		int IBomb.Range {  set => _range = value; }
+		public int Range
+		{
+			set => _range = value;
+		}
 
 		#endregion
 
@@ -25,8 +30,9 @@ namespace Baraboom.Game.Bombs
 		[SerializeField] private GameObject _explosionPrefab;
 		[SerializeField] private float _delay;
 
+		[Inject] private IFactory<Object, Vector3, Explosion> _explosionFactory;
+
 		private Logger _logger;
-		private Action _exploded;
 		private float _timeExplosion;
 		private int _range;
 		private int _damage;
@@ -48,13 +54,11 @@ namespace Baraboom.Game.Bombs
 		{
 			_logger.Log("Exploding at {0}", DiscretePosition);
 
-			var explosionObject = Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-
-			var explosion = explosionObject.GetComponent<IExplosion>();
+			var explosion = _explosionFactory.Create(_explosionPrefab, transform.position);
 			explosion.Damage = _damage;
 			explosion.Range = _range;
 
-			_exploded?.Invoke();
+			Exploded?.Invoke();
 			Destroy(gameObject);
 		}
 

@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
-using Logger = Baraboom.Game.Tools.Logging.Logger; 
+using Zenject;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Object = UnityEngine.Object;
 
 namespace Baraboom.Game.Bombs
 {
@@ -22,9 +24,7 @@ namespace Baraboom.Game.Bombs
         {
             _logger.Log("Spawning bomb at {0}", position);
 
-            var bombObject = Instantiate(_bombPrefab, position, Quaternion.identity);
-            var bomb = bombObject.GetComponent<IBomb>();
-
+            var bomb = _factory.Create(_bombPrefab, position);
             bomb.Exploded += () => _bombExploded?.Invoke();
             bomb.Damage = _damage;
             bomb.Range = _range;
@@ -35,6 +35,8 @@ namespace Baraboom.Game.Bombs
         #region interior
 
         [SerializeField] private GameObject _bombPrefab;
+
+        [Inject] private IFactory<Object, Vector3, Bomb> _factory;
 
         private Logger _logger;
         private Action _bombExploded;

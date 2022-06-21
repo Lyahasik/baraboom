@@ -1,14 +1,21 @@
 using UnityEngine;
-using Baraboom.Game.Tools.Extensions;
+using Zenject;
 
 namespace Baraboom.Game.Bombs
 {
-    public class Explosion : MonoBehaviour, IExplosion
+    public class Explosion : MonoBehaviour
     {
         #region facade
 
-        int IExplosion.Damage { set => _damage = value; }
-        int IExplosion.Range { set => _range = value; }
+        public int Damage
+        {
+            set => _damage = value;
+        }
+
+        public int Range
+        {
+            set => _range = value;
+        }
 
         #endregion
 
@@ -16,7 +23,9 @@ namespace Baraboom.Game.Bombs
 
         [SerializeField] private GameObject _explosionUnitPrefab;
         [SerializeField] private float _explosionUnitGap;
-        
+
+        [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
+
         private int _damage;
         private int _range;
 
@@ -38,12 +47,6 @@ namespace Baraboom.Game.Bombs
                 Vector3.down
             };
 
-            void GenerateExplosionUnit(Vector3 position)
-            {
-                var effect = Instantiate(_explosionUnitPrefab, position, Quaternion.identity);
-                effect.GetComponent<ExplosionUnit>().Damage = _damage;
-            }
-
             foreach (var direction in directions)
             {
                 var waveObject = new GameObject("Explosion Wave");
@@ -54,6 +57,12 @@ namespace Baraboom.Game.Bombs
                 wave.Length = _range + 1;
                 wave.ExplosionGenerator = GenerateExplosionUnit;
                 wave.ExplosionUnitGap = _explosionUnitGap;
+            }
+
+            void GenerateExplosionUnit(Vector3 position)
+            {
+                var unit = _explosionUnitFactory.Create(_explosionUnitPrefab, position);
+                unit.Damage = _damage;
             }
         }
     }

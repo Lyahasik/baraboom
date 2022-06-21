@@ -1,3 +1,4 @@
+using Baraboom.Game.Bombs;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Player;
@@ -5,8 +6,10 @@ using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
 using Baraboom.Game.Level.Items;
 using Baraboom.Game.Tools;
+using Baraboom.Game.Tools.DI;
 using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
+using UnityEngine;
 using Zenject;
 
 namespace Baraboom.Game
@@ -65,6 +68,15 @@ namespace Baraboom.Game
 			Container.Bind(typeof(IObservablePlayer), typeof(IControllablePlayer))
 			         .FromComponentInHierarchy()
 			         .AsSingle();
+
+			Container.BindIFactory<Object, Vector3, Bomb>()
+			         .FromFactory<PrefabFactoryWithPosition<Bomb>>();
+
+			Container.BindIFactory<Object, Vector3, Explosion>()
+			         .FromFactory<PrefabFactoryWithPosition<Explosion>>();
+
+			Container.BindIFactory<Object, Vector3, ExplosionUnit>()
+			         .FromFactory<PrefabFactoryWithPosition<ExplosionUnit>>();
 		}
 
 		private void InstallBot()
