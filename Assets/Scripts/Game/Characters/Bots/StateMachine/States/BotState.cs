@@ -4,6 +4,7 @@ using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using Baraboom.Game.Level;
 using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
@@ -11,19 +12,11 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 	{
 		#region facade
 
-		void IState.Initialize(IContext abstractContext)
+		void IState.Initialize()
 		{
-			var context = (BotStateMachineContext)abstractContext;
-
-			PathFinder = context.BotProtocolResolver.Resolve<IBotPathFinder>();
-			Player = context.Player;
-
-			_level = context.Level;
-			_botController = context.BotProtocolResolver.Resolve<IBotController>();
-
 			_level.Changed += OnLevelChanged;
 
-			OnInitialized(context);
+			OnInitialized();
 		}
 
 		void IState.Deinitialize()
@@ -42,8 +35,10 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		#region extension
 
+		[Inject]
 		protected IBotPathFinder PathFinder { get; private set; }
 
+		[Inject]
 		protected IObservablePlayer Player { get; private set; }
 
 		protected bool IsBotMoving => _botController.IsMoving;
@@ -60,7 +55,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 			_botController.RequestStop(onStopped);
 		}
 
-		protected virtual void OnInitialized(BotStateMachineContext context) {}
+		protected virtual void OnInitialized() {}
 
 		protected virtual void OnDeinitialized() {}
 
@@ -72,9 +67,8 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		#region interior
 
-		private ILevel _level;
-		private IBotController _botController;
-		private IBotPathFinder _pathFinder;
+		[Inject] private ILevel _level;
+		[Inject] private IBotController _botController;
 
 		#endregion
 	}

@@ -1,3 +1,4 @@
+using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.StateMachine;
 using Baraboom.Game.Characters.Bots.StateMachine.Conditions;
 using Baraboom.Game.Characters.Bots.StateMachine.States;
@@ -15,6 +16,7 @@ namespace Baraboom.Game.Characters.Bots
 			InstallConditions();
 			InstallStates();
 			InstallFactories();
+			InstallComponents();
 		}
 
 		#endregion
@@ -38,6 +40,13 @@ namespace Baraboom.Game.Characters.Bots
 		{
 			Container.Bind<IConditionFactory>().To<BotConditionFactory>().AsSingle();
 			Container.Bind<IStateFactory>().To<BotStateFactory>().AsSingle();
+		}
+
+		private void InstallComponents()
+		{
+			Container.Bind<IBotController>().FromMethod(GetComponent<IBotController>).AsSingle();
+			Container.Bind<IBotPathFinder>().FromMethod(GetComponent<IBotPathFinder>).AsSingle();
+			Container.Bind<IRoamingData>().FromMethod(GetComponent<IRoamingData>).AsSingle();
 		}
 
 		#endregion

@@ -7,7 +7,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 	{
 		#region facade
 
-		protected override void OnInitialized(BotStateMachineContext _)
+		protected override void OnInitialized()
 		{
 			Player.PositionChanged += OnPlayerPositionChanged;
 

@@ -10,14 +10,12 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {
 	public sealed class StateMachine : MonoBehaviour
 	{
-		[SerializeField, Inherits(typeof(IContext))] private TypeReference _contextScript;
 		[SerializeField, Inherits(typeof(StateGraph))] private TypeReference _graphScript;
 
 		[Inject] private IConditionFactory _conditionFactory;
 		[Inject] private IStateFactory _stateFactory;
 
 		private Logger _logger;
-		private IContext _context;
 		private StateGraph _graph;
 		private IState _current;
 		private readonly Dictionary<Type, ICondition> _conditions = new();
@@ -28,9 +26,6 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 
 			try
 			{
-				_context = (IContext)Activator.CreateInstance(_contextScript.Type);
-				_context.Initialize(gameObject);
-
 				_graph = (StateGraph)Activator.CreateInstance(_graphScript.Type);
 			}
 			catch (Exception exception)
@@ -52,8 +47,6 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 		{
 			_current?.Deinitialize();
 			_current = null;
-
-			_context = null;
 		}
 
 		private void Update()
@@ -87,7 +80,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			try
 			{
 				_logger.Log("Initializing state {0}", _current?.GetType());
-				_current?.Initialize(_context);
+				_current?.Initialize();
 			}
 			catch (StateMachineException exception)
 			{
@@ -134,7 +127,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 				if (condition == null)
 					return false;
 
-				return condition.Evaluate(_context) ^ transition.Negate;
+				return condition.Evaluate() ^ transition.Negate;
 			}
 			catch (StateMachineException exception)
 			{

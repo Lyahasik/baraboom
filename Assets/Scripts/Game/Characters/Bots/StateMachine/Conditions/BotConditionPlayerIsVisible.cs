@@ -11,14 +11,16 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 	public class BotConditionPlayerIsVisible : BotCondition
 	{
 		[Inject] private DiscreteRayCaster _rayCaster;
+		[Inject] private IObservablePlayer _player;
+		[Inject] private IBotController _controller;
 
-		protected override bool Evaluate(BotStateMachineContext context)
+		public override bool Evaluate()
 		{
-			if (context.Player.IsNull())
+			if (_player.IsNull())
 				return false;
 
-			var botPosition = context.BotProtocolResolver.Resolve<IBotController>().Position;
-			var playerPosition = context.Player.Position;
+			var botPosition = _controller.Position;
+			var playerPosition = _player.Position;
 
 			if (botPosition == playerPosition)
 				return true;
