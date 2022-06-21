@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Baraboom.Game.Tools.Collections;
-using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {
-	public abstract class StateGraph : MonoBehaviour
+	public abstract class StateGraph
 	{
 		#region facade
 

@@ -2,6 +2,7 @@ using System;
 using Baraboom.Game.Characters.Bots.StateMachine.Conditions;
 using Baraboom.Game.Characters.Bots.StateMachine.States;
 using Baraboom.Game.Characters.Bots.Tools.StateMachine;
+using JetBrains.Annotations;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine.StateGraphs
 {
@@ -10,6 +11,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.StateGraphs
 	using Roaming = BotStateRoaming;
 	using Chasing = BotStateChasing;
 
+	[UsedImplicitly]
 	public class BotStateGraphSmart : StateGraph
 	{
 		public override Type InitialState => typeof(Roaming);

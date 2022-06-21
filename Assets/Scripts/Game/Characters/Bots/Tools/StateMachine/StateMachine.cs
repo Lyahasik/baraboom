@@ -1,16 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TypeReferences;
 using UnityEngine;
 using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {
-	[RequireComponent(typeof(IContext))]
-	[RequireComponent(typeof(StateGraph))]
 	public sealed class StateMachine : MonoBehaviour
 	{
+		[SerializeField, Inherits(typeof(IContext))] private TypeReference _contextScript;
+		[SerializeField, Inherits(typeof(StateGraph))] private TypeReference _graphScript;
+
 		[Inject] private IConditionFactory _conditionFactory;
 		[Inject] private IStateFactory _stateFactory;
 
@@ -24,8 +26,18 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 		{
 			_logger = Logger.For<StateMachine>();
 
-			_context = GetComponent<IContext>();
-			_graph = GetComponent<StateGraph>();
+			try
+			{
+				_context = (IContext)Activator.CreateInstance(_contextScript.Type);
+				_context.Initialize(gameObject);
+
+				_graph = (StateGraph)Activator.CreateInstance(_graphScript.Type);
+			}
+			catch (Exception exception)
+			{
+				_logger.LogError("Couldn't initialize context and state graph: {0}", exception);
+				throw;
+			}
 		}
 
 		private IEnumerator Start()

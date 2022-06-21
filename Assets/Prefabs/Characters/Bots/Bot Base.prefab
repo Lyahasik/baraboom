@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: -8229684404842782072}
   - component: {fileID: -8819258650448338356}
   - component: {fileID: 5840477643562870336}
-  - component: {fileID: -8713466297221253910}
   - component: {fileID: -2238918492452312145}
   - component: {fileID: 1956517959367536707}
   - component: {fileID: 6625451040889547091}
@@ -160,18 +159,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ebd4e369b5483e89a0526d7446363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-8713466297221253910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956517959367536716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b0b835a39745abb837e7053382f2e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _contextScript:
+    GuidAssignmentFailed: 0
+    GUID: f1b0b835a39745abb837e7053382f2e2
+    _typeNameAndAssembly: Baraboom.Game.Characters.Bots.StateMachine.BotStateMachineContext,
+      Baraboom.Game
+    _suppressLogs: 0
+  _graphScript:
+    GuidAssignmentFailed: 0
+    GUID: 
+    _typeNameAndAssembly: 
+    _suppressLogs: 0
 --- !u!114 &-2238918492452312145
 MonoBehaviour:
   m_ObjectHideFlags: 0

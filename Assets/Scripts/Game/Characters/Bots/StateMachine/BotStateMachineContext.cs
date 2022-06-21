@@ -8,7 +8,7 @@ using Zenject;
 namespace Baraboom.Game.Characters.Bots.StateMachine
 {
 	// TODO Inject
-	public class BotStateMachineContext : MonoBehaviour, IContext
+	public class BotStateMachineContext : IContext
 	{
 		#region facade
 
@@ -20,13 +20,9 @@ namespace Baraboom.Game.Characters.Bots.StateMachine
 
 		public IProtocolResolver BotProtocolResolver { get; private set; }
 
-		#endregion
-
-		#region interior
-
-		private void Awake()
+		void IContext.Initialize(GameObject @object)
 		{
-			BotProtocolResolver = new GameObjectProtocolResolver(gameObject);
+			BotProtocolResolver = new GameObjectProtocolResolver(@object);
 		}
 
 		#endregion
