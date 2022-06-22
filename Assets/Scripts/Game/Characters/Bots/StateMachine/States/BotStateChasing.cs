@@ -37,6 +37,9 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 				return;
 			}
 
+			if (Player.IsNull())
+				return;
+
 			var path = PathFinder.FindPath(BotPosition, Player.Position);
 			if (path == null)
 				return;
