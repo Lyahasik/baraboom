@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8903937914518765781}
   - component: {fileID: 5030951644280317153}
   - component: {fileID: 2970399507801327275}
+  - component: {fileID: 782253438451403236}
   m_Layer: 0
   m_Name: ExplosionUnit
   m_TagString: Untagged
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f3d49cc0021a84f4a99e40613e201596, type: 2}
+  - {fileID: 2100000, guid: 59f9d9a8599ec4020aa34d9b1b84232a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,3 +112,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _discretePosition: {x: 0, y: 0, z: 0}
+--- !u!114 &782253438451403236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903937914518765779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9769f0ca5c794154b40d26593e93c240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

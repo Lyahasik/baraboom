@@ -23,6 +23,7 @@ namespace Baraboom.Game.Bombs
 
         [SerializeField] private GameObject _explosionUnitPrefab;
         [SerializeField] private float _explosionUnitGap;
+        [SerializeField] private float _ignoreTargetDuration;
 
         [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
 
@@ -63,6 +64,7 @@ namespace Baraboom.Game.Bombs
             {
                 var unit = _explosionUnitFactory.Create(_explosionUnitPrefab, position);
                 unit.Damage = _damage;
+                unit.IgnoreTargetDuration = _ignoreTargetDuration;
             }
         }
     }

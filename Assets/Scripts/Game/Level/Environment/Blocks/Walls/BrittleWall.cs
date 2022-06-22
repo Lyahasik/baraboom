@@ -1,5 +1,6 @@
 using Baraboom.Game.Bombs;
 using Baraboom.Game.Level.Items;
+using Baraboom.Game.Tools;
 using UnityEngine;
 
 namespace Baraboom.Game.Level.Environment
@@ -9,7 +10,7 @@ namespace Baraboom.Game.Level.Environment
     {
         [SerializeField] private int _health;
 
-        void IBombTarget.TakeDamage(int damage)
+        void ITarget.TakeDamage(int damage)
         {
             _health -= damage;
             if (_health <= 0)

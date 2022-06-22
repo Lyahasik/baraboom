@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4689c530e33bf1a4b8ba1bfb144d2e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseDamage: 10
-  _baseRange: 2
   _explosionUnitPrefab: {fileID: 8903937914518765779, guid: 520eb60391c04fe4ba8c5bca432b8d64, type: 3}
   _explosionUnitGap: 0.1
+  _ignoreTargetDuration: 0.8

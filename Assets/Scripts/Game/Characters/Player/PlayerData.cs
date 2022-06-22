@@ -2,6 +2,7 @@ using System;
 using Baraboom.Game.Bombs;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Level.Items;
+using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
@@ -23,14 +24,16 @@ namespace Baraboom.Game.Characters.Player
 	{
 		#region facade
 
-		void IBombTarget.TakeDamage(int value)
+		void ITarget.TakeDamage(int value)
 		{
-			TakeDamage(value, "bomb");
-		}
+			_health -= value;
+			_logger.Log("Took {0} damage.", value);
 
-		void IBotTarget.TakeDamage(int value)
-		{
-			TakeDamage(value, "bot");
+			if (_health <= 0)
+			{
+				_logger.Log("Died.");
+				Destroy(gameObject);
+			}
 		}
 
 		void IAdditionalPlantingSlotRecipient.AddPlantingSlot()
@@ -114,18 +117,6 @@ namespace Baraboom.Game.Characters.Player
 			_plantingSlots = _basePlantingSlots;
 			_explosionDamage = _baseExplosionDamage;
 			_explosionRange = _baseExplosionRange;
-		}
-
-		private void TakeDamage(int value, string attacker)
-		{
-			_health -= value;
-			_logger.Log("Took {0} damage from {1}", value, attacker);
-
-			if (_health <= 0)
-			{
-				_logger.Log("Died.");
-				Destroy(gameObject);
-			}
 		}
 
 		#endregion

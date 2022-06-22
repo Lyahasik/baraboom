@@ -1,41 +1,18 @@
 using Baraboom.Game.Characters.Bots.Protocols;
-using Baraboom.Game.Tools.DiscreteWorld;
-using JetBrains.Annotations;
+using Baraboom.Game.Tools;
 using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.Units
 {
-	[RequireComponent(typeof(DiscreteCollider))]
-	public class BotAttackUnit : MonoBehaviour
+	public class BotAttackUnit : Killer<IBotTarget>
 	{
-		[SerializeField] private int _damage;
-		[SerializeField] private float _pauseAfterSuccessfulAttack;
+		[SerializeField] private new int _damage;
+		[SerializeField] private new float _ignoreTargetDuration;
 
-		private bool _isPaused;
-
-		[UsedImplicitly]
-		private void OnDiscreteCollision(DiscreteCollider other)
+		private void Awake()
 		{
-			if (_isPaused)
-				return;
-
-			var damageable = other.GetComponent<IBotTarget>();
-			if (damageable != null)
-			{
-				damageable.TakeDamage(_damage);
-				Pause();
-			}
-		}
-
-		private void Pause()
-		{
-			_isPaused = true;
-			Invoke(nameof(ClosePause), _pauseAfterSuccessfulAttack);
-		}
-
-		private void ClosePause()
-		{
-			_isPaused = false;
+			base._damage  = this._damage;
+			base._ignoreTargetDuration = this._ignoreTargetDuration;
 		}
 	}
 }

@@ -1,7 +1,6 @@
+using Baraboom.Game.Tools;
+
 namespace Baraboom.Game.Characters.Bots.Protocols
 {
-	public interface IBotTarget
-	{
-		void TakeDamage(int damage);
-	}
+	public interface IBotTarget : ITarget {}
 }

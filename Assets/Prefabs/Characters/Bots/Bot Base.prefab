@@ -159,12 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47ebd4e369b5483e89a0526d7446363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _contextScript:
-    GuidAssignmentFailed: 0
-    GUID: f1b0b835a39745abb837e7053382f2e2
-    _typeNameAndAssembly: Baraboom.Game.Characters.Bots.StateMachine.BotStateMachineContext,
-      Baraboom.Game
-    _suppressLogs: 0
   _graphScript:
     GuidAssignmentFailed: 0
     GUID: 
@@ -210,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 1
-  _pauseAfterSuccessfulAttack: 3
+  _ignoreTargetDuration: 0.8
 --- !u!114 &6345098617098366090
 MonoBehaviour:
   m_ObjectHideFlags: 0

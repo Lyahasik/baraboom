@@ -1,38 +1,33 @@
-using Baraboom.Game.Tools.DiscreteWorld;
-using JetBrains.Annotations;
+using Baraboom.Game.Tools;
 using UnityEngine;
 
 namespace Baraboom.Game.Bombs
 {
-    [RequireComponent(typeof(DiscreteCollider))]
-    public class ExplosionUnit : MonoBehaviour
-    {
-        #region facade
+	public class ExplosionUnit : Killer<IBombTarget>
+	{
+		#region facade
 
-        public int Damage { private get; set; }
+		public int Damage
+		{
+			set => _damage = value;
+		}
 
-        #endregion
+		public float IgnoreTargetDuration
+		{
+			set => _ignoreTargetDuration = value;
+		}
 
-        #region interior
+		#endregion
 
-        [SerializeField] private float _duration;
+		#region interior
 
-        private void Start()
-        {
-            Destroy(gameObject, _duration);
-        }
+		[SerializeField] private float _duration;
 
-        [UsedImplicitly]
-        private void OnDiscreteCollision(DiscreteCollider other)
-        {
-            var damageable = other.GetComponent<IBombTarget>();
-            if (damageable != null)
-            {
-                damageable.TakeDamage(Damage);
-                Destroy(gameObject, _duration);
-            }
-        }
+		private void Start()
+		{
+			Destroy(gameObject, _duration);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }
