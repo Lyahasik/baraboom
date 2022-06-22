@@ -14,9 +14,7 @@ namespace Baraboom.Game.Tools.DI
 
 		public T Create(Object prefab, Vector3 position)
 		{
-			var instance = _container.InstantiatePrefab(prefab);
-			instance.transform.position = position;
-
+			var instance = _container.InstantiatePrefab(prefab, position, Quaternion.identity, null);
 			return instance.GetComponent<T>();
 		}
 
