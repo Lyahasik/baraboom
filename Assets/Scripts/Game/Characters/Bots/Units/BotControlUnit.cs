@@ -14,7 +14,7 @@ using Logger = Baraboom.Game.Tools.Logging.Logger;
 namespace Baraboom.Game.Characters.Bots.Units
 {
 	[RequireComponent(typeof(DiscreteTransform))]
-	public class BotControlUnit : MonoBehaviour, IBotController, IRoamingData
+	public class BotControlUnit : MonoBehaviour, IBotController, IBotRoamingData
 	{
 		#region facade
 
@@ -36,10 +36,12 @@ namespace Baraboom.Game.Characters.Bots.Units
 		void IBotController.RequestStop()
 		{
 			_logger.Log("Stop requested");
-			_isStopRequested = true;
+
+			if (_movementCoroutine != null)
+				_isStopRequested = true;
 		}
 
-		WayPoint[] IRoamingData.WayPoints
+		WayPoint[] IBotRoamingData.WayPoints
 		{
 			get => _wayPoints;
 		}

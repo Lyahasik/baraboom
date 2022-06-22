@@ -47,7 +47,8 @@ namespace Baraboom.Game.Characters.Bots
 			Container.Bind<IBotController>().FromMethod(GetComponent<IBotController>).AsSingle();
 			Container.Bind<IBotPathFinder>().FromMethod(GetComponent<IBotPathFinder>).AsSingle();
 			Container.Bind<IBotPathValidator>().FromMethod(GetComponent<IBotPathValidator>).AsSingle();
-			Container.Bind<IRoamingData>().FromMethod(GetComponent<IRoamingData>).AsSingle();
+			Container.Bind<IBotRoamingData>().FromMethod(GetComponent<IBotRoamingData>).AsSingle();
+			Container.Bind<IBotChasingData>().FromMethod(GetComponent<IBotChasingData>).AsSingle();
 		}
 
 		#endregion

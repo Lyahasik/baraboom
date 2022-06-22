@@ -1,4 +1,9 @@
+using Baraboom.Game.Characters.Bots.Protocols;
+using Baraboom.Game.Characters.Bots.Tools.StateMachine;
+using Baraboom.Game.Tools;
 using JetBrains.Annotations;
+using UnityEngine;
+using Zenject;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
@@ -9,6 +14,9 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected override void OnInitialized()
 		{
+			if (_chasingData is null)
+				throw new StateMachineException("Bot doesn't support chasing behaviour.");
+
 			Player.PositionChanged += OnPlayerPositionChanged;
 
 			if (IsBotMoving)
@@ -25,13 +33,25 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected override void OnUpdated()
 		{
-			if (!IsBotMoving)
+			if (_decisionPauseTimer is { IsRunning: true })
+				return;
+			_decisionPauseTimer = null;
+
+			if (Player.IsNull())
+				return;
+
+			if (!IsBotMoving && Player.Position != _pointer)
 				ChasePlayer();
 		}
 
 		#endregion
 
 		#region interior
+
+		[InjectOptional] private IBotChasingData _chasingData;
+
+		private ManualTimer _decisionPauseTimer;
+		private Vector3Int _pointer;
 
 		private void ChasePlayer()
 		{
@@ -42,11 +62,17 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 			if (path == null)
 				return;
 
+			_pointer = Player.Position;
+
 			MoveBot(path);
+			_decisionPauseTimer = new ManualTimer(_chasingData.DecisionPause);
 		}
 
 		private void OnPlayerPositionChanged()
 		{
+			if (_decisionPauseTimer is { IsRunning: true })
+				return;
+
 			RequestBotStop();
 		}
 

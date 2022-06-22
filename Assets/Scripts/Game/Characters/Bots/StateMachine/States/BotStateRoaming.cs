@@ -16,10 +16,10 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected override void OnInitialized()
 		{
-			if (_roamingData is null)
+			if (_botRoamingData is null)
 				throw new StateMachineException("Bot doesn't support roaming behaviour.");
 
-			_wayPoints = _roamingData.WayPoints;
+			_wayPoints = _botRoamingData.WayPoints;
 
 			var result = FindClosestReachableWayPoint(out var closestWayPointIndex, out var pathToClosestWayPoint);
 			if (!result)
@@ -46,7 +46,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		#region interior
 
-		[InjectOptional] private IRoamingData _roamingData;
+		[InjectOptional] private IBotRoamingData _botRoamingData;
 
 		private WayPoint[] _wayPoints;
 		private BouncingIterator<WayPoint> _wayPointIterator;
