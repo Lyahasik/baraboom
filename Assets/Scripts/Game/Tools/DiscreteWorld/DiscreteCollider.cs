@@ -1,17 +1,14 @@
-using System;
 using UnityEngine;
 using Zenject;
 
 namespace Baraboom.Game.Tools.DiscreteWorld
 {
 	[RequireComponent(typeof(DiscreteTransform))]
-	public sealed class DiscreteCollider : MonoBehaviour
+	public sealed class DiscreteCollider : VerboseBehaviour
 	{
 		#region facade
 
 		public DiscreteTransform Transform { get; private set; }
-
-		public event Action Destroyed;
 
 		#endregion
 
@@ -23,11 +20,6 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 		{
 			Transform = GetComponent<DiscreteTransform>();
 			_colliderRegistry.RegisterCollider(this);
-		}
-
-		private void OnDestroy()
-		{
-			Destroyed?.Invoke();
 		}
 
 		#endregion
