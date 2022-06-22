@@ -28,6 +28,9 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		void IState.Update()
 		{
+			if (!IsBotMoving)
+				_currentPath = null;
+
 			OnUpdated();
 		}
 
@@ -47,12 +50,13 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected void MoveBot(Path path)
 		{
+			_currentPath = path;
 			_botController.Move(path);
 		}
 
-		protected void RequestBotStop(Action onStopped = null)
+		protected void RequestBotStop()
 		{
-			_botController.RequestStop(onStopped);
+			_botController.RequestStop();
 		}
 
 		protected virtual void OnInitialized() {}
@@ -61,14 +65,24 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected virtual void OnUpdated() {}
 
-		protected virtual void OnLevelChanged() {}
-
 		#endregion
 
 		#region interior
 
 		[Inject] private ILevel _level;
 		[Inject] private IBotController _botController;
+		[Inject] private IBotPathValidator _pathValidator;
+
+		private Path _currentPath;
+
+		private void OnLevelChanged()
+		{
+			if (_currentPath == null)
+				return;
+
+			if (!_pathValidator.IsValid(_currentPath))
+				RequestBotStop();
+		}
 
 		#endregion
 	}

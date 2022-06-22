@@ -11,7 +11,10 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 		{
 			Player.PositionChanged += OnPlayerPositionChanged;
 
-			ChasePlayer();
+			if (IsBotMoving)
+				RequestBotStop();
+			else
+				ChasePlayer();
 		}
 
 		protected override void OnDeinitialized()
@@ -20,9 +23,10 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 				Player.PositionChanged -= OnPlayerPositionChanged;
 		}
 
-		protected override void OnLevelChanged()
+		protected override void OnUpdated()
 		{
-			ChasePlayer();
+			if (!IsBotMoving)
+				ChasePlayer();
 		}
 
 		#endregion
@@ -31,12 +35,6 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		private void ChasePlayer()
 		{
-			if (IsBotMoving)
-			{
-				RequestBotStop(ChasePlayer);
-				return;
-			}
-
 			if (Player.IsNull())
 				return;
 
@@ -49,7 +47,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		private void OnPlayerPositionChanged()
 		{
-			ChasePlayer();
+			RequestBotStop();
 		}
 
 		#endregion

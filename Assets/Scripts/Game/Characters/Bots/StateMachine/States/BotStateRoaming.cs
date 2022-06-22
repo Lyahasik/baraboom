@@ -26,7 +26,10 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 				throw new StateMachineException("Initial reachable way point is not found.");
 
 			_wayPointIterator = new BouncingIterator<WayPoint>(_wayPoints, closestWayPointIndex);
-			if (!IsBotMoving)
+
+			if (IsBotMoving)
+				RequestBotStop();
+			else
 				MoveBot(pathToClosestWayPoint);
 		}
 
@@ -37,11 +40,6 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 				if (TestNextWayPoint(out var path))
 					MoveBot(path);
 			}
-		}
-
-		protected override void OnLevelChanged()
-		{
-			RequestBotStop();
 		}
 
 		#endregion

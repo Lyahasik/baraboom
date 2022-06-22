@@ -33,12 +33,10 @@ namespace Baraboom.Game.Characters.Bots.Units
 			_movementCoroutine = StartCoroutine(MovementRoutine(path));
 		}
 
-		void IBotController.RequestStop(Action onStopped)
+		void IBotController.RequestStop()
 		{
 			_logger.Log("Stop requested");
-
 			_isStopRequested = true;
-			_onStopped = onStopped;
 		}
 
 		WayPoint[] IRoamingData.WayPoints
@@ -58,7 +56,6 @@ namespace Baraboom.Game.Characters.Bots.Units
 		private WayPoint[] _wayPoints;
 		private Coroutine _movementCoroutine;
 		private bool _isStopRequested;
-		private Action _onStopped;
 
 		[Inject]
 		private void Initialize(WayPointProvider wayPointProvider)
@@ -87,11 +84,7 @@ namespace Baraboom.Game.Characters.Bots.Units
 					_logger.Log("Stopping at position {0}", _discreteTransform.DiscretePosition);
 
 					_movementCoroutine = null;
-
 					_isStopRequested = false;
-
-					_onStopped?.Invoke();
-					_onStopped = null;
 
 					yield break;
 				}

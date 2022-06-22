@@ -10,11 +10,11 @@ using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Units
 {
-	public class BotNavigationUnit : MonoBehaviour, IBotPathFinder
+	public class BotNavigationUnit : MonoBehaviour, IBotPathFinder, IBotPathValidator
 	{
 		#region facade
 
-		public Path FindPath(Vector3Int start, Vector3Int target)
+		Path IBotPathFinder.FindPath(Vector3Int start, Vector3Int target)
 		{
 			if (start.z != target.z)
 			{
@@ -36,6 +36,18 @@ namespace Baraboom.Game.Characters.Bots.Units
 			}
 		}
 
+		bool IBotPathValidator.IsValid(Path path)
+		{
+			foreach (var point in path.SkipLast(1))
+			{
+				var block = _descriptor.GetBlock(point);
+				if (!block.IsWalkable)
+					return false;
+			}
+
+			return true;
+		}
+
 		#endregion
 
 		#region interior
@@ -52,7 +64,7 @@ namespace Baraboom.Game.Characters.Bots.Units
 
 		private void Start()
 		{
-			// Level fetching is costly operation, so we started fetching only after level is completely initialized.
+			// Level fetching is costly operation, so we start fetching only after level is completely initialized.
 			_level.Changed += OnLevelChanged;
 
 			FetchLevel();

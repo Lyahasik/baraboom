@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,6 @@ namespace Baraboom.Game.Characters.Bots.Protocols
 
 		void Move(IEnumerable<Vector2Int> path);
 
-		void RequestStop(Action onFinish);
+		void RequestStop();
 	}
 }
