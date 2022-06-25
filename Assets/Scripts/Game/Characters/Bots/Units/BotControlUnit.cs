@@ -77,7 +77,7 @@ namespace Baraboom.Game.Characters.Bots.Units
 		{
 			_logger.Log("Moving along path {0}", path);
 
-			foreach (var nextPosition in path)
+			foreach (var nextPosition in path.Skip(1))
 			{
 				yield return StepRoutine(nextPosition);
 				if (gameObject == null)
