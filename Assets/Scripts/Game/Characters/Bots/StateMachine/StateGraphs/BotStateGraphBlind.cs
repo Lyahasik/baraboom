@@ -10,6 +10,6 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.StateGraphs
 	[UsedImplicitly]
 	public class BotStateGraphBlind : StateGraph
 	{
-		public override Type InitialState => typeof(Roaming);
+		protected override Type InitialState => typeof(Roaming);
 	}
 }

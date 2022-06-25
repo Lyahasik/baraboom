@@ -9,17 +9,21 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.StateGraphs
 	using IsPlayerReachable = BotConditionPlayerIsReachable;
 	using IsPlayerVisible = BotConditionPlayerIsVisible;
 	using Roaming = BotStateRoaming;
-	using Chasing = BotStateChasing;
 
 	[UsedImplicitly]
-	public class BotStateGraphSmart : StateGraph
+	public class BotStateGraphSharpSighted : StateGraph
 	{
-		public override Type InitialState => typeof(Roaming);
+		protected override Type InitialState => typeof(Roaming);
 
-		public BotStateGraphSmart()
+		public BotStateGraphSharpSighted()
 		{
-			TransitIf<Roaming, Chasing, IsPlayerReachable>();
-			TransitIfNot<Chasing, Roaming, IsPlayerReachable>();
+			Transit().From<Roaming>()
+			         .To<BotStateChasingSharpSighted>()
+			         .If(Evaluate<IsPlayerReachable>());
+
+			Transit().From<BotStateChasingSharpSighted>()
+			         .To<Roaming>()
+			         .If(!Evaluate<IsPlayerReachable>());
 		}
 	}
 }

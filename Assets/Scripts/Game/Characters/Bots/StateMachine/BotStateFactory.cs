@@ -7,18 +7,20 @@ using Zenject;
 namespace Baraboom.Game.Characters.Bots.StateMachine
 {
 	[UsedImplicitly]
-	public class BotStateFactory : FactoryDispatcher<BotState>, IStateFactory<BotState>
+	public class BotStateFactory : FactoryDispatcher<BotStateBase>, IStateFactory<BotStateBase>
 	{
 		[Inject]
 		private void Initialize(
-			IFactory<BotStateNone> noneFactory,
-			IFactory<BotStateRoaming> roamingFactory,
-			IFactory<BotStateChasing> chasingFactory
+			IFactory<BotStateNone> none,
+			IFactory<BotStateRoaming> roaming,
+			IFactory<BotStateChasingShortSighted> chasingShortSighted,
+			IFactory<BotStateChasingSharpSighted> chasingSharpSighted
 		)
 		{
-			RegisterFactory<BotStateNone>(noneFactory);
-			RegisterFactory<BotStateRoaming>(roamingFactory);
-			RegisterFactory<BotStateChasing>(chasingFactory);
+			RegisterFactory(none);
+			RegisterFactory(roaming);
+			RegisterFactory(chasingShortSighted);
+			RegisterFactory(chasingSharpSighted);
 		}
 	}
 }

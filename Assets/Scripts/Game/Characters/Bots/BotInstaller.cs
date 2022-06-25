@@ -3,6 +3,7 @@ using Baraboom.Game.Characters.Bots.StateMachine;
 using Baraboom.Game.Characters.Bots.StateMachine.Conditions;
 using Baraboom.Game.Characters.Bots.StateMachine.States;
 using Baraboom.Game.Characters.Bots.Tools.StateMachine;
+using Baraboom.Game.Characters.Bots.Units;
 using Zenject;
 
 namespace Baraboom.Game.Characters.Bots
@@ -27,13 +28,15 @@ namespace Baraboom.Game.Characters.Bots
 		{
 			Container.BindIFactory<BotConditionPlayerIsReachable>();
 			Container.BindIFactory<BotConditionPlayerIsVisible>();
+			Container.BindIFactory<BotConditionBotIsMoving>();
 		}
 
 		private void InstallStates()
 		{
 			Container.BindIFactory<BotStateNone>();
 			Container.BindIFactory<BotStateRoaming>();
-			Container.BindIFactory<BotStateChasing>();
+			Container.BindIFactory<BotStateChasingShortSighted>();
+			Container.BindIFactory<BotStateChasingSharpSighted>();
 		}
 
 		private void InstallFactories()
@@ -44,11 +47,14 @@ namespace Baraboom.Game.Characters.Bots
 
 		private void InstallComponents()
 		{
-			Container.Bind<IBotController>().FromMethod(GetComponent<IBotController>).AsSingle();
-			Container.Bind<IBotPathFinder>().FromMethod(GetComponent<IBotPathFinder>).AsSingle();
-			Container.Bind<IBotPathValidator>().FromMethod(GetComponent<IBotPathValidator>).AsSingle();
-			Container.Bind<IBotRoamingData>().FromMethod(GetComponent<IBotRoamingData>).AsSingle();
-			Container.Bind<IBotChasingData>().FromMethod(GetComponent<IBotChasingData>).AsSingle();
+			Container.Bind(typeof(IBotController), typeof(IBotRoamingData))
+			         .FromInstance(GetComponent<BotControlUnit>());
+
+			Container.Bind(typeof(IBotPathFinder), typeof(IBotPathValidator))
+			         .FromInstance(GetComponent<BotNavigationUnit>());
+
+			Container.Bind(typeof(IBotChasingData), typeof(IBotPlayerObserver))
+			         .FromInstance(GetComponent<BotAttackUnit>());
 		}
 
 		#endregion

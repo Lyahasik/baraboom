@@ -8,7 +8,7 @@ using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {
-	public sealed class StateMachine : MonoBehaviour
+	public sealed partial class StateMachine : MonoBehaviour, ITransitionConditionEvaluator
 	{
 		[SerializeField, Inherits(typeof(StateGraph))] private TypeReference _graphScript;
 
@@ -16,7 +16,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 		[Inject] private IStateFactory _stateFactory;
 
 		private Logger _logger;
-		private StateGraph _graph;
+		private StateGraphData _graphData;
 		private IState _current;
 		private readonly Dictionary<Type, ICondition> _conditions = new();
 
@@ -26,11 +26,11 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 
 			try
 			{
-				_graph = (StateGraph)Activator.CreateInstance(_graphScript.Type);
+				_graphData = ((StateGraph)Activator.CreateInstance(_graphScript.Type)).ExportData();
 			}
 			catch (Exception exception)
 			{
-				_logger.LogError("Couldn't initialize context and state graph: {0}", exception);
+				_logger.LogError("Couldn't load state graph: {0}", exception);
 				throw;
 			}
 		}
@@ -40,7 +40,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			// Wait one frame for other components to initialize.
 			yield return null;
 
-			SwitchState(_graph.InitialState);
+			SwitchState(_graphData.InitialState);
 		}
 
 		private void OnDestroy()
@@ -55,113 +55,13 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			if (_current == null)
 				return;
 
-			foreach (var transition in _graph.GetTransitions(_current.GetType()))
+			foreach (var (destinationState, condition) in _graphData.GetTransitions(_current.GetType()))
 			{
-				if (EvaluateCondition(transition))
+				if (EvaluateCondition(condition))
 				{
-					SwitchState(transition.TargetState);
+					SwitchState(destinationState);
 					break;
 				}
-			}
-		}
-
-		private void SwitchState(Type stateType)
-		{
-			_logger.Log("Switching state from '{0}' to '{1}'", _current?.GetType(), stateType);
-
-			DeinitializeCurrentState();
-
-			if ((_current = InstantiateState(stateType)) != null)
-				InitializeCurrentState();
-		}
-
-		private void InitializeCurrentState()
-		{
-			try
-			{
-				_logger.Log("Initializing state {0}", _current?.GetType());
-				_current?.Initialize();
-			}
-			catch (StateMachineException exception)
-			{
-				_logger.LogError("Couldn't initialize state {0}: {1}", _current?.GetType(), exception);
-				DeinitializeCurrentState();
-			}
-		}
-
-		private void DeinitializeCurrentState()
-		{
-			try
-			{
-				_logger.Log("Deinitializing state {0}", _current?.GetType());
-				_current?.Deinitialize();
-			}
-			catch (StateMachineException exception)
-			{
-				_logger.LogError("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
-			}
-			finally
-			{
-				_current = null;
-			}
-		}
-
-		private void UpdateCurrentState()
-		{
-			try
-			{
-				_current?.Update();
-			}
-			catch (StateMachineException exception)
-			{
-				_logger.LogError("Couldn't deinitialize state {0}: {1}", _current?.GetType(), exception);
-				DeinitializeCurrentState();
-			}
-		}
-
-		private bool EvaluateCondition(StateGraph.TransitionDescription transition)
-		{
-			try
-			{
-				var condition = GetOrInstantiateCondition(transition.Condition);
-				if (condition == null)
-					return false;
-
-				return condition.Evaluate() ^ transition.Negate;
-			}
-			catch (StateMachineException exception)
-			{
-				_logger.LogError("Couldn't evaluate condition {0}: {1}", transition.Condition, exception);
-				return false;
-			}
-		}
-
-		private IState InstantiateState(Type type)
-		{
-			try
-			{
-				return _stateFactory.Instantiate(type);
-			}
-			catch (Exception exception)
-			{
-				_logger.LogError("Couldn't instantiate state of type {0}: {1}", type, exception);
-				return null;
-			}
-		}
-
-		private ICondition GetOrInstantiateCondition(Type type)
-		{
-			if (_conditions.TryGetValue(type, out var result))
-				return result;
-
-			try
-			{
-				return _conditions[type] = _conditionFactory.Instantiate(type);
-			}
-			catch (Exception exception)
-			{
-				_logger.LogError("Can't instantiate condition of type {0}: {1}", type, exception);
-				return null;
 			}
 		}
 	}

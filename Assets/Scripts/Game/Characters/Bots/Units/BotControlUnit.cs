@@ -1,12 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
+using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
-using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
@@ -22,15 +21,18 @@ namespace Baraboom.Game.Characters.Bots.Units
 
 		bool IBotController.IsMoving => _movementCoroutine != null;
 
-		void IBotController.Move(IEnumerable<Vector2Int> path)
+		Path IBotController.Path
 		{
-			if (_movementCoroutine != null)
+			set
 			{
-				_logger.LogError("Shouldn't request new movement before previous is completed or stopped.");
-				return;
-			}
+				if (_movementCoroutine != null)
+				{
+					_logger.LogError("Shouldn't request new movement before previous is completed or stopped.");
+					return;
+				}
 
-			_movementCoroutine = StartCoroutine(MovementRoutine(path));
+				_movementCoroutine = StartCoroutine(MovementRoutine(value));
+			}
 		}
 
 		void IBotController.RequestStop()

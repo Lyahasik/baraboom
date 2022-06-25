@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
-	public abstract class BotState : IState
+	public abstract class BotStateBase : IState
 	{
 		#region facade
 
@@ -47,10 +47,10 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected Vector3Int BotPosition => _botController.Position;
 
-		protected void MoveBot(Path path)
+		protected void SetBotPath(Path path)
 		{
 			_currentPath = path;
-			_botController.Move(path);
+			_botController.Path = path;
 		}
 
 		protected void RequestBotStop()

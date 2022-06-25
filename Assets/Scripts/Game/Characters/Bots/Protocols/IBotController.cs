@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using UnityEngine;
 
 namespace Baraboom.Game.Characters.Bots.Protocols
@@ -9,7 +10,7 @@ namespace Baraboom.Game.Characters.Bots.Protocols
 
 		bool IsMoving { get; }
 
-		void Move(IEnumerable<Vector2Int> path);
+		Path Path { set; }
 
 		void RequestStop();
 	}

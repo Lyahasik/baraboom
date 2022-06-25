@@ -10,7 +10,7 @@ using Zenject;
 namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
 	[UsedImplicitly]
-	public class BotStateRoaming : BotState
+	public class BotStateRoaming : BotStateBase
 	{
 		#region facade
 
@@ -30,7 +30,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 			if (IsBotMoving)
 				RequestBotStop();
 			else
-				MoveBot(pathToClosestWayPoint);
+				SetBotPath(pathToClosestWayPoint);
 		}
 
 		protected override void OnUpdated()
@@ -38,7 +38,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 			if (!IsBotMoving)
 			{
 				if (TestNextWayPoint(out var path))
-					MoveBot(path);
+					SetBotPath(path);
 			}
 		}
 

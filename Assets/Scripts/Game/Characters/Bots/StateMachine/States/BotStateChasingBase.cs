@@ -4,11 +4,11 @@ using Baraboom.Game.Tools;
 using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
+using Logger = Baraboom.Game.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.StateMachine.States
 {
-	[UsedImplicitly]
-	public class BotStateChasing : BotState
+	public abstract class BotStateChasingBase : BotStateBase
 	{
 		#region facade
 
@@ -19,10 +19,9 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 			Player.PositionChanged += OnPlayerPositionChanged;
 
-			if (IsBotMoving)
-				RequestBotStop();
-			else
-				ChasePlayer();
+			InitializePointer();
+			FetchPointer();
+			ProcessPointer();
 		}
 
 		protected override void OnDeinitialized()
@@ -33,16 +32,17 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected override void OnUpdated()
 		{
-			if (_decisionPauseTimer is { IsRunning: true })
-				return;
-			_decisionPauseTimer = null;
-
-			if (Player.IsNull())
+			if (!CanMakeDecision)
 				return;
 
-			if (!IsBotMoving && Player.Position != _pointer)
-				ChasePlayer();
+			ProcessPointer();
 		}
+
+		#endregion
+
+		#region extension
+
+		protected abstract bool ShouldChasePlayer { get; }
 
 		#endregion
 
@@ -50,30 +50,54 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		[InjectOptional] private IBotChasingData _chasingData;
 
+		private readonly Logger _logger = Logger.For<BotStateChasingShortSighted>();
+
 		private ManualTimer _decisionPauseTimer;
 		private Vector3Int _pointer;
 
-		private void ChasePlayer()
+		private bool CanMakeDecision
 		{
-			if (Player.IsNull())
+			get => _decisionPauseTimer is not { IsRunning: true };
+		}
+
+		private void InitializePointer()
+		{
+			_pointer = BotPosition;
+		}
+
+		private void FetchPointer()
+		{
+			if (ShouldChasePlayer)
+			{
+				_pointer = Player.Position;
+				_logger.Log("Set pointer to {0}", _pointer);
+			}
+		}
+
+		private void ProcessPointer()
+		{
+			if (BotPosition == _pointer)
 				return;
 
-			var path = PathFinder.FindPath(BotPosition, Player.Position);
+			if (IsBotMoving)
+				return;
+
+			var path = PathFinder.FindPath(BotPosition, _pointer);
 			if (path == null)
 				return;
 
-			_pointer = Player.Position;
+			SetBotPath(path);
 
-			MoveBot(path);
 			_decisionPauseTimer = new ManualTimer(_chasingData.DecisionPause);
 		}
 
 		private void OnPlayerPositionChanged()
 		{
-			if (_decisionPauseTimer is { IsRunning: true })
+			if (!CanMakeDecision)
 				return;
 
 			RequestBotStop();
+			FetchPointer();
 		}
 
 		#endregion

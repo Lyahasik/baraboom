@@ -5,13 +5,13 @@ using Zenject;
 namespace Baraboom.Game.Characters.Bots.StateMachine.Conditions
 {
 	[UsedImplicitly]
-	public class BotConditionPlayerIsReachable : BotCondition
+	public class BotConditionBotIsMoving : BotCondition
 	{
-		[Inject] private IBotPlayerObserver _playerObserver;
+		[Inject] private IBotController _controller;
 
 		public override bool Evaluate()
 		{
-			return _playerObserver.IsPlayerReachable;
+			return _controller.IsMoving;
 		}
 	}
 }

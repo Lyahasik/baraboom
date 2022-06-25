@@ -23,9 +23,9 @@ namespace Baraboom.Game.Tools.DI
 
 		#region extension
 
-		protected void RegisterFactory<TDerived>(IFactory<TBase> factory)
+		protected void RegisterFactory<TDerived>(IFactory<TDerived> factory)
 		{
-			_factoryByType[typeof(TDerived)] = factory;
+			_factoryByType[typeof(TDerived)] = factory as IFactory<TBase>;
 		}
 
 		#endregion

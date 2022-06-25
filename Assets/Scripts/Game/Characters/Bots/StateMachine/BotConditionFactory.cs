@@ -11,12 +11,14 @@ namespace Baraboom.Game.Characters.Bots.StateMachine
 	{
 		[Inject]
 		private void Initialize(
-			IFactory<BotConditionPlayerIsReachable> isReachableFactory,
-			IFactory<BotConditionPlayerIsVisible> isVisibleFactory
+			IFactory<BotConditionPlayerIsReachable> isPlayerReachable,
+			IFactory<BotConditionPlayerIsVisible> isPlayerVisible,
+			IFactory<BotConditionBotIsMoving> isBotMoving
 		)
 		{
-			RegisterFactory<BotConditionPlayerIsReachable>(isReachableFactory);
-			RegisterFactory<BotConditionPlayerIsVisible>(isVisibleFactory);
+			RegisterFactory(isPlayerReachable);
+			RegisterFactory(isPlayerVisible);
+			RegisterFactory(isBotMoving);
 		}
 	}
 }
