@@ -10,6 +10,6 @@ namespace Baraboom.Game.Bombs
 		int DamageMultiplier { set; }
 		int RangeIncrease { set; }
 
-		void SpawnBomb(Vector3 position);
+		void SpawnBomb(Vector3Int position);
 	}
 }

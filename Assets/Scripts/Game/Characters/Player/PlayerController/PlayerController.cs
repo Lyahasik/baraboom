@@ -55,7 +55,7 @@ namespace Baraboom.Game.Characters.Player
 
             _bombSpawner.DamageMultiplier = _controllablePlayer.ExplosionDamage;
             _bombSpawner.RangeIncrease = _controllablePlayer.ExplosionRange;
-            _bombSpawner.SpawnBomb(transform.position);
+            _bombSpawner.SpawnBomb(_discreteTransform.DiscretePosition);
         }
 
         private void ProcessMovement()

@@ -1,4 +1,5 @@
 using System;
+using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
 using Zenject;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
@@ -20,11 +21,11 @@ namespace Baraboom.Game.Bombs
 
         int IBombSpawner.RangeIncrease { set => _range = value; }
 
-        void IBombSpawner.SpawnBomb(Vector3 position)
+        void IBombSpawner.SpawnBomb(Vector3Int position)
         {
             _logger.Log("Spawning bomb at {0}", position);
 
-            var bomb = _factory.Create(_bombPrefab, position);
+            var bomb = _factory.Create(_bombPrefab, DiscreteTranslator.ToContinuous(position));
             bomb.Exploded += () => _bombExploded?.Invoke();
             bomb.Damage = _damage;
             bomb.Range = _range;
