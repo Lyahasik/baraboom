@@ -95,13 +95,7 @@ namespace Baraboom.Game.Characters.Player
         private IEnumerator StepRoutine(Vector2Int columnPosition)
         {
             _isInAnimation = true;
-
-            yield return Coroutines.Move(
-                transform,
-                DiscreteTranslator.ToContinuous(columnPosition).WithZ(transform.position.z),
-                _stepDuration / _controllablePlayer.Speed
-            );
-
+            yield return Coroutines.MoveToColumn(_discreteTransform, columnPosition, _stepDuration / _controllablePlayer.Speed);
             _isInAnimation = false;
         }
     }

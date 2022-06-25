@@ -97,11 +97,7 @@ namespace Baraboom.Game.Characters.Bots.Units
 
 		private IEnumerator StepRoutine(Vector2Int columnPosition)
 		{
-			return Coroutines.Move(
-				transform,
-				DiscreteTranslator.ToContinuous(columnPosition).WithZ(transform.position.z),
-				_stepDuration
-			);
+			return Coroutines.MoveToColumn(_discreteTransform, columnPosition, _stepDuration);
 		}
 
 		#endregion

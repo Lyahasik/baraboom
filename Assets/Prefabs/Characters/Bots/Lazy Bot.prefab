@@ -7,21 +7,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1956517959367536707, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: _botId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1956517959367536713, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1956517959367536713, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1956517959367536713, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1956517959367536713, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1956517959367536713, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -55,6 +59,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lazy Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 3797998543392183235, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: _discretePosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797998543392183235, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: _discretePosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797998543392183235, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: _discretePosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5840477643562870336, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: _graph
       value: 
@@ -67,6 +83,14 @@ PrefabInstance:
       propertyPath: _graphScript._typeNameAndAssembly
       value: Baraboom.Game.Characters.Bots.StateMachine.StateGraphs.BotStateGraphLazy,
         Baraboom.Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673371806789472601, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6673371806789472601, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}

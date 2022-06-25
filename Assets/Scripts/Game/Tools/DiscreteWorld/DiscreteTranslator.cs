@@ -11,7 +11,7 @@ namespace Baraboom.Game.Tools.DiscreteWorld
 
 		public static Vector3 ToContinuous(Vector3Int value)
 		{
-			return new Vector3(value.x + 0.5f, value.y + 0.5f, value.z + 0.5f);
+			return new Vector3(value.x + 0.5f, value.y + 0.5f, value.z);
 		}
 
 		public static Vector3Int ToDiscrete(Vector3 value)

@@ -4353,10 +4353,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1569406059}
     m_Modifications:
-    - target: {fileID: 1210675616772251318, guid: d18256ab2f2a3402eacb3b0395da91e0, type: 3}
-      propertyPath: _botId
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1210675616772251321, guid: d18256ab2f2a3402eacb3b0395da91e0, type: 3}
       propertyPath: m_Name
       value: Lazy Bot
@@ -4375,7 +4371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1210675616772251324, guid: d18256ab2f2a3402eacb3b0395da91e0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.8
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1210675616772251324, guid: d18256ab2f2a3402eacb3b0395da91e0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4405,8 +4401,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 256124656248181895, guid: d18256ab2f2a3402eacb3b0395da91e0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d18256ab2f2a3402eacb3b0395da91e0, type: 3}
 --- !u!4 &1275443586 stripped
 Transform:
@@ -6329,18 +6324,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4326589736445229969, guid: 50bc91116631c4205944cce78be40890, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4326589736445229969, guid: 50bc91116631c4205944cce78be40890, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4326589736445229969, guid: 50bc91116631c4205944cce78be40890, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4326589736445229969, guid: 50bc91116631c4205944cce78be40890, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5
       objectReference: {fileID: 0}
@@ -6350,7 +6333,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4326589736445229969, guid: 50bc91116631c4205944cce78be40890, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.8
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326589736445229969, guid: 50bc91116631c4205944cce78be40890, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4326589736445229969, guid: 50bc91116631c4205944cce78be40890, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6380,12 +6367,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4326589736445229972, guid: 50bc91116631c4205944cce78be40890, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 6753784398036471297, guid: 50bc91116631c4205944cce78be40890, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6640522882926281722, guid: 50bc91116631c4205944cce78be40890, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50bc91116631c4205944cce78be40890, type: 3}
 --- !u!4 &4326589736032207565 stripped
 Transform:

@@ -1,5 +1,6 @@
-using System;
 using System.Collections;
+using Baraboom.Game.Tools.DiscreteWorld;
+using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 
 namespace Baraboom.Game.Tools
@@ -7,6 +8,17 @@ namespace Baraboom.Game.Tools
 	public static class Coroutines
 	{
 		public delegate bool UpdateActionDelegate(float phase);
+
+		public static IEnumerator MoveToColumn(DiscreteTransform discreteTransform, Vector2Int column, float duration)
+		{
+			var targetPosition = column.WithZ(discreteTransform.DiscretePosition.z);
+
+			yield return Coroutines.Move(
+				discreteTransform.transform,
+				DiscreteTranslator.ToContinuous(targetPosition),
+				duration
+			);
+		}
 
 		public static IEnumerator Move(Transform transform, Vector3 target, float duration)
 		{
