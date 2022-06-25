@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2878026665196581218
+--- !u!1 &8094463716514069123
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5983218297805970664}
-  - component: {fileID: 5185577128465766545}
+  - component: {fileID: 3309464730324002567}
+  - component: {fileID: 1537102452696997186}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: ExplosionWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5983218297805970664
+--- !u!4 &3309464730324002567
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2878026665196581218}
+  m_GameObject: {fileID: 8094463716514069123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,19 +32,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5185577128465766545
+--- !u!114 &1537102452696997186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2878026665196581218}
+  m_GameObject: {fileID: 8094463716514069123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4689c530e33bf1a4b8ba1bfb144d2e68, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d61b07bc54776449ba44af2ddf6ad03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionUnit: {fileID: 8903937914518765779, guid: 520eb60391c04fe4ba8c5bca432b8d64, type: 3}
-  _explosionWave: {fileID: 8094463716514069123, guid: 3b01be03a2a674d74a50a97d067cfb1f, type: 3}
-  _explosionUnitGap: 0.1
-  _ignoreTargetDuration: 0.8

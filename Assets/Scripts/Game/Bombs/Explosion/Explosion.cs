@@ -21,11 +21,13 @@ namespace Baraboom.Game.Bombs
 
         #region interior
 
-        [SerializeField] private GameObject _explosionUnitPrefab;
+        [SerializeField] private GameObject _explosionUnit;
+        [SerializeField] private GameObject _explosionWave;
         [SerializeField] private float _explosionUnitGap;
         [SerializeField] private float _ignoreTargetDuration;
 
         [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
+        [Inject] private IFactory<Object, Vector3, ExplosionWave> _explosionWaveFactory;
 
         private int _damage;
         private int _range;
@@ -50,10 +52,7 @@ namespace Baraboom.Game.Bombs
 
             foreach (var direction in directions)
             {
-                var waveObject = new GameObject("Explosion Wave");
-                waveObject.transform.position = transform.position;
-
-                var wave = waveObject.AddComponent<ExplosionWave>();
+                var wave = _explosionWaveFactory.Create(_explosionWave, transform.position);
                 wave.Direction = direction;
                 wave.Length = _range + 1;
                 wave.ExplosionGenerator = GenerateExplosionUnit;
@@ -62,7 +61,7 @@ namespace Baraboom.Game.Bombs
 
             void GenerateExplosionUnit(Vector3 position)
             {
-                var unit = _explosionUnitFactory.Create(_explosionUnitPrefab, position);
+                var unit = _explosionUnitFactory.Create(_explosionUnit, position);
                 unit.Damage = _damage;
                 unit.IgnoreTargetDuration = _ignoreTargetDuration;
             }
