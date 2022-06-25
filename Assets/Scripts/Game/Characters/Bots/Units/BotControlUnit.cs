@@ -21,18 +21,15 @@ namespace Baraboom.Game.Characters.Bots.Units
 
 		bool IBotController.IsMoving => _movementCoroutine != null;
 
-		Path IBotController.Path
+		void IBotController.RequestMovement(Path path)
 		{
-			set
+			if (_movementCoroutine != null)
 			{
-				if (_movementCoroutine != null)
-				{
-					_logger.LogError("Shouldn't request new movement before previous is completed or stopped.");
-					return;
-				}
-
-				_movementCoroutine = StartCoroutine(MovementRoutine(value));
+				_logger.LogError("Shouldn't request new movement before previous is completed or stopped.");
+				return;
 			}
+
+			_movementCoroutine = StartCoroutine(MovementRoutine(path));
 		}
 
 		void IBotController.RequestStop()

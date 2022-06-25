@@ -13,7 +13,7 @@ namespace Baraboom.Game.Tools
 		{
 			var targetPosition = column.WithZ(discreteTransform.DiscretePosition.z);
 
-			yield return Coroutines.Move(
+			yield return Move(
 				discreteTransform.transform,
 				DiscreteTranslator.ToContinuous(targetPosition),
 				duration

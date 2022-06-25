@@ -50,7 +50,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 		protected void SetBotPath(Path path)
 		{
 			_currentPath = path;
-			_botController.Path = path;
+			_botController.RequestMovement(path);
 		}
 
 		protected void RequestBotStop()
