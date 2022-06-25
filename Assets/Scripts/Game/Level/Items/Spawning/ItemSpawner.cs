@@ -16,7 +16,7 @@ namespace Baraboom.Game.Level.Items
 			if (item == null)
 				return;
 
-			Instantiate(item, transform.position, Quaternion.identity);
+			_factory.Create(item, transform.position);
 		}
 
 		#endregion
@@ -24,7 +24,9 @@ namespace Baraboom.Game.Level.Items
 		#region interior
 
 		[SerializeField] private float _probability;
+
 		[Inject] private ItemStore _store;
+		[Inject] private IFactory<Object, Vector3, Item> _factory;
 
 		#endregion
 	}

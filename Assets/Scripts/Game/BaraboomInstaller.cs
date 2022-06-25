@@ -61,6 +61,9 @@ namespace Baraboom.Game
 			Container.Bind<ItemStore>()
 			         .FromComponentInHierarchy()
 			         .AsSingle();
+
+			Container.BindIFactory<Object, Vector3, Item>()
+			         .FromFactory<PrefabFactoryWithPosition<Item>>();
 		}
 
 		private void InstallPlayer()
