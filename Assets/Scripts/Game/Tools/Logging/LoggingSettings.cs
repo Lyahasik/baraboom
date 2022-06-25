@@ -19,6 +19,8 @@ namespace Baraboom.Game.Tools.Logging
 			}
 		}
 
+		public bool DisplayFrames => _displayFrames;
+
 		public bool ShouldLogEntity(string entity)
 		{
 			if (!_enabled)
@@ -36,6 +38,7 @@ namespace Baraboom.Game.Tools.Logging
 		private static LoggingSettings _instance;
 
 		[SerializeField] private bool _enabled;
+		[SerializeField] private bool _displayFrames;
 		[SerializeField] private string[] _excludedDomains;
 
 		#endregion

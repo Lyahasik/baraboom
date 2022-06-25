@@ -19,7 +19,7 @@ namespace Baraboom.Game.Tools.Logging
 			if (!_isLogged)
 				return;
 
-			Debug.LogFormat($"[{_hostTypeName}] {format}", args);
+			Debug.LogFormat($"{Prefix} {format}", args);
 		}
 
 		[StringFormatMethod("format")]
@@ -28,7 +28,7 @@ namespace Baraboom.Game.Tools.Logging
 			if (!_isLogged)
 				return;
 
-			Debug.LogWarningFormat($"[{_hostTypeName}] {format}", args);
+			Debug.LogWarningFormat($"{Prefix} {format}", args);
 		}
 
 		[StringFormatMethod("format")]
@@ -37,7 +37,7 @@ namespace Baraboom.Game.Tools.Logging
 			if (!_isLogged)
 				return;
 
-			Debug.LogErrorFormat($"[{_hostTypeName}] {format}", args);
+			Debug.LogErrorFormat($"{Prefix} {format}", args);
 		}
 
 		#endregion
@@ -46,6 +46,17 @@ namespace Baraboom.Game.Tools.Logging
 
 		private readonly string _hostTypeName;
 		private readonly bool _isLogged;
+
+		private string Prefix
+		{
+			get
+			{
+				if (LoggingSettings.Instance.DisplayFrames)
+					return $"[{Time.frameCount}] [{_hostTypeName}]";
+
+				return $"[{_hostTypeName}]";
+			}
+		}
 
 		private Logger(Type hostType)
 		{
