@@ -12,7 +12,7 @@ using Logger = Baraboom.Game.Tools.Logging.Logger;
 namespace Baraboom.Game.Characters.Player
 {
     [RequireComponent(typeof(DiscreteTransform))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : GameBehaviour
     {
         [SerializeField] private float _stepDuration;
 
@@ -38,7 +38,7 @@ namespace Baraboom.Game.Characters.Player
             _bombSpawner.BombExploded += _controllablePlayer.RemovePlantedBomb;
         }
 
-        private void Update()
+        protected override void UpdateIfNotPaused()
         {
             ProcessPlanting();
             ProcessMovement();

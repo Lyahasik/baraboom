@@ -20,6 +20,7 @@ namespace Baraboom.Game
 
 		public override void InstallBindings()
 		{
+			InstallGameState();
 			InstallDiscreteWorld();
 			InstallLevel();
 			InstallPlayer();
@@ -29,6 +30,15 @@ namespace Baraboom.Game
 		#endregion
 
 		#region interior
+
+		private void InstallGameState()
+		{
+			var @object = gameObject.AddChild("GameState");
+
+			Container.Bind<GameState>()
+			         .FromNewComponentOn(@object)
+			         .AsSingle();
+		}
 
 		private void InstallDiscreteWorld()
 		{
