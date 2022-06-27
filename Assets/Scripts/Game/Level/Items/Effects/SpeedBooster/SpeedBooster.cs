@@ -4,11 +4,11 @@ namespace Baraboom.Game.Level.Items
 {
 	public class SpeedBooster : Effect<ISpeedBoosterRecipient>
 	{
-		[SerializeField] private float _multiplier;
+		[SerializeField] private int _increase;
 
 		protected override void Apply(ISpeedBoosterRecipient recipient)
 		{
-			recipient.BoostSpeed(_multiplier);
+			recipient.BoostSpeed(_increase);
 		}
 	}
 }

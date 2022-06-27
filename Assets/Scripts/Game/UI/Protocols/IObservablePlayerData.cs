@@ -8,7 +8,7 @@ namespace Baraboom.Game.UI.Protocols
 
 		int Health { get; }
 
-		float Speed { get; }
+		int SpeedLevel { get; }
 
 		int PlantingSlots { get; }
 

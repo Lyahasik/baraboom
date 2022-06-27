@@ -64,9 +64,9 @@ namespace Baraboom.Game.Characters.Player
 			_propertyChanged?.Invoke();
 		}
 
-		void ISpeedBoosterRecipient.BoostSpeed(float multiplier)
+		void ISpeedBoosterRecipient.BoostSpeed(int increase)
 		{
-			_speed = _baseSpeed * multiplier;
+			_speedLevel += increase;
 			_propertyChanged?.Invoke();
 		}
 
@@ -74,7 +74,7 @@ namespace Baraboom.Game.Characters.Player
 
 		int IControllablePlayer.ExplosionRange => _explosionRange;
 
-		float IControllablePlayer.Speed => _speed;
+		float IControllablePlayer.Speed => ConvertSpeedLevelToSpeed(_speedLevel);
 
 		bool IControllablePlayer.HaveBombs => _plantedBombsCount < _plantingSlots;
 
@@ -107,7 +107,7 @@ namespace Baraboom.Game.Characters.Player
 
 		int IObservablePlayerData.Health => _health;
 
-		float IObservablePlayerData.Speed => _speed;
+		int IObservablePlayerData.SpeedLevel => _speedLevel;
 
 		int IObservablePlayerData.PlantingSlots => _plantingSlots;
 
@@ -120,14 +120,14 @@ namespace Baraboom.Game.Characters.Player
 		#region interior
 
 		[SerializeField] private int _baseHealth;
-		[SerializeField] private float _baseSpeed;
+		[SerializeField] private int _baseSpeedLevel;
 		[SerializeField] private int _basePlantingSlots;
 		[SerializeField] private int _baseExplosionDamage;
 		[SerializeField] private int _baseExplosionRange;
 
 		private Logger _logger;
 		private int _health;
-		private float _speed;
+		private int _speedLevel;
 		private int _plantingSlots;
 		private int _plantedBombsCount;
 		private int _explosionDamage;
@@ -139,10 +139,15 @@ namespace Baraboom.Game.Characters.Player
 			_logger = Logger.For<PlayerData>();
 
 			_health = _baseHealth;
-			_speed = _baseSpeed;
+			_speedLevel = _baseSpeedLevel;
 			_plantingSlots = _basePlantingSlots;
 			_explosionDamage = _baseExplosionDamage;
 			_explosionRange = _baseExplosionRange;
+		}
+
+		private static float ConvertSpeedLevelToSpeed(int speedLevel)
+		{
+			return 1f + (speedLevel - 1) * 0.1f;
 		}
 
 		#endregion

@@ -6,7 +6,7 @@ namespace Baraboom.Game.UI
 	{
 		protected override int GetCount(IObservablePlayerData data)
 		{
-			return (int)data.Speed;
+			return data.SpeedLevel;
 		}
 	}
 }
