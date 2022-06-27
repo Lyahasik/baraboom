@@ -9,6 +9,7 @@ using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DI;
 using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
+using Baraboom.Game.UI.Protocols;
 using UnityEngine;
 using Zenject;
 
@@ -78,7 +79,8 @@ namespace Baraboom.Game
 
 		private void InstallPlayer()
 		{
-			Container.Bind(typeof(IObservablePlayer), typeof(IControllablePlayer))
+			Container.Bind(typeof(IObservablePlayer), typeof(IObservablePlayerData), typeof(IControllablePlayer))
+			         .To<PlayerData>()
 			         .FromComponentInHierarchy()
 			         .AsSingle();
 

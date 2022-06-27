@@ -4,6 +4,7 @@ using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Level.Items;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
+using Baraboom.Game.UI.Protocols;
 using UnityEngine;
 using Logger = Baraboom.Game.Tools.Logging.Logger;
 
@@ -20,13 +21,16 @@ namespace Baraboom.Game.Characters.Player
 		IRangeBoosterRecipient,
 		ISpeedBoosterRecipient,
 		IControllablePlayer,
-		IObservablePlayer
+		IObservablePlayer,
+		IObservablePlayerData
 	{
 		#region facade
 
 		void ITarget.TakeDamage(int value)
 		{
 			_health -= value;
+			_propertyChanged?.Invoke();
+
 			_logger.Log("Took {0} damage.", value);
 
 			if (_health <= 0)
@@ -39,26 +43,31 @@ namespace Baraboom.Game.Characters.Player
 		void IAdditionalPlantingSlotRecipient.AddPlantingSlot()
 		{
 			_plantingSlots++;
+			_propertyChanged?.Invoke();
 		}
 
 		void IDamageBoosterRecipient.BoostDamage(int increase)
 		{
 			_explosionDamage += increase;
+			_propertyChanged?.Invoke();
 		}
 
 		void IHealRecipient.Heal(int amount)
 		{
 			_health = Mathf.Min(_health + amount, _baseHealth);
+			_propertyChanged?.Invoke();
 		}
 
 		void IRangeBoosterRecipient.BoostRange(int increase)
 		{
 			_explosionRange += increase;
+			_propertyChanged?.Invoke();
 		}
 
 		void ISpeedBoosterRecipient.BoostSpeed(float multiplier)
 		{
 			_speed = _baseSpeed * multiplier;
+			_propertyChanged?.Invoke();
 		}
 
 		int IControllablePlayer.ExplosionDamage => _explosionDamage;
@@ -90,6 +99,22 @@ namespace Baraboom.Game.Characters.Player
 			get => GetComponent<DiscreteTransform>().DiscretePosition;
 		}
 
+		event Action IObservablePlayerData.Changed
+		{
+			add => _propertyChanged += value;
+			remove => _propertyChanged -= value;
+		}
+
+		int IObservablePlayerData.Health => _health;
+
+		float IObservablePlayerData.Speed => _speed;
+
+		int IObservablePlayerData.PlantingSlots => _plantingSlots;
+
+		int IObservablePlayerData.ExplosionDamage => _explosionDamage;
+
+		int IObservablePlayerData.ExplosionRange => _explosionRange;
+
 		#endregion
 
 		#region interior
@@ -107,6 +132,7 @@ namespace Baraboom.Game.Characters.Player
 		private int _plantedBombsCount;
 		private int _explosionDamage;
 		private int _explosionRange;
+		private Action _propertyChanged;
 
 		private void Awake()
 		{
