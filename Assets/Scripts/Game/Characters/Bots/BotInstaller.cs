@@ -41,20 +41,28 @@ namespace Baraboom.Game.Characters.Bots
 
 		private void InstallFactories()
 		{
-			Container.Bind<IConditionFactory>().To<BotConditionFactory>().AsSingle();
-			Container.Bind<IStateFactory>().To<BotStateFactory>().AsSingle();
+			Container.Bind<IConditionFactory>()
+			         .To<BotConditionFactory>()
+			         .AsSingle();
+
+			Container.Bind<IStateFactory>()
+			         .To<BotStateFactory>()
+			         .AsSingle();
 		}
 
 		private void InstallComponents()
 		{
 			Container.Bind(typeof(IBotController), typeof(IBotRoamingData))
-			         .FromInstance(GetComponent<BotControlUnit>());
+			         .FromInstance(GetComponent<BotControlUnit>())
+			         .AsSingle();
 
 			Container.Bind(typeof(IBotPathFinder), typeof(IBotPathValidator))
-			         .FromInstance(GetComponent<BotNavigationUnit>());
+			         .FromInstance(GetComponent<BotNavigationUnit>())
+			         .AsSingle();
 
 			Container.Bind(typeof(IBotChasingData), typeof(IBotPlayerObserver))
-			         .FromInstance(GetComponent<BotAttackUnit>());
+			         .FromInstance(GetComponent<BotAttackUnit>())
+			         .AsSingle();
 		}
 
 		#endregion

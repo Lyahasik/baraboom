@@ -1,15 +1,16 @@
-using Baraboom.Game.Tools;
+using Baraboom.Game.Game;
 using Zenject;
 
 namespace Baraboom.Game.UI
 {
-	public class ActionSwitchPause : ButtonAction
+	public class ActionUnpauseLevel : ButtonAction
 	{
-		#region facade
+		#region extension
 
 		protected override void OnClick()
 		{
-			_gameState.Paused = !_gameState.Paused;
+			_gameState.Paused = false;
+			_pauseMenu.Hide();
 		}
 
 		#endregion
@@ -17,6 +18,7 @@ namespace Baraboom.Game.UI
 		#region interior
 
 		[Inject] private GameState _gameState;
+		[Inject] private PauseMenu _pauseMenu;
 
 		#endregion
 	}

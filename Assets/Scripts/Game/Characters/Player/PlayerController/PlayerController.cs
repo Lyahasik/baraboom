@@ -1,5 +1,6 @@
 using System.Collections;
 using Baraboom.Game.Bombs;
+using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
 using Baraboom.Game.Tools;

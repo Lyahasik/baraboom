@@ -1,6 +1,7 @@
+using Baraboom.Game.Tools;
 using Zenject;
 
-namespace Baraboom.Game.Tools
+namespace Baraboom.Game.Game
 {
 	public class GameBehaviour : VerboseBehaviour
 	{

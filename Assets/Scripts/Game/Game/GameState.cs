@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Baraboom.Game.Tools
+namespace Baraboom.Game.Game
 {
 	public class GameState : MonoBehaviour
 	{

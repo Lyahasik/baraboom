@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
@@ -7,7 +8,7 @@ namespace Baraboom.Game.Tools
 {
 	public static class Coroutines
 	{
-		public delegate bool UpdateActionDelegate(float phase);
+		private const float DefaultAnimationDuration = 0.25f;
 
 		public static IEnumerator MoveToColumn(DiscreteTransform discreteTransform, Vector2Int column, float duration)
 		{
@@ -27,11 +28,8 @@ namespace Baraboom.Game.Tools
 			yield return Update(
 				phase =>
 				{
-					if (transform == null)
-						return false;
-
-					transform.position = Vector3.Lerp(start, target, phase);
-					return true;
+					if (transform != null)
+						transform.position = Vector3.Lerp(start, target, phase);
 				},
 				duration
 			);
@@ -40,18 +38,62 @@ namespace Baraboom.Game.Tools
 				transform.position = target;
 		}
 
-		public static IEnumerator Update(UpdateActionDelegate action, float duration)
+		public static IEnumerator Show(CanvasGroup group)
+		{
+			group.interactable = true;
+			group.blocksRaycasts = true;
+
+			yield return UpdateUnscaled(
+				phase =>
+				{
+					if (group != null)
+						group.alpha = phase;
+				},
+				DefaultAnimationDuration
+			);
+		}
+
+		public static IEnumerator Hide(CanvasGroup group)
+		{
+			group.interactable = false;
+			group.blocksRaycasts = false;
+
+			yield return UpdateUnscaled(
+				phase =>
+				{
+					if (group != null)
+						group.alpha = 1f - phase;
+				},
+				DefaultAnimationDuration
+			);
+		}
+
+		public static IEnumerator Update(Action<float> update, float duration)
 		{
 			var startTime = Time.time;
 			var finishTime = startTime + duration;
 
 			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.time)
 			{
-				if (!action((currentTime - startTime) / duration))
-					yield break;
-
+				update((currentTime - startTime) / duration);
 				yield return null;
 			}
+
+			update(1f);
+		}
+
+		public static IEnumerator UpdateUnscaled(Action<float> update, float duration)
+		{
+			var startTime = Time.unscaledTime;
+			var finishTime = startTime + duration;
+
+			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.unscaledTime)
+			{
+				update((currentTime - startTime) / duration);
+				yield return null;
+			}
+
+			update(1f);
 		}
 	}
 }

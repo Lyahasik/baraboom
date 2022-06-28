@@ -2,6 +2,7 @@ using Baraboom.Game.Bombs;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Player;
+using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
 using Baraboom.Game.Level.Items;
@@ -9,6 +10,7 @@ using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DI;
 using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.Tools.Extensions;
+using Baraboom.Game.UI;
 using Baraboom.Game.UI.Protocols;
 using UnityEngine;
 using Zenject;
@@ -21,22 +23,27 @@ namespace Baraboom.Game
 
 		public override void InstallBindings()
 		{
-			InstallGameState();
+			InstallGame();
 			InstallDiscreteWorld();
 			InstallLevel();
 			InstallPlayer();
 			InstallBot();
+			InstallUI();
 		}
 
 		#endregion
 
 		#region interior
 
-		private void InstallGameState()
+		private void InstallGame()
 		{
-			var @object = gameObject.AddChild("GameState");
+			var @object = gameObject.AddChild("Game");
 
 			Container.Bind<GameState>()
+			         .FromNewComponentOn(@object)
+			         .AsSingle();
+
+			Container.Bind<GameController>()
 			         .FromNewComponentOn(@object)
 			         .AsSingle();
 		}
@@ -103,10 +110,17 @@ namespace Baraboom.Game
 
 			Container.Bind<WayPoint>()
 			         .FromComponentsInHierarchy()
-			         .AsCached();
+			         .AsSingle();
 
 			Container.Bind<WayPointProvider>()
 			         .FromNewComponentOn(@object)
+			         .AsSingle();
+		}
+
+		private void InstallUI()
+		{
+			Container.Bind<PauseMenu>()
+			         .FromComponentsInHierarchy()
 			         .AsSingle();
 		}
 
