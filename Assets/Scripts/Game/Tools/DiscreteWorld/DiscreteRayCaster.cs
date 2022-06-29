@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Tools.Algorithms.Bresenham;
-using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using Zenject;
 

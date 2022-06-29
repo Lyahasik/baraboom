@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Baraboom.Game.Tools.Extensions;
+using Baraboom.Core.Tools.Extensions;
 
 namespace Baraboom.Game.Tools.Algorithms.AStar
 {

@@ -1,14 +1,14 @@
 using System.Collections;
+using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Bombs;
 using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
-using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using Zenject;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Player
 {

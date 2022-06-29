@@ -1,9 +1,9 @@
+using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Characters.Bots.Tools.StateMachine;
 using Baraboom.Game.Tools.Collections;
-using Baraboom.Game.Tools.Extensions;
 using JetBrains.Annotations;
 using Zenject;
 

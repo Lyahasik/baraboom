@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Baraboom.Game.Tools.Extensions;
+using Baraboom.Core.Tools.Extensions;
 using UnityEngine;
 using IEnumerable = System.Collections.IEnumerable;
 

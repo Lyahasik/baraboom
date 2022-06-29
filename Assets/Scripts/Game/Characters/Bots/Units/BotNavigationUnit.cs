@@ -1,12 +1,12 @@
 using System.Linq;
+using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Level;
-using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using Zenject;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Units
 {

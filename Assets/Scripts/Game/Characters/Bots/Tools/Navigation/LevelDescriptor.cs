@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Baraboom.Game.Level;
+using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Level.Environment;
-using Baraboom.Game.Tools.Extensions;
 using UnityEngine;
 using AStar = Baraboom.Game.Tools.Algorithms.AStar;
 

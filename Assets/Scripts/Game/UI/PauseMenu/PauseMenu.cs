@@ -1,4 +1,4 @@
-using Baraboom.Game.Tools;
+using Baraboom.Core.Tools;
 using UnityEngine;
 
 namespace Baraboom.Game.UI

@@ -1,0 +1,17 @@
+{
+    "name": "MainMenu",
+    "rootNamespace": "Baraboom",
+    "references": [
+        "GUID:aaa0114c1b0104c0d8ab8430399122ac",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

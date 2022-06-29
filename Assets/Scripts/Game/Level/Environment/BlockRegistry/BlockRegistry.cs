@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Level.Environment
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TypeReferences;
 using UnityEngine;
 using Zenject;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 {

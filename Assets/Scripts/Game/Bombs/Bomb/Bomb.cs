@@ -2,7 +2,7 @@ using System;
 using Baraboom.Game.Level.Environment;
 using UnityEngine;
 using Zenject;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Logger = Baraboom.Core.Tools.Logging.Logger;
 using Object = UnityEngine.Object;
 
 namespace Baraboom.Game.Bombs

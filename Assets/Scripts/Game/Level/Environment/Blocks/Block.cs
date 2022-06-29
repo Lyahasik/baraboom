@@ -1,4 +1,4 @@
-using Baraboom.Game.Tools;
+using Baraboom.Core.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
 using UnityEngine;
 using Zenject;

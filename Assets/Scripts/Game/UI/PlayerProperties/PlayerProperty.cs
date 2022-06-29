@@ -2,7 +2,7 @@ using Baraboom.Game.UI.Protocols;
 using TMPro;
 using UnityEngine;
 using Zenject;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.UI
 {

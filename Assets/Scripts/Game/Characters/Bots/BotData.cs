@@ -1,6 +1,6 @@
 using Baraboom.Game.Bombs;
 using UnityEngine;
-using Logger = Baraboom.Game.Tools.Logging.Logger;
+using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots
 {
