@@ -3,6 +3,7 @@ using Baraboom.Game.Bombs;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Player;
+using Baraboom.Game.Characters.Player.PlayerInput;
 using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
@@ -91,6 +92,10 @@ namespace Baraboom.Game
 			         .FromComponentInHierarchy()
 			         .AsSingle();
 
+			Container.Bind<IPlayerInputReceiver>()
+			         .FromComponentsInHierarchy()
+			         .AsCached();
+
 			Container.BindIFactory<Object, Vector3, Bomb>()
 			         .FromFactory<PrefabFactoryWithPosition<Bomb>>();
 
@@ -120,7 +125,11 @@ namespace Baraboom.Game
 		private void InstallUI()
 		{
 			Container.Bind<PauseMenu>()
-			         .FromComponentsInHierarchy()
+			         .FromComponentInHierarchy()
+			         .AsSingle();
+
+			Container.Bind<TouchController>()
+			         .FromComponentInHierarchy()
 			         .AsSingle();
 		}
 

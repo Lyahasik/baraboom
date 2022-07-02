@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Linq;
 using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Bombs;
+using Baraboom.Game.Characters.Player.PlayerInput;
 using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
@@ -18,6 +20,7 @@ namespace Baraboom.Game.Characters.Player
         [SerializeField] private float _stepDuration;
 
         [Inject] private ILevel _level;
+        [Inject] private IPlayerInputReceiver[] _inputs;
 
         private Logger _logger;
         private DiscreteTransform _discreteTransform;
@@ -47,7 +50,7 @@ namespace Baraboom.Game.Characters.Player
 
         private void ProcessPlanting()
         {
-            if (!Input.GetKeyDown(KeyCode.Space))
+            if (_inputs.All(input => !input.Bomb))
                 return;
             if (!_controllablePlayer.HaveBombs)
                 return;
@@ -64,12 +67,12 @@ namespace Baraboom.Game.Characters.Player
             if (_isInAnimation)
                 return;
 
-            var movementDirection = GetMovementDirection();
-            if (movementDirection == null)
+            var movementDirection = _inputs.Select(input => input.Movement).FirstOrDefault(movement => movement != Vector2Int.zero);
+            if (movementDirection == Vector2Int.zero)
                 return;
 
             var currentPosition = _discreteTransform.DiscretePosition.XY();
-            var desiredPosition = currentPosition + movementDirection.Value;
+            var desiredPosition = currentPosition + movementDirection;
 
             var column = _level.BlockMap.GetColumn(desiredPosition);
             if (column is null || column.Top is Wall)
@@ -77,20 +80,6 @@ namespace Baraboom.Game.Characters.Player
 
             _logger.Log("Moving to {0}", desiredPosition);
             StartCoroutine(StepRoutine(desiredPosition));
-        }
-
-        private static Vector2Int? GetMovementDirection()
-        {
-            if (Input.GetKey(KeyCode.A))
-                return new Vector2Int(-1, 0);
-            if (Input.GetKey(KeyCode.D))
-                return new Vector2Int(+1, 0);
-            if (Input.GetKey(KeyCode.W))
-                return new Vector2Int(0, +1);
-            if (Input.GetKey(KeyCode.S))
-                return new Vector2Int(0, -1);
-
-            return null;
         }
 
         private IEnumerator StepRoutine(Vector2Int columnPosition)
