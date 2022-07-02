@@ -221,6 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2809983999180966813}
   - component: {fileID: -3126561516846817601}
+  - component: {fileID: 4773545005594792158}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -248,7 +249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 600, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 1000}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &-3126561516846817601
@@ -263,8 +264,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1698722113446dbe02444073bd4b43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelName: 
+  _title: 
+  _scene: 
   _sprite: {fileID: 0}
+--- !u!225 &4773545005594792158
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2809983999180966812}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2809983999540885409
 GameObject:
   m_ObjectHideFlags: 0
