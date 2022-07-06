@@ -7,7 +7,11 @@ namespace Baraboom.Core
 	{
 		public override void InstallBindings()
 		{
-			Container.Bind<PlayerProgress>()
+			Container.Bind<GameData>()
+			         .FromScriptableObjectResource("GameData")
+			         .AsSingle();
+
+			Container.Bind<PlayerData>()
 			         .FromNewComponentOn(gameObject)
 			         .AsSingle();
 		}
