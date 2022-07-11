@@ -15,7 +15,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.Navigation
 		{
 			_blocksByPosition = blockMap.ToDictionary(
 				column => column.Position,
-				column => new BlockDescriptor(column.Position, column.Top is Ground)
+				column => new BlockDescriptor(column.Position, column.Top.IsWalkable)
 			);
 		}
 

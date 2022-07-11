@@ -75,7 +75,7 @@ namespace Baraboom.Game.Characters.Player
             var desiredPosition = currentPosition + movementDirection;
 
             var column = _level.BlockMap.GetColumn(desiredPosition);
-            if (column is null || column.Top is Wall)
+            if (column is null || !column.Top.IsWalkable)
                 return;
 
             _logger.Log("Moving to {0}", desiredPosition);

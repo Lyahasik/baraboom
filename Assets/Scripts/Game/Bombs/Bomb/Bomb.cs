@@ -11,6 +11,8 @@ namespace Baraboom.Game.Bombs
 	{
 		#region facade
 
+		public override bool IsWalkable => false;
+
 		public event Action Exploded;
 
 		public int Damage
