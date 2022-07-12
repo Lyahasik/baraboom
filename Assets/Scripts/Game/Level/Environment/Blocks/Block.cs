@@ -12,6 +12,8 @@ namespace Baraboom.Game.Level.Environment
 
 		public Vector3Int DiscretePosition => _discreteTransform.DiscretePosition;
 
+		public abstract bool IsWalkable { get; }
+
 		#endregion
 
 		#region interior

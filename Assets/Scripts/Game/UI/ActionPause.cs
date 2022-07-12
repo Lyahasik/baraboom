@@ -11,7 +11,7 @@ namespace Baraboom.Game.UI
 		protected override void OnClick()
 		{
 			_gameState.Paused = true;
-			_pauseMenu.Show();
+			_dialog.Show();
 		}
 
 		#endregion
@@ -19,7 +19,7 @@ namespace Baraboom.Game.UI
 		#region interior
 
 		[Inject] private GameState _gameState;
-		[Inject] private PauseMenu _pauseMenu;
+		[Inject(Id = "pause")] private Dialog _dialog;
 
 		#endregion
 	}

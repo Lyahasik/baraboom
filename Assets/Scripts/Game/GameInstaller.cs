@@ -4,6 +4,7 @@ using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Player;
 using Baraboom.Game.Characters.Player.PlayerInput;
+using Baraboom.Game.Data;
 using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
@@ -24,6 +25,7 @@ namespace Baraboom.Game
 
 		public override void InstallBindings()
 		{
+			InstallData();
 			InstallGame();
 			InstallDiscreteWorld();
 			InstallLevel();
@@ -35,6 +37,15 @@ namespace Baraboom.Game
 		#endregion
 
 		#region interior
+
+		[SerializeField] private Dialog _pauseDialog;
+
+		private void InstallData()
+		{
+			Container.Bind<LevelData>()
+			         .FromComponentInHierarchy()
+			         .AsSingle();
+		}
 
 		private void InstallGame()
 		{
@@ -121,8 +132,9 @@ namespace Baraboom.Game
 
 		private void InstallUI()
 		{
-			Container.Bind<PauseMenu>()
-			         .FromComponentInHierarchy()
+			Container.Bind<Dialog>()
+			         .WithId("pause")
+			         .FromInstance(_pauseDialog)
 			         .AsSingle();
 
 			Container.Bind<TouchController>()

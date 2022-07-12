@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Baraboom.Core.Tools.Logging
 {
-	[CreateAssetMenu(fileName = "LoggingSettings", menuName = "Baraboom/LoggingSettings", order = 1)]
+	[CreateAssetMenu(fileName = "LoggingSettings", menuName = "Baraboom/LoggingSettings")]
 	public class LoggingSettings : ScriptableObject
 	{
 		#region facade

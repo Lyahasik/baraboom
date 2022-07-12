@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Baraboom.Game.UI
 {
 	[RequireComponent(typeof(CanvasGroup))]
-	public class PauseMenu : MonoBehaviour
+	public class Dialog : MonoBehaviour
 	{
 		#region facade
 
