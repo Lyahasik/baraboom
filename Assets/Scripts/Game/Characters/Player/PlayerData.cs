@@ -36,7 +36,10 @@ namespace Baraboom.Game.Characters.Player
 			if (_health <= 0)
 			{
 				_logger.Log("Died.");
-				Destroy(gameObject);
+				
+				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
+                
+				Destroy(gameObject, _delayDie);
 			}
 		}
 
@@ -119,11 +122,14 @@ namespace Baraboom.Game.Characters.Player
 
 		#region interior
 
+		private readonly int _animationDieId = Animator.StringToHash("Die");
+
 		[SerializeField] private int _baseHealth;
 		[SerializeField] private int _baseSpeedLevel;
 		[SerializeField] private int _basePlantingSlots;
 		[SerializeField] private int _baseExplosionDamage;
 		[SerializeField] private int _baseExplosionRange;
+		[SerializeField] private int _delayDie;
 
 		private Logger _logger;
 		private int _health;

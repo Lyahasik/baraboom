@@ -55,6 +55,7 @@ MonoBehaviour:
   _basePlantingSlots: 1
   _baseExplosionDamage: 1
   _baseExplosionRange: 1
+  _delayDie: 1
 --- !u!114 &4326589736445229970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +130,7 @@ GameObject:
   - component: {fileID: 6753784398036471297}
   - component: {fileID: 1995910192685146388}
   - component: {fileID: 6465088400065850517}
+  - component: {fileID: 2379774065524406859}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -201,3 +203,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &2379774065524406859
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6473785200475831328}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9246f94532513e40be3b6680ae3eea5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

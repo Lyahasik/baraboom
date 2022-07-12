@@ -16,15 +16,21 @@ namespace Baraboom.Game.Characters.Bots
 			if (_health <= 0)
 			{
 				_logger.Log("Died.");
-				Destroy(gameObject);
+
+				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
+                
+				Destroy(gameObject, _delayDie);
 			}
 		}
 
 		#endregion
 
 		#region interior
+		
+		private readonly int _animationDieId = Animator.StringToHash("Die");
 
 		[SerializeField] private int _baseHealth;
+		[SerializeField] private int _delayDie;
 
 		private Logger _logger;
 		private int _health;

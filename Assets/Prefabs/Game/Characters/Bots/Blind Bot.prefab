@@ -55,6 +55,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blind Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 5523906706841291511, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523906706841291511, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a00b70757d3488349828dc75c0905ac5, type: 2}
     - target: {fileID: 5840477643562870336, guid: b0c82f7c520474d6596d71190e5b6a7b, type: 3}
       propertyPath: _graph
       value: 

@@ -23,11 +23,13 @@ namespace Baraboom
         [Inject] private ILevel _level;
             
         private VisualEffect _visualEffect;
-        private ITarget _target;
+        private ITarget _targetBlock;
+        private float _lifeTime;
 
         private void Awake()
         {
             _visualEffect = GetComponent<VisualEffect>();
+            _lifeTime = _visualEffect.GetFloat(_lifetimeId);
         }
 
         public void Activate(int damage, float range)
@@ -38,9 +40,11 @@ namespace Baraboom
             _visualEffect.SetFloat(_lengthId, distance);
             
             _visualEffect.Play();
-            
-            if (_target != null)
+
+            if (_targetBlock != null)
                 StartCoroutine(MakeDamage(damage));
+            
+            Destroy(gameObject, _lifeTime + 0.1f);
         }
 
         private float DetermineDistance(float range)
@@ -56,7 +60,7 @@ namespace Baraboom
                 Block block = _level.BlockMap.GetBlock(discretePosition);
                 if (block)
                 {
-                    _target = block.GetComponent<ITarget>();
+                    _targetBlock = block.GetComponent<ITarget>();
                     
                     return distance + OffsetExplosion;
                 }
@@ -67,9 +71,9 @@ namespace Baraboom
 
         private IEnumerator MakeDamage(int damage)
         {
-            yield return new WaitForSeconds(_visualEffect.GetFloat(_lifetimeId));
+            yield return new WaitForSeconds(_lifeTime);
             
-            _target.TakeDamage(damage);
+            _targetBlock.TakeDamage(damage);
         }
     }
 }
