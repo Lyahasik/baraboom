@@ -8,7 +8,10 @@ namespace Baraboom.Game.Level.Environment
     [RequireComponent(typeof(IItemSpawner))]
     public sealed class BrittleWall : Wall, IBombTarget
     {
+        private readonly int _animationDieId = Animator.StringToHash("Die");
+        
         [SerializeField] private int _health;
+        [SerializeField] private int _delayDie;
 
         void ITarget.TakeDamage(int damage)
         {
@@ -16,7 +19,10 @@ namespace Baraboom.Game.Level.Environment
             if (_health <= 0)
             {
                 GetComponent<IItemSpawner>().TrySpawn();
-                Destroy(gameObject);
+                
+                GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
+                
+                Destroy(gameObject, _delayDie);
             }
         }
     }
