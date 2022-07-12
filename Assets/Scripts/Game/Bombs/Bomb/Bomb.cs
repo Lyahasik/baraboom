@@ -42,6 +42,7 @@ namespace Baraboom.Game.Bombs
 			base.Awake();
 
 			_logger = Logger.For<Bomb>();
+			transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 		}
 
 		private void Start()

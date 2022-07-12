@@ -21,13 +21,9 @@ namespace Baraboom.Game.Bombs
 
         #region interior
 
-        [SerializeField] private GameObject _explosionUnit;
-        [SerializeField] private GameObject _explosionWave;
-        [SerializeField] private float _explosionUnitGap;
-        [SerializeField] private float _ignoreTargetDuration;
+        [SerializeField] private GameObject _lightingExplosion;
 
-        [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
-        [Inject] private IFactory<Object, Vector3, ExplosionWave> _explosionWaveFactory;
+        [Inject] private IFactory<Object, Vector3, LightingExplosion> _lightingExplosionFactory;
 
         private int _damage;
         private int _range;
@@ -44,26 +40,18 @@ namespace Baraboom.Game.Bombs
         {
             var directions = new[]
             {
-                Vector3.right,
-                Vector3.left,
-                Vector3.up,
-                Vector3.down
+                Quaternion.Euler(0f, 0f, 0f),
+                Quaternion.Euler(0f, 0f, 90f),
+                Quaternion.Euler(0f, 0f, -90f),
+                Quaternion.Euler(0f, 0f, 180f)
             };
 
-            foreach (var direction in directions)
+            foreach (Quaternion direction in directions)
             {
-                var wave = _explosionWaveFactory.Create(_explosionWave, transform.position);
-                wave.Direction = direction;
-                wave.Length = _range + 1;
-                wave.ExplosionGenerator = GenerateExplosionUnit;
-                wave.ExplosionUnitGap = _explosionUnitGap;
-            }
-
-            void GenerateExplosionUnit(Vector3 position)
-            {
-                var unit = _explosionUnitFactory.Create(_explosionUnit, position);
-                unit.Damage = _damage;
-                unit.IgnoreTargetDuration = _ignoreTargetDuration;
+                LightingExplosion lightingExplosion = _lightingExplosionFactory.Create(_lightingExplosion, transform.position);
+                lightingExplosion.gameObject.transform.rotation = direction;
+                
+                lightingExplosion.Activate(_damage, _range);
             }
         }
     }

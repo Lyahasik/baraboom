@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosionUnit: {fileID: 8903937914518765779, guid: 520eb60391c04fe4ba8c5bca432b8d64, type: 3}
   _explosionWave: {fileID: 8094463716514069123, guid: 3b01be03a2a674d74a50a97d067cfb1f, type: 3}
+  _lightingExplosion: {fileID: 7504418762417262218, guid: 746c8cce5b48b164286469e225f8dc53, type: 3}
   _explosionUnitGap: 0.1
   _ignoreTargetDuration: 0.8

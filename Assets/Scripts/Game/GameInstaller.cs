@@ -101,12 +101,9 @@ namespace Baraboom.Game
 
 			Container.BindIFactory<Object, Vector3, Explosion>()
 			         .FromFactory<PrefabFactoryWithPosition<Explosion>>();
-
-			Container.BindIFactory<Object, Vector3, ExplosionWave>()
-			         .FromFactory<PrefabFactoryWithPosition<ExplosionWave>>();
-
-			Container.BindIFactory<Object, Vector3, ExplosionUnit>()
-			         .FromFactory<PrefabFactoryWithPosition<ExplosionUnit>>();
+			
+			Container.BindIFactory<Object, Vector3, LightingExplosion>()
+			         .FromFactory<PrefabFactoryWithPosition<LightingExplosion>>();
 		}
 
 		private void InstallBot()
