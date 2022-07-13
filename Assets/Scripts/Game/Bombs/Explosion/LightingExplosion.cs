@@ -19,11 +19,13 @@ namespace Baraboom
         private readonly int _lifetimeId = Shader.PropertyToID("Lifetime");
         private readonly int _impactOffsetId = Shader.PropertyToID("ImpactOffset");
         private readonly int _lengthId = Shader.PropertyToID("Length");
-
+        
+        [SerializeField] private GameObject _explosionUnit;
+        
         [Inject] private ILevel _level;
+        [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
             
         private VisualEffect _visualEffect;
-        private ITarget _targetBlock;
         private float _lifeTime;
 
         private void Awake()
@@ -34,15 +36,13 @@ namespace Baraboom
 
         public void Activate(int damage, float range)
         {
+            _damage = damage;
             float distance = DetermineDistance(range);
 
             _visualEffect.SetFloat(_impactOffsetId, -distance);
             _visualEffect.SetFloat(_lengthId, distance);
             
             _visualEffect.Play();
-
-            if (_targetBlock != null)
-                StartCoroutine(MakeDamage(damage));
             
             Destroy(gameObject, _lifeTime + 0.1f);
         }
@@ -55,25 +55,24 @@ namespace Baraboom
             for (int distance = 0; distance < range; distance++)
             {
                 currentPosition += direction;
-                
                 Vector3Int discretePosition = DiscreteTranslator.ToDiscrete(currentPosition);
-                Block block = _level.BlockMap.GetBlock(discretePosition);
-                if (block)
-                {
-                    _targetBlock = block.GetComponent<ITarget>();
-                    
+
+                StartCoroutine(CreateUnit(currentPosition));
+                
+                if (_level.BlockMap.GetBlock(discretePosition))
                     return distance + OffsetExplosion;
-                }
             }
 
             return range;
         }
 
-        private IEnumerator MakeDamage(int damage)
+        private IEnumerator CreateUnit(Vector3 position)
         {
             yield return new WaitForSeconds(_lifeTime);
             
-            _targetBlock.TakeDamage(damage);
+            ExplosionUnit unit = _explosionUnitFactory.Create(_explosionUnit, position);
+            unit.Damage = _damage;
+            unit.IgnoreTargetDuration = _lifeTime;
         }
     }
 }

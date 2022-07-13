@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6970780281405813698}
   - component: {fileID: 7504418762417262212}
   - component: {fileID: 7504418762417262213}
+  - component: {fileID: 342676674088595653}
+  - component: {fileID: 7156366569717058442}
   m_Layer: 0
   m_Name: LightingExplosion
   m_TagString: Untagged
@@ -46,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff28c88c860c304a929fa60019e6e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosionUnit: {fileID: 8903937914518765779, guid: 520eb60391c04fe4ba8c5bca432b8d64, type: 3}
+  _ignoreTargetDuration: 0.1
 --- !u!2083052967 &7504418762417262212
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -132,3 +136,28 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &342676674088595653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504418762417262218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _discretePosition: {x: -1, y: 2, z: -1}
+--- !u!114 &7156366569717058442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7504418762417262218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9769f0ca5c794154b40d26593e93c240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

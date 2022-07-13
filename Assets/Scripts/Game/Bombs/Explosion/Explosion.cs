@@ -24,19 +24,20 @@ namespace Baraboom.Game.Bombs
         [SerializeField] private GameObject _lightingExplosion;
 
         [Inject] private IFactory<Object, Vector3, LightingExplosion> _lightingExplosionFactory;
+        [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
 
         private int _damage;
         private int _range;
 
         private void Start()
         {
-            GenerateWaves();
+            GenerateLightingExplosions();
             Destroy(gameObject);
         }
 
         #endregion
 
-        private void GenerateWaves()
+        private void GenerateLightingExplosions()
         {
             var directions = new[]
             {
