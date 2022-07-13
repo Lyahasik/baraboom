@@ -1,5 +1,5 @@
 using Baraboom.Core.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 namespace Baraboom.MainMenu.UI
 {
@@ -7,6 +7,8 @@ namespace Baraboom.MainMenu.UI
 	{
 		protected override void OnClick()
 		{
+			int newValue = PlayerPrefs.GetInt("OnSound") == 1 ? 0 : 1;
+			PlayerPrefs.SetInt("OnSound", newValue);
 		}
 	}
 }

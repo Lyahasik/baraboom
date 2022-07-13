@@ -16,6 +16,9 @@ namespace Baraboom.MainMenu.UI
 		{
 			base.Awake();
 			_image = GetComponent<Image>();
+
+			_state = PlayerPrefs.GetInt(_nameParamPrefs, 1) == 1;
+			Animate(_state);
 		}
 
 		protected override void Animate(bool targetState)
@@ -31,10 +34,17 @@ namespace Baraboom.MainMenu.UI
 			);
 		}
 
+		protected override void SaveState()
+		{
+			PlayerPrefs.SetInt(_nameParamPrefs, _state ? 1 : 0);
+		}
+
 		#endregion
 
 		#region interior
 
+		[SerializeField] private string _nameParamPrefs;
+		
 		private Image _image;
 
 		#endregion

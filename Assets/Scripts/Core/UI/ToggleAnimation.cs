@@ -14,16 +14,19 @@ namespace Baraboom.Core.UI
 		}
 
 		protected abstract void Animate(bool targetState);
+		protected abstract void SaveState();
 
 		#endregion
 
 		#region interior
 
-		private bool _state = true;
+		protected bool _state;
 
 		void OnClick()
 		{
 			_state = !_state;
+
+			SaveState();
 			Animate(_state);
 		}
 

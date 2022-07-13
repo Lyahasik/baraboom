@@ -32,7 +32,7 @@ namespace Baraboom.Game.Bombs
         private void Start()
         {
             GenerateLightingExplosions();
-            Destroy(gameObject);
+            Destroy(gameObject, 1.5f);
         }
 
         #endregion
