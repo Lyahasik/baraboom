@@ -63,6 +63,10 @@ namespace Baraboom.Game.Characters.Bots
 			Container.Bind(typeof(IBotChasingData), typeof(IBotPlayerObserver))
 			         .FromInstance(GetComponent<BotAttackUnit>())
 			         .AsSingle();
+
+			Container.Bind<IBotAppearance>()
+			         .FromInstance(GetComponent<BotAppearanceUnit>())
+			         .AsSingle();
 		}
 
 		#endregion

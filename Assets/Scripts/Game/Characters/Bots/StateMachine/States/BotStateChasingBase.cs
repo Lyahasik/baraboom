@@ -22,12 +22,16 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 			InitializePointer();
 			FetchPointer();
 			ProcessPointer();
+
+			_appearance.Aggressive = true;
 		}
 
 		protected override void OnDeinitialized()
 		{
 			if (Player.IsNotNull())
 				Player.PositionChanged -= OnPlayerPositionChanged;
+
+			_appearance.Aggressive = false;
 		}
 
 		protected override void OnUpdated()
@@ -49,6 +53,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 		#region interior
 
 		[InjectOptional] private IBotChasingData _chasingData;
+		[InjectOptional] private IBotAppearance _appearance;
 
 		private readonly Logger _logger = Logger.For<BotStateChasingShortSighted>();
 
