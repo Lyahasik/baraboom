@@ -1,8 +1,9 @@
 using System.Collections;
-using Baraboom.Core.Tools;
 using Baraboom.Core.UI;
 using Baraboom.Game.Characters.Bots.Protocols;
+using JetBrains.Annotations;
 using UnityEngine;
+using Coroutines = Baraboom.Core.Tools.Coroutines;
 
 namespace Baraboom
 {
@@ -37,6 +38,12 @@ namespace Baraboom
 		{
 			_material = GetComponentInChildren<MeshRenderer>().material;
 			_colorMain = _material.GetColor(_emissionColorId);
+		}
+
+		[UsedImplicitly]
+		private void Terminate()
+		{
+			Destroy(this);
 		}
 
 		private void ChangeColor(Color targetColor)

@@ -5,9 +5,9 @@ using Baraboom.Game.Bombs;
 using Baraboom.Game.Characters.Player.PlayerInput;
 using Baraboom.Game.Game;
 using Baraboom.Game.Level;
-using Baraboom.Game.Level.Environment;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
+using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 using Logger = Baraboom.Core.Tools.Logging.Logger;
@@ -32,6 +32,12 @@ namespace Baraboom.Game.Characters.Player
         {
             _logger = Logger.For<PlayerController>();
             _discreteTransform = GetComponent<DiscreteTransform>();
+        }
+
+        [UsedImplicitly]
+        private void Terminate()
+        {
+            Destroy(this);
         }
 
         private void Start()

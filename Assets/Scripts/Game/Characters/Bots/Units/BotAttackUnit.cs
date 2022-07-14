@@ -2,6 +2,7 @@ using System.Linq;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
+using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 using Logger = Baraboom.Core.Tools.Logging.Logger;
@@ -66,6 +67,12 @@ namespace Baraboom.Game.Characters.Bots.Units
 		{
 			base._damage = this._damage;
 			base._ignoreTargetDuration = this._ignoreTargetDuration;
+		}
+
+		[UsedImplicitly]
+		private void Terminate()
+		{
+			Destroy(this);
 		}
 
 		#endregion

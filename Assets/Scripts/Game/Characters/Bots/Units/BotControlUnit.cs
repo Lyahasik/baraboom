@@ -6,6 +6,7 @@ using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Bots.Tools.Navigation;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
+using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 using Logger = Baraboom.Core.Tools.Logging.Logger;
@@ -68,6 +69,12 @@ namespace Baraboom.Game.Characters.Bots.Units
 		{
 			_logger = Logger.For<BotControlUnit>();
 			_discreteTransform = GetComponent<DiscreteTransform>();
+		}
+
+		[UsedImplicitly]
+		private void Terminate()
+		{
+			Destroy(this);
 		}
 
 		private IEnumerator MovementRoutine(IEnumerable<Vector2Int> path)

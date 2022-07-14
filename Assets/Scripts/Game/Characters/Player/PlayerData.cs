@@ -36,9 +36,10 @@ namespace Baraboom.Game.Characters.Player
 			if (_health <= 0)
 			{
 				_logger.Log("Died.");
-				
+
 				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
-                
+				BroadcastMessage("Terminate");
+
 				Destroy(gameObject, _delayDie);
 			}
 		}

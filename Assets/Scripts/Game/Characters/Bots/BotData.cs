@@ -18,7 +18,8 @@ namespace Baraboom.Game.Characters.Bots
 				_logger.Log("Died.");
 
 				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
-                
+				BroadcastMessage("Terminate", SendMessageOptions.DontRequireReceiver);
+
 				Destroy(gameObject, _delayDie);
 			}
 		}
@@ -26,7 +27,7 @@ namespace Baraboom.Game.Characters.Bots
 		#endregion
 
 		#region interior
-		
+
 		private readonly int _animationDieId = Animator.StringToHash("Die");
 
 		[SerializeField] private int _baseHealth;
