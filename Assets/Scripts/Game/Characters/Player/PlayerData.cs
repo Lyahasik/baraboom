@@ -22,6 +22,7 @@ namespace Baraboom.Game.Characters.Player
 		IRangeBoosterRecipient,
 		ISpeedBoosterRecipient,
 		IControllablePlayer,
+		IPlayerEvents,
 		IObservablePlayer,
 		IObservablePlayerData
 	{
@@ -29,20 +30,20 @@ namespace Baraboom.Game.Characters.Player
 
 		void ITarget.TakeDamage(int value)
 		{
-			_health -= value;
-			_propertyChanged?.Invoke();
-
 			_logger.Log("Took {0} damage.", value);
+
+			_health -= value;
+
+			_propertyChanged?.Invoke();
+			_receivedDamage?.Invoke();
 
 			if (_health <= 0)
 			{
 				_logger.Log("Died.");
 
-				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
 				BroadcastMessage("Terminate");
 
-				Destroy(gameObject, _delayDie);
-
+				_died?.Invoke();
 				_gameEvents.InvokeDefeat();
 			}
 		}
@@ -50,31 +51,41 @@ namespace Baraboom.Game.Characters.Player
 		void IAdditionalPlantingSlotRecipient.AddPlantingSlot()
 		{
 			_plantingSlots++;
+
 			_propertyChanged?.Invoke();
+			_receivedPowerUp?.Invoke();
 		}
 
 		void IDamageBoosterRecipient.BoostDamage(int increase)
 		{
 			_explosionDamage += increase;
+
 			_propertyChanged?.Invoke();
+			_receivedPowerUp?.Invoke();
 		}
 
 		void IHealRecipient.Heal(int amount)
 		{
 			_health = Mathf.Min(_health + amount, _baseHealth);
+
 			_propertyChanged?.Invoke();
+			_receivedPowerUp?.Invoke();
 		}
 
 		void IRangeBoosterRecipient.BoostRange(int increase)
 		{
 			_explosionRange += increase;
+
 			_propertyChanged?.Invoke();
+			_receivedPowerUp?.Invoke();
 		}
 
 		void ISpeedBoosterRecipient.BoostSpeed(int increase)
 		{
 			_speedLevel += increase;
+
 			_propertyChanged?.Invoke();
+			_receivedPowerUp?.Invoke();
 		}
 
 		int IControllablePlayer.ExplosionDamage => _explosionDamage;
@@ -93,6 +104,24 @@ namespace Baraboom.Game.Characters.Player
 		void IControllablePlayer.RemovePlantedBomb()
 		{
 			_plantedBombsCount--;
+		}
+
+		event Action IPlayerEvents.Died
+		{
+			add => _died += value;
+			remove => _died -= value;
+		}
+
+		event Action IPlayerEvents.ReceivedDamage
+		{
+			add => _receivedDamage += value;
+			remove => _receivedDamage -= value;
+		}
+
+		event Action IPlayerEvents.ReceivedPowerUp
+		{
+			add => _receivedPowerUp += value;
+			remove => _receivedPowerUp -= value;
 		}
 
 		event Action IObservablePlayer.PositionChanged
@@ -126,18 +155,16 @@ namespace Baraboom.Game.Characters.Player
 
 		#region interior
 
-		private readonly int _animationDieId = Animator.StringToHash("Die");
-
 		[SerializeField] private int _baseHealth;
 		[SerializeField] private int _baseSpeedLevel;
 		[SerializeField] private int _basePlantingSlots;
 		[SerializeField] private int _baseExplosionDamage;
 		[SerializeField] private int _baseExplosionRange;
-		[SerializeField] private int _delayDie;
 
 		[Inject] private GameEvents _gameEvents;
 
 		private Logger _logger;
+		private AudioSource _powerUpSound;
 		private int _health;
 		private int _speedLevel;
 		private int _plantingSlots;
@@ -145,6 +172,9 @@ namespace Baraboom.Game.Characters.Player
 		private int _explosionDamage;
 		private int _explosionRange;
 		private Action _propertyChanged;
+		private Action _died;
+		private Action _receivedDamage;
+		private Action _receivedPowerUp;
 
 		private void Awake()
 		{

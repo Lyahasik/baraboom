@@ -1,4 +1,3 @@
-using System;
 using Baraboom.Game.Tools.DiscreteWorld;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Baraboom.Game.Level.Items
     public sealed class Item : MonoBehaviour
     {
         [SerializeField] private float _speedRotation;
-        
+
         private IEffect _effect;
 
         private void Awake()
