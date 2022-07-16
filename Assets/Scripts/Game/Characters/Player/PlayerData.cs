@@ -6,6 +6,7 @@ using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
 using Baraboom.Game.UI.Protocols;
 using UnityEngine;
+using Zenject;
 using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Player
@@ -41,6 +42,8 @@ namespace Baraboom.Game.Characters.Player
 				BroadcastMessage("Terminate");
 
 				Destroy(gameObject, _delayDie);
+
+				_gameEvents.InvokeDefeat();
 			}
 		}
 
@@ -131,6 +134,8 @@ namespace Baraboom.Game.Characters.Player
 		[SerializeField] private int _baseExplosionDamage;
 		[SerializeField] private int _baseExplosionRange;
 		[SerializeField] private int _delayDie;
+
+		[Inject] private GameEvents _gameEvents;
 
 		private Logger _logger;
 		private int _health;

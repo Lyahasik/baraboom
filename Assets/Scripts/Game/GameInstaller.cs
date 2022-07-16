@@ -57,6 +57,10 @@ namespace Baraboom.Game
 			Container.Bind<GameController>()
 			         .FromNewComponentOn(@object)
 			         .AsSingle();
+
+			Container.Bind<GameEvents>()
+			         .FromNewComponentOn(@object)
+			         .AsSingle();
 		}
 
 		private void InstallDiscreteWorld()

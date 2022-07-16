@@ -3212,6 +3212,7 @@ GameObject:
   - component: {fileID: 763013142}
   - component: {fileID: 763013141}
   - component: {fileID: 763013140}
+  - component: {fileID: 763013144}
   m_Layer: 0
   m_Name: Defeat Dialog
   m_TagString: Untagged
@@ -3295,6 +3296,18 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &763013144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763013138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78cfcd08d80242f6bb5df371088ab1f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &778866291
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3734,6 +3747,7 @@ GameObject:
   - component: {fileID: 924826744}
   - component: {fileID: 924826747}
   - component: {fileID: 924826746}
+  - component: {fileID: 924826748}
   m_Layer: 0
   m_Name: Victory Dialog
   m_TagString: Untagged
@@ -3817,6 +3831,18 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &924826748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924826742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff1bbf1f9074b68be7f2e3e9f964fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &934127743
 PrefabInstance:
   m_ObjectHideFlags: 0
