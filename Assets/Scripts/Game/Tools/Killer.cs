@@ -30,6 +30,7 @@ namespace Baraboom.Game.Tools
 			if (_ignoredTargets.Contains(target))
 				return;
 
+			Debug.Log(gameObject.name + ":" + _ignoreTargetDuration);
 			target.TakeDamage(_damage);
 			StartCoroutine(IgnoreTarget(target));
 		}

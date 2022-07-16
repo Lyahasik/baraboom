@@ -22,6 +22,7 @@ namespace Baraboom.Game.Bombs
         #region interior
 
         [SerializeField] private GameObject _lightingExplosion;
+        [SerializeField] private GameObject _explosionUnit;
 
         [Inject] private IFactory<Object, Vector3, LightingExplosion> _lightingExplosionFactory;
         [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
@@ -39,6 +40,8 @@ namespace Baraboom.Game.Bombs
 
         private void GenerateLightingExplosions()
         {
+            CreateEpicenterUnit();
+            
             var directions = new[]
             {
                 Quaternion.Euler(0f, 0f, 0f),
@@ -52,8 +55,16 @@ namespace Baraboom.Game.Bombs
                 LightingExplosion lightingExplosion = _lightingExplosionFactory.Create(_lightingExplosion, transform.position);
                 lightingExplosion.gameObject.transform.rotation = direction;
                 
-                lightingExplosion.Activate(_damage, _range);
+                lightingExplosion.Activate(_explosionUnit, _damage, _range);
             }
         }
+        
+        private void CreateEpicenterUnit()
+        {
+            ExplosionUnit unit = _explosionUnitFactory.Create(_explosionUnit, transform.position);
+            unit.Damage = _damage;
+            unit.IgnoreTargetDuration = 0.5f;
+        }
+        
     }
 }

@@ -12,19 +12,18 @@ using Baraboom.Game.Tools.DiscreteWorld;
 namespace Baraboom
 {
     [RequireComponent(typeof(VisualEffect))]
-    public class LightingExplosion : Killer<IBombTarget>
+    public class LightingExplosion : MonoBehaviour
     {
         private const float OffsetExplosion = 0.5f;
         
         private readonly int _lifetimeId = Shader.PropertyToID("Lifetime");
         private readonly int _impactOffsetId = Shader.PropertyToID("ImpactOffset");
         private readonly int _lengthId = Shader.PropertyToID("Length");
-        
-        [SerializeField] private GameObject _explosionUnit;
-        
+
         [Inject] private ILevel _level;
         [Inject] private IFactory<Object, Vector3, ExplosionUnit> _explosionUnitFactory;
-            
+
+        private GameObject _explosionUnit;
         private VisualEffect _visualEffect;
         private float _lifeTime;
 
@@ -34,10 +33,10 @@ namespace Baraboom
             _lifeTime = _visualEffect.GetFloat(_lifetimeId);
         }
 
-        public void Activate(int damage, float range)
+        public void Activate(GameObject explosionUnit, int damage, float range)
         {
-            _damage = damage;
-            float distance = DetermineDistance(range);
+            float distance = DetermineDistance(damage, range);
+            _explosionUnit = explosionUnit;
 
             _visualEffect.SetFloat(_impactOffsetId, -distance);
             _visualEffect.SetFloat(_lengthId, distance);
@@ -47,7 +46,7 @@ namespace Baraboom
             Destroy(gameObject, _lifeTime + 0.1f);
         }
 
-        private float DetermineDistance(float range)
+        private float DetermineDistance(int damage, float range)
         {
             Vector3 currentPosition = transform.position;
             Vector3 direction = -transform.up;
@@ -57,7 +56,7 @@ namespace Baraboom
                 currentPosition += direction;
                 Vector3Int discretePosition = DiscreteTranslator.ToDiscrete(currentPosition);
 
-                StartCoroutine(CreateUnit(currentPosition));
+                StartCoroutine(CreateUnit(damage, currentPosition));
                 
                 if (_level.BlockMap.GetBlock(discretePosition))
                     return distance + OffsetExplosion;
@@ -66,12 +65,12 @@ namespace Baraboom
             return range;
         }
 
-        private IEnumerator CreateUnit(Vector3 position)
+        public IEnumerator CreateUnit(int damage, Vector3 position)
         {
             yield return new WaitForSeconds(_lifeTime);
             
             ExplosionUnit unit = _explosionUnitFactory.Create(_explosionUnit, position);
-            unit.Damage = _damage;
+            unit.Damage = damage;
             unit.IgnoreTargetDuration = _lifeTime;
         }
     }
