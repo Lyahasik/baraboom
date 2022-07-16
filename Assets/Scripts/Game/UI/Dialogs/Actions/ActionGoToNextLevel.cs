@@ -1,6 +1,6 @@
 using Baraboom.Core.Data;
+using Baraboom.Core.Tools;
 using Baraboom.Core.UI;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Baraboom.Game.UI
@@ -11,7 +11,12 @@ namespace Baraboom.Game.UI
 
 		protected override void OnClick()
 		{
-			SceneManager.LoadScene($"Level {_playerData.LevelsCompleted}");
+			StartCoroutine(
+				Coroutines.LoadSceneWithDelay(
+					$"Level {_playerData.LevelsCompleted}",
+					UIConstants.ClickSoundDuration
+				)
+			);
 		}
 
 		#endregion

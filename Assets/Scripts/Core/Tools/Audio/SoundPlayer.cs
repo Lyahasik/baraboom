@@ -2,7 +2,7 @@ using Baraboom.Core.Data;
 using UnityEngine;
 using Zenject;
 
-namespace Baraboom.Tools.Audio
+namespace Baraboom.Core.Tools.Audio
 {
     [RequireComponent(typeof(AudioSource))]
     public class SoundPlayer : MonoBehaviour

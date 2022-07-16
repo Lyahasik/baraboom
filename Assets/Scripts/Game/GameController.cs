@@ -1,3 +1,5 @@
+using Baraboom.Core.Tools;
+using Baraboom.Core.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,12 +11,22 @@ namespace Baraboom.Game
 
 		public void RestartLevel()
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			StartCoroutine(
+				Coroutines.LoadSceneWithDelay(
+					SceneManager.GetActiveScene().name,
+					UIConstants.ClickSoundDuration
+				)
+			);
 		}
 
 		public void ExitLevel()
 		{
-			SceneManager.LoadScene("LevelMenu");
+			StartCoroutine(
+				Coroutines.LoadSceneWithDelay(
+					"LevelMenu",
+					UIConstants.ClickSoundDuration
+				)
+			);
 		}
 
 		#endregion

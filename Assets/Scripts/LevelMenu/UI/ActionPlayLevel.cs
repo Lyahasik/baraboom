@@ -1,9 +1,9 @@
+using Baraboom.Core.Tools;
 using Baraboom.Core.UI;
-using UnityEngine.SceneManagement;
 
 namespace Baraboom.LevelMenu.UI
 {
-	public class StartLevelAction : ButtonAction
+	public class ActionPlayLevel : ButtonAction
 	{
 		#region facade
 
@@ -18,7 +18,12 @@ namespace Baraboom.LevelMenu.UI
 
 		protected override void OnClick()
 		{
-			SceneManager.LoadScene($"Scenes/{_levelScene}");
+			StartCoroutine(
+				Coroutines.LoadSceneWithDelay(
+					_levelScene,
+					UIConstants.ClickSoundDuration
+				)
+			);
 		}
 
 		#endregion

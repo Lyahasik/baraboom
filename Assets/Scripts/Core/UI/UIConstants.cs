@@ -9,5 +9,7 @@ namespace Baraboom.Core.UI
 		public const float ShortenedAnimationDuration = 0.18f;
 
 		public const float DefaultAnimationDuration = 0.25f;
+
+		public const float ClickSoundDuration = 0.5f;
 	}
 }

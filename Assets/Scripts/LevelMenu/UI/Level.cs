@@ -18,7 +18,7 @@ namespace Baraboom.LevelMenu.UI
 		{
 			GetComponentInChildren<Image>().sprite = _sprite;
 			GetComponentInChildren<TMP_Text>().text = $"LEVEL {_id}";
-			GetComponentInChildren<StartLevelAction>().LevelScene = $"Level{_id}";
+			GetComponentInChildren<ActionPlayLevel>().LevelScene = $"Level{_id}";
 
 			if (_playerData.LevelsCompleted + 1 < _id)
 			{

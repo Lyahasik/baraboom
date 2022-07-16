@@ -2,27 +2,60 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Baraboom.Core.UI;
+using UnityEngine.SceneManagement;
 
 namespace Baraboom.Core.Tools
 {
 	public static class Coroutines
 	{
-		public static IEnumerator Move(Transform transform, Vector3 target, float duration)
+		#region generic
+
+		public static IEnumerator Delay(Action action, float delay)
 		{
-			var start = transform.position;
-
-			yield return Update(
-				phase =>
-				{
-					if (transform != null)
-						transform.position = Vector3.Lerp(start, target, phase);
-				},
-				duration
-			);
-
-			if (transform != null)
-				transform.position = target;
+			yield return new WaitForSeconds(delay);
+			action?.Invoke();
 		}
+
+		public static IEnumerator Update(Action<float> update, float duration)
+		{
+			var startTime = Time.time;
+			var finishTime = startTime + duration;
+
+			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.time)
+			{
+				update((currentTime - startTime) / duration);
+				yield return null;
+			}
+
+			update(1f);
+		}
+
+		public static IEnumerator UpdateUnscaled(Action<float> update, float duration)
+		{
+			var startTime = Time.unscaledTime;
+			var finishTime = startTime + duration;
+
+			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.unscaledTime)
+			{
+				update((currentTime - startTime) / duration);
+				yield return null;
+			}
+
+			update(1f);
+		}
+
+		#endregion
+
+		#region scene management
+
+		public static IEnumerator LoadSceneWithDelay(string sceneName, float delay)
+		{
+			return Delay(() => SceneManager.LoadScene(sceneName), delay);
+		}
+
+		#endregion
+
+		#region UI
 
 		public static IEnumerator Show(CanvasGroup group)
 		{
@@ -54,32 +87,27 @@ namespace Baraboom.Core.Tools
 			);
 		}
 
-		public static IEnumerator Update(Action<float> update, float duration)
+		#endregion
+
+		#region movement
+
+		public static IEnumerator Move(Transform transform, Vector3 target, float duration)
 		{
-			var startTime = Time.time;
-			var finishTime = startTime + duration;
+			var start = transform.position;
 
-			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.time)
-			{
-				update((currentTime - startTime) / duration);
-				yield return null;
-			}
+			yield return Update(
+				phase =>
+				{
+					if (transform != null)
+						transform.position = Vector3.Lerp(start, target, phase);
+				},
+				duration
+			);
 
-			update(1f);
+			if (transform != null)
+				transform.position = target;
 		}
 
-		public static IEnumerator UpdateUnscaled(Action<float> update, float duration)
-		{
-			var startTime = Time.unscaledTime;
-			var finishTime = startTime + duration;
-
-			for (var currentTime = startTime; currentTime < finishTime; currentTime = Time.unscaledTime)
-			{
-				update((currentTime - startTime) / duration);
-				yield return null;
-			}
-
-			update(1f);
-		}
+		#endregion
 	}
 }
