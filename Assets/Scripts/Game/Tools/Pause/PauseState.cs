@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Baraboom.Game.Game
+namespace Baraboom.Game
 {
-	public class GameState : MonoBehaviour
+	public class PauseState : MonoBehaviour
 	{
 		#region facade
 

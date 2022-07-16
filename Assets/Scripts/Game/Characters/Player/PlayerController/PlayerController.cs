@@ -3,7 +3,6 @@ using System.Linq;
 using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Bombs;
 using Baraboom.Game.Characters.Player.PlayerInput;
-using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Tools;
 using Baraboom.Game.Tools.DiscreteWorld;
@@ -15,7 +14,7 @@ using Logger = Baraboom.Core.Tools.Logging.Logger;
 namespace Baraboom.Game.Characters.Player
 {
     [RequireComponent(typeof(DiscreteTransform))]
-    public class PlayerController : GameBehaviour
+    public class PlayerController : PausableBehaviour
     {
         [SerializeField] private float _stepDuration;
 

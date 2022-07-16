@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Baraboom.Game.Game
+namespace Baraboom.Game
 {
 	public class GameController : MonoBehaviour
 	{

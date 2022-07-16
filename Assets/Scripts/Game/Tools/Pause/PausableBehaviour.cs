@@ -1,16 +1,15 @@
 using Baraboom.Core.Tools;
-using Baraboom.Game.Tools;
 using Zenject;
 
-namespace Baraboom.Game.Game
+namespace Baraboom.Game
 {
-	public class GameBehaviour : VerboseBehaviour
+	public class PausableBehaviour : VerboseBehaviour
 	{
 		#region extenion
 
 		protected virtual void Update()
 		{
-			if (!_gameState.Paused)
+			if (!_pauseState.Paused)
 				UpdateIfNotPaused();
 		}
 
@@ -20,7 +19,7 @@ namespace Baraboom.Game.Game
 
 		#region interior
 
-		[Inject] private GameState _gameState;
+		[Inject] private PauseState _pauseState;
 
 		#endregion
 	}

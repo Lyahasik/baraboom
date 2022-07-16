@@ -1,5 +1,4 @@
 using Baraboom.Core.UI;
-using Baraboom.Game.Game;
 using Zenject;
 
 namespace Baraboom.Game.UI
@@ -10,7 +9,7 @@ namespace Baraboom.Game.UI
 
 		protected override void OnClick()
 		{
-			_gameState.Paused = false;
+			_pauseState.Paused = false;
 			_gameController.RestartLevel();
 		}
 
@@ -18,7 +17,7 @@ namespace Baraboom.Game.UI
 
 		#region interior
 
-		[Inject] private GameState _gameState;
+		[Inject] private PauseState _pauseState;
 		[Inject] private GameController _gameController;
 
 		#endregion

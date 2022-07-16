@@ -5,7 +5,6 @@ using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Player;
 using Baraboom.Game.Characters.Player.PlayerInput;
 using Baraboom.Game.Data;
-using Baraboom.Game.Game;
 using Baraboom.Game.Level;
 using Baraboom.Game.Level.Environment;
 using Baraboom.Game.Level.Items;
@@ -51,7 +50,7 @@ namespace Baraboom.Game
 		{
 			var @object = gameObject.AddChild("Game");
 
-			Container.Bind<GameState>()
+			Container.Bind<PauseState>()
 			         .FromNewComponentOn(@object)
 			         .AsSingle();
 
