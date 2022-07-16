@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Baraboom.Game.Level.Environment;
 using UnityEngine;
 using Zenject;
@@ -20,14 +21,36 @@ namespace Baraboom.Game.Level
 			get => _map.AsReadOnly();
 		}
 
+		public void AddBot(GameObject value)
+		{
+			_listBots.Add(value);
+		}
+
+		public void RemoveBot(GameObject value)
+		{
+			_listBots.Remove(value);
+			
+			if (_listBots.Count <= 0)
+				Invoke(nameof(LevelPassed), PassLevelDelay);
+		}
+
+		private void LevelPassed()
+		{
+			_gameEvents.InvokeVictory();
+		}
+
 		#endregion
 
 		#region interior
 
+		private const float PassLevelDelay = 1.05f;
+		
 		[Inject] private IBlockRegistry _blockRegistry;
+		[Inject] private GameEvents _gameEvents;
 
 		private Action _changed;
 		private readonly BlockMap _map = new();
+		private List<GameObject> _listBots = new();
 
 		private void Awake()
 		{

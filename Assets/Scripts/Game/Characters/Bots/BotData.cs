@@ -1,5 +1,8 @@
+using System;
 using Baraboom.Game.Bombs;
+using Baraboom.Game.Level;
 using UnityEngine;
+using Zenject;
 using Logger = Baraboom.Core.Tools.Logging.Logger;
 
 namespace Baraboom.Game.Characters.Bots
@@ -19,7 +22,8 @@ namespace Baraboom.Game.Characters.Bots
 
 				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
 				BroadcastMessage("Terminate");
-
+				
+				_level.RemoveBot(gameObject);
 				Destroy(gameObject, _delayDie);
 			}
 		}
@@ -33,6 +37,8 @@ namespace Baraboom.Game.Characters.Bots
 		[SerializeField] private int _baseHealth;
 		[SerializeField] private int _delayDie;
 
+		[Inject] private ILevel _level;
+
 		private Logger _logger;
 		private int _health;
 
@@ -41,6 +47,7 @@ namespace Baraboom.Game.Characters.Bots
 			_logger = Logger.For<BotData>();
 
 			_health = _baseHealth;
+			_level.AddBot(gameObject);
 		}
 
 		#endregion
