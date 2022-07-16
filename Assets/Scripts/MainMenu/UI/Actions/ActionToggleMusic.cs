@@ -1,5 +1,6 @@
+using Baraboom.Core.Data;
 using Baraboom.Core.UI;
-using UnityEngine;
+using Zenject;
 
 namespace Baraboom.MainMenu.UI
 {
@@ -7,8 +8,9 @@ namespace Baraboom.MainMenu.UI
 	{
 		protected override void OnClick()
 		{
-			int newValue = PlayerPrefs.GetInt("OnMusic") == 1 ? 0 : 1;
-			PlayerPrefs.SetInt("OnMusic", newValue);
+			_playerPreferences.Music = !_playerPreferences.Music;
 		}
+
+		[Inject] private PlayerPreferences _playerPreferences;
 	}
 }

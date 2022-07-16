@@ -14,6 +14,10 @@ namespace Baraboom.Core
 			Container.Bind<PlayerData>()
 			         .FromNewComponentOn(gameObject)
 			         .AsSingle();
+
+			Container.Bind<PlayerPreferences>()
+			         .FromNewComponentOn(gameObject)
+			         .AsSingle();
 		}
 	}
 }
