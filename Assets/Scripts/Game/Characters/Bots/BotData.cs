@@ -18,7 +18,7 @@ namespace Baraboom.Game.Characters.Bots
 				_logger.Log("Died.");
 
 				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
-				BroadcastMessage("Terminate", SendMessageOptions.DontRequireReceiver);
+				BroadcastMessage("Terminate");
 
 				Destroy(gameObject, _delayDie);
 			}
