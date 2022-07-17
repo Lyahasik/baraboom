@@ -186,6 +186,7 @@ MonoBehaviour:
   _basePlantingSlots: 1
   _baseExplosionDamage: 1
   _baseExplosionRange: 1
+  _durationElectricity: 1
 --- !u!114 &4326589736445229970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _discretePosition: {x: 0, y: 0, z: 0}
+  _discretePosition: {x: -1, y: -3, z: -1}
 --- !u!114 &5097142409860118393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,6 +328,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 5b736c2192ecc224882fee1f71c4d05f, type: 2}
+  - {fileID: 2100000, guid: f997ce6940ff44846ade6980aaa25ef3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

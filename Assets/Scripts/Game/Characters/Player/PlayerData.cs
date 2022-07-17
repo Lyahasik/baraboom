@@ -28,12 +28,18 @@ namespace Baraboom.Game.Characters.Player
 	{
 		#region facade
 
+		private void Update()
+		{
+			DisableElectricity();
+		}
+
 		void ITarget.TakeDamage(int value)
 		{
 			_logger.Log("Took {0} damage.", value);
 
 			_health -= value;
 
+			EnableElectricity();
 			_propertyChanged?.Invoke();
 			_receivedDamage?.Invoke();
 
@@ -46,6 +52,24 @@ namespace Baraboom.Game.Characters.Player
 				_died?.Invoke();
 				_gameEvents.InvokeDefeat();
 			}
+		}
+		
+		private void DisableElectricity()
+		{
+			if (_electricityOffTime > Time.time
+			    || _materials[1] == null)
+				return;
+			
+			_materials[1] = null;
+			_meshRenderer.materials = _materials;
+		}
+
+		private void EnableElectricity()
+		{
+			_electricityOffTime = Time.time + _durationElectricity;
+			
+			_materials[1] = _materialElectricity;
+			_meshRenderer.materials = _materials;
 		}
 
 		void IAdditionalPlantingSlotRecipient.AddPlantingSlot()
@@ -160,11 +184,16 @@ namespace Baraboom.Game.Characters.Player
 		[SerializeField] private int _basePlantingSlots;
 		[SerializeField] private int _baseExplosionDamage;
 		[SerializeField] private int _baseExplosionRange;
+		[SerializeField] private float _durationElectricity;
 
 		[Inject] private GameEvents _gameEvents;
 
 		private Logger _logger;
 		private AudioSource _powerUpSound;
+		private MeshRenderer _meshRenderer;
+		private Material[] _materials;
+		private Material _materialElectricity;
+		private float _electricityOffTime;
 		private int _health;
 		private int _speedLevel;
 		private int _plantingSlots;
@@ -185,6 +214,13 @@ namespace Baraboom.Game.Characters.Player
 			_plantingSlots = _basePlantingSlots;
 			_explosionDamage = _baseExplosionDamage;
 			_explosionRange = _baseExplosionRange;
+		}
+
+		private void Start()
+		{
+			_meshRenderer = GetComponentInChildren<MeshRenderer>();
+			_materials = _meshRenderer.materials;
+			_materialElectricity = _materials[1];
 		}
 
 		private static float ConvertSpeedLevelToSpeed(int speedLevel)
