@@ -1016,9 +1016,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: a3dbd9129ad354d7cadf320ac71723f6, type: 3}
     - target: {fileID: -3126561516846817601, guid: 37852943234ef429987b37dbeb4ccce5, type: 3}
-      propertyPath: _levelName
-      value: Level 3
-      objectReference: {fileID: 0}
+      propertyPath: _screenshot
+      value: 
+      objectReference: {fileID: 21300000, guid: a3dbd9129ad354d7cadf320ac71723f6, type: 3}
     - target: {fileID: 898826992609654351, guid: 37852943234ef429987b37dbeb4ccce5, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
@@ -1350,9 +1350,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: b2a3826c1fd494c9ab652b434d6d4468, type: 3}
     - target: {fileID: -3126561516846817601, guid: 37852943234ef429987b37dbeb4ccce5, type: 3}
-      propertyPath: _levelName
-      value: Level 2
-      objectReference: {fileID: 0}
+      propertyPath: _screenshot
+      value: 
+      objectReference: {fileID: 21300000, guid: b2a3826c1fd494c9ab652b434d6d4468, type: 3}
     - target: {fileID: 898826992609654351, guid: 37852943234ef429987b37dbeb4ccce5, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
@@ -1484,9 +1484,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 0c70b3e01496b4fb592533b15bdb126a, type: 3}
     - target: {fileID: -3126561516846817601, guid: 37852943234ef429987b37dbeb4ccce5, type: 3}
-      propertyPath: _levelName
-      value: Level 1
-      objectReference: {fileID: 0}
+      propertyPath: _screenshot
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c70b3e01496b4fb592533b15bdb126a, type: 3}
     - target: {fileID: 898826992609654351, guid: 37852943234ef429987b37dbeb4ccce5, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25

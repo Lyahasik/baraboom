@@ -10,15 +10,18 @@ namespace Baraboom.LevelMenu.UI
 	public class Level : MonoBehaviour
 	{
 		[SerializeField] private int _id;
-		[SerializeField] private Sprite _sprite;
+		[SerializeField] private Sprite _screenshot;
+		[SerializeField] private Image _screenshotImage;
+		[SerializeField] private TMP_Text _levelName;
+		[SerializeField] private ActionPlayLevel _playerLevelAction;
 
 		[Inject] private PlayerData _playerData;
 
 		private void Awake()
 		{
-			GetComponentInChildren<Image>().sprite = _sprite;
-			GetComponentInChildren<TMP_Text>().text = $"LEVEL {_id}";
-			GetComponentInChildren<ActionPlayLevel>().LevelScene = $"Level{_id}";
+			_screenshotImage.sprite = _screenshot;
+			_levelName.text = $"LEVEL {_id}";
+			_playerLevelAction.LevelScene = $"Level{_id}";
 
 			if (_playerData.LevelsCompleted + 1 < _id)
 			{

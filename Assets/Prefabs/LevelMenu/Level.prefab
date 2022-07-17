@@ -342,7 +342,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 0
-  _sprite: {fileID: 0}
+  _screenshot: {fileID: 0}
+  _screenshotImage: {fileID: 2809983998551271914}
+  _levelName: {fileID: 2809983999042301842}
+  _playerLevelAction: {fileID: 386719076545450835}
 --- !u!225 &4773545005594792158
 CanvasGroup:
   m_ObjectHideFlags: 0
