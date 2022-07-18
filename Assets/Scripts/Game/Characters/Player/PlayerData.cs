@@ -73,7 +73,7 @@ namespace Baraboom.Game.Characters.Player
 
 		void IHealRecipient.Heal(int amount)
 		{
-			_health = Mathf.Min(_health + amount, _baseHealth);
+			_health += amount;
 
 			_propertyChanged?.Invoke();
 			_receivedPowerUp?.Invoke();
