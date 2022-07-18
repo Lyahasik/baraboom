@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TypeReferences;
 using UnityEngine;
 using Zenject;
@@ -41,6 +42,12 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 			yield return null;
 
 			SwitchState(_graphData.InitialState);
+		}
+
+		[UsedImplicitly]
+		private void Terminate()
+		{
+			Destroy(this);
 		}
 
 		private void OnDestroy()
