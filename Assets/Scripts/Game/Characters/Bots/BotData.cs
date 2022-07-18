@@ -12,18 +12,24 @@ namespace Baraboom.Game.Characters.Bots
 
 		public void TakeDamage(int value)
 		{
+			if (_health <= 0)
+			{
+				_logger.Log("Ignored {0} damage.", value);
+				return;
+			}
+
 			_health -= value;
 			_logger.Log("Took {0} damage.", value);
-			
+
 			_characterEffects.ActivateElectricityShader();
 
-			if (_health <= 0)
+			if (_health == 0)
 			{
 				_logger.Log("Died.");
 
 				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
 				BroadcastMessage("Terminate");
-				
+
 				_level.RemoveBot(gameObject);
 				Destroy(gameObject, _delayDie);
 			}

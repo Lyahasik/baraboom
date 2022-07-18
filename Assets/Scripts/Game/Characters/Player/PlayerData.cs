@@ -30,6 +30,12 @@ namespace Baraboom.Game.Characters.Player
 
 		void ITarget.TakeDamage(int value)
 		{
+			if (_health <= 0)
+			{
+				_logger.Log("Ignored {0} damage.", value);
+				return;
+			}
+
 			_logger.Log("Took {0} damage.", value);
 
 			_health -= value;
@@ -38,7 +44,7 @@ namespace Baraboom.Game.Characters.Player
 			_propertyChanged?.Invoke();
 			_receivedDamage?.Invoke();
 
-			if (_health <= 0)
+			if (_health == 0)
 			{
 				_logger.Log("Died.");
 
