@@ -36,9 +36,6 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		protected override void OnUpdated()
 		{
-			if (!CanMakeDecision)
-				return;
-
 			ProcessPointer();
 		}
 
@@ -57,13 +54,7 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 
 		private readonly Logger _logger = Logger.For<BotStateChasingShortSighted>();
 
-		private ManualTimer _decisionPauseTimer;
 		private Vector3Int _pointer;
-
-		private bool CanMakeDecision
-		{
-			get => _decisionPauseTimer is not { IsRunning: true };
-		}
 
 		private void InitializePointer()
 		{
@@ -92,15 +83,10 @@ namespace Baraboom.Game.Characters.Bots.StateMachine.States
 				return;
 
 			SetBotPath(path);
-
-			_decisionPauseTimer = new ManualTimer(_chasingData.DecisionPause);
 		}
 
 		private void OnPlayerPositionChanged()
 		{
-			if (!CanMakeDecision)
-				return;
-
 			RequestBotStop();
 			FetchPointer();
 		}
