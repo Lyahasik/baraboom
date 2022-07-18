@@ -5,7 +5,7 @@ using Zenject;
 namespace Baraboom.Game.Characters.Player
 {
 	[RequireComponent(typeof(IPlayerEvents))]
-	public class PlayerEffects : MonoBehaviour
+	public class PlayerEffects : CharacterEffects
 	{
 		private readonly int _animationDieId = Animator.StringToHash("Die");
 

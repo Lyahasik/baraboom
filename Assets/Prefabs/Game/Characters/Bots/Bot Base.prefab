@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: -8819258650448338356}
   - component: {fileID: 5840477643562870336}
   - component: {fileID: -2238918492452312145}
+  - component: {fileID: 4750503029613259645}
   - component: {fileID: 1956517959367536707}
   - component: {fileID: 6625451040889547091}
   - component: {fileID: 6325622154455176791}
@@ -159,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _discretePosition: {x: 1, y: 1, z: -1}
+  _discretePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &7030506883671096481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,6 +234,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseHealth: 3
   _delayDie: 1
+--- !u!114 &4750503029613259645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956517959367536716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4e037dcc2b001419d2b73cf15aa457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _durationElectricity: 1
 --- !u!114 &1956517959367536707
 MonoBehaviour:
