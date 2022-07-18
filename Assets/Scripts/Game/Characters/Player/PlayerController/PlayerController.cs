@@ -36,7 +36,7 @@ namespace Baraboom.Game.Characters.Player
         [UsedImplicitly]
         private void Terminate()
         {
-            Destroy(this);
+            DestroyImmediate(this);
         }
 
         private void Start()

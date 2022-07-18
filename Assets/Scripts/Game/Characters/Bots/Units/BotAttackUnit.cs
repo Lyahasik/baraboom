@@ -72,7 +72,7 @@ namespace Baraboom.Game.Characters.Bots.Units
 		[UsedImplicitly]
 		private void Terminate()
 		{
-			Destroy(this);
+			DestroyImmediate(this);
 		}
 
 		#endregion

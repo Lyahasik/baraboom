@@ -43,7 +43,7 @@ namespace Baraboom
 		[UsedImplicitly]
 		private void Terminate()
 		{
-			Destroy(this);
+			DestroyImmediate(this);
 		}
 
 		private void ChangeColor(Color targetColor)

@@ -47,7 +47,7 @@ namespace Baraboom.Game.Characters.Bots.Tools.StateMachine
 		[UsedImplicitly]
 		private void Terminate()
 		{
-			Destroy(this);
+			DestroyImmediate(this);
 		}
 
 		private void OnDestroy()
