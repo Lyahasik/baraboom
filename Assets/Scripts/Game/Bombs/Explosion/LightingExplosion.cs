@@ -67,7 +67,7 @@ namespace Baraboom
 
         public IEnumerator CreateUnit(int damage, Vector3 position)
         {
-            yield return new WaitForSeconds(_lifeTime);
+            yield return new WaitForSeconds(0.1f);
             
             ExplosionUnit unit = _explosionUnitFactory.Create(_explosionUnit, position);
             unit.Damage = damage;

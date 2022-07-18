@@ -22,7 +22,7 @@ namespace Baraboom.Game.Bombs
 
 		private void Start()
 		{
-			Destroy(gameObject, 0.1f);
+			Destroy(gameObject, _ignoreTargetDuration - 0.1f);
 		}
 
 		#endregion
