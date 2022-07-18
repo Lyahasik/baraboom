@@ -17,6 +17,7 @@ namespace Baraboom.Game.Characters.Player
     public class PlayerController : PausableBehaviour
     {
         [SerializeField] private float _stepDuration;
+        [SerializeField] private float _bombSpawningDelay;
 
         [Inject] private ILevel _level;
         [Inject] private IPlayerInputReceiver[] _inputs;
@@ -25,6 +26,7 @@ namespace Baraboom.Game.Characters.Player
         private DiscreteTransform _discreteTransform;
         private IControllablePlayer _controllablePlayer;
         private IBombSpawner _bombSpawner;
+        private ManualTimer _bombSpawningTimer;
         private bool _isInAnimation;
 
         private void Awake()
@@ -59,12 +61,16 @@ namespace Baraboom.Game.Characters.Player
                 return;
             if (!_controllablePlayer.HaveBombs)
                 return;
+            if (_bombSpawningTimer is { IsRunning: true })
+                return;
 
             _controllablePlayer.AddPlantedBomb();
 
             _bombSpawner.DamageMultiplier = _controllablePlayer.ExplosionDamage;
             _bombSpawner.RangeIncrease = _controllablePlayer.ExplosionRange;
             _bombSpawner.SpawnBomb(_discreteTransform.DiscretePosition);
+
+            _bombSpawningTimer = new ManualTimer(_bombSpawningDelay);
         }
 
         private void ProcessMovement()

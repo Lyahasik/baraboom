@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stepDuration: 0.4
+  _bombSpawningDelay: 0.1
 --- !u!114 &6044271818305548711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,8 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71d29c8b72a48ddba1d80e15aebc5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyDelay: 1
   _durationElectricity: 1
+  _destroyDelay: 1
   _powerUpSound: {fileID: 2242982743267632092}
   _damageSound: {fileID: 1918692817260603267}
 --- !u!1 &6473785200475831328
