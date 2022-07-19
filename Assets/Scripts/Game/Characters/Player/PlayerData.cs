@@ -44,7 +44,7 @@ namespace Baraboom.Game.Characters.Player
 			_propertyChanged?.Invoke();
 			_receivedDamage?.Invoke();
 
-			if (_health == 0)
+			if (_health <= 0)
 			{
 				_logger.Log("Died.");
 

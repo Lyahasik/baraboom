@@ -23,7 +23,7 @@ namespace Baraboom.Game.Characters.Bots
 
 			_characterEffects.ActivateElectricityShader();
 
-			if (_health == 0)
+			if (_health <= 0)
 			{
 				_logger.Log("Died.");
 
