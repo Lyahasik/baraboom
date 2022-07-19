@@ -5,7 +5,7 @@ using Zenject;
 using Logger = Baraboom.Core.Tools.Logging.Logger;
 using Object = UnityEngine.Object;
 
-namespace Baraboom.Game.Bombs
+namespace Baraboom.Game.Bombs.BombSpawner
 {
     public class BombSpawner : MonoBehaviour, IBombSpawner
     {
@@ -37,7 +37,7 @@ namespace Baraboom.Game.Bombs
 
         [SerializeField] private GameObject _bombPrefab;
 
-        [Inject] private IFactory<Object, Vector3, Bomb> _factory;
+        [Inject] private IFactory<Object, Vector3, Bomb.Bomb> _factory;
 
         private Logger _logger;
         private Action _bombExploded;

@@ -1,5 +1,6 @@
 using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Bombs;
+using Baraboom.Game.Bombs.Bomb;
 using Baraboom.Game.Characters.Bots.Protocols;
 using Baraboom.Game.Characters.Bots.Tools;
 using Baraboom.Game.Characters.Player;

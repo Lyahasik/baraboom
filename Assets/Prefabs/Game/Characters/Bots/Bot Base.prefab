@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _discretePosition: {x: 0, y: 0, z: 0}
+  _discretePosition: {x: 5, y: 0, z: -1}
 --- !u!114 &7030506883671096481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7974985b8b574d8cac11550c7b18be5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepDuration: 0.45
+  _stepDuration: 0.6
   _botId: -1
 --- !u!114 &6625451040889547091
 MonoBehaviour:

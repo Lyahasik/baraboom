@@ -5,7 +5,7 @@ using Zenject;
 using Logger = Baraboom.Core.Tools.Logging.Logger;
 using Object = UnityEngine.Object;
 
-namespace Baraboom.Game.Bombs
+namespace Baraboom.Game.Bombs.Bomb
 {
 	public class Bomb : Block
 	{

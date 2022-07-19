@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using Baraboom.Core.Tools.Extensions;
 using Baraboom.Game.Bombs;
+using Baraboom.Game.Bombs.BombSpawner;
 using Baraboom.Game.Characters.Player.PlayerInput;
 using Baraboom.Game.Level;
 using Baraboom.Game.Tools;

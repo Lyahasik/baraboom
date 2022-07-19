@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Baraboom.Game.Bombs
+namespace Baraboom.Game.Bombs.BombSpawner
 {
 	public interface IBombSpawner
 	{
