@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stepDuration: 0.4
-  _bombSpawningDelay: 0.1
+  _bombSpawningDelay: 0.3
 --- !u!114 &6044271818305548711
 MonoBehaviour:
   m_ObjectHideFlags: 0
