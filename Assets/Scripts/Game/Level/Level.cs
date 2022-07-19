@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Baraboom.Core.Data;
+using Baraboom.Game.Data;
 using Baraboom.Game.Level.Environment;
 using UnityEngine;
 using Zenject;
@@ -36,6 +38,9 @@ namespace Baraboom.Game.Level
 
 		private void LevelPassed()
 		{
+			if (_persistentPlayerData.LevelsCompleted == _levelData.Index)
+				_persistentPlayerData.LevelsCompleted = _levelData.Index + 1;
+			
 			_gameEvents.InvokeVictory();
 		}
 
@@ -46,6 +51,8 @@ namespace Baraboom.Game.Level
 		private const float PassLevelDelay = 1.05f;
 		
 		[Inject] private IBlockRegistry _blockRegistry;
+		[Inject] private PersistentPlayerData _persistentPlayerData;
+		[Inject] private LevelData _levelData;
 		[Inject] private GameEvents _gameEvents;
 
 		private Action _changed;

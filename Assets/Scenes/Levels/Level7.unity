@@ -6629,8 +6629,8 @@ Transform:
   - {fileID: 516396509}
   - {fileID: 2010862400}
   - {fileID: 669619691}
-  - {fileID: 333161193}
   - {fileID: 564521198}
+  - {fileID: 333161193}
   - {fileID: 1230108458}
   m_Father: {fileID: 1269482265}
   m_RootOrder: 1
@@ -9656,7 +9656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e945b7b843a143c4bf4a4b64d65eda99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _index: 0
+  _index: 6
 --- !u!1001 &1099750395
 PrefabInstance:
   m_ObjectHideFlags: 0
