@@ -23,25 +23,16 @@ namespace Baraboom.Game.Level
 			get => _map.AsReadOnly();
 		}
 
-		public void AddBot(GameObject value)
+		void ILevel.AddBot()
 		{
-			_listBots.Add(value);
+			_botsCount++;
 		}
 
-		public void RemoveBot(GameObject value)
+		void ILevel.RemoveBot()
 		{
-			_listBots.Remove(value);
-			
-			if (_listBots.Count <= 0)
-				Invoke(nameof(LevelPassed), PassLevelDelay);
-		}
-
-		private void LevelPassed()
-		{
-			if (_persistentPlayerData.LevelsCompleted == _levelData.Index)
-				_persistentPlayerData.LevelsCompleted = _levelData.Index + 1;
-			
-			_gameEvents.InvokeVictory();
+			_botsCount--;
+			if (_botsCount <= 0)
+				Invoke(nameof(OnLevelPassed), PassLevelDelay);
 		}
 
 		#endregion
@@ -49,7 +40,7 @@ namespace Baraboom.Game.Level
 		#region interior
 
 		private const float PassLevelDelay = 1.05f;
-		
+
 		[Inject] private IBlockRegistry _blockRegistry;
 		[Inject] private PersistentPlayerData _persistentPlayerData;
 		[Inject] private LevelData _levelData;
@@ -57,7 +48,7 @@ namespace Baraboom.Game.Level
 
 		private Action _changed;
 		private readonly BlockMap _map = new();
-		private List<GameObject> _listBots = new();
+		private int _botsCount;
 
 		private void Awake()
 		{
@@ -84,6 +75,14 @@ namespace Baraboom.Game.Level
 		{
 			_map.RemoveBlock(block);
 			_changed?.Invoke();
+		}
+
+		private void OnLevelPassed()
+		{
+			if (_persistentPlayerData.LevelsCompleted == _levelData.Index)
+				_persistentPlayerData.LevelsCompleted = _levelData.Index + 1;
+
+			_gameEvents.InvokeVictory();
 		}
 
 		#endregion

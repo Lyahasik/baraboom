@@ -30,7 +30,7 @@ namespace Baraboom.Game.Characters.Bots
 				GetComponentInChildren<Animator>().SetTrigger(_animationDieId);
 				BroadcastMessage("Terminate");
 
-				_level.RemoveBot(gameObject);
+				_level.RemoveBot();
 				Destroy(gameObject, _delayDie);
 			}
 		}
@@ -45,7 +45,7 @@ namespace Baraboom.Game.Characters.Bots
 		[SerializeField] private int _delayDie;
 
 		[Inject] private ILevel _level;
-		
+
 		private CharacterEffects _characterEffects;
 		private Logger _logger;
 		private int _health;
@@ -56,7 +56,7 @@ namespace Baraboom.Game.Characters.Bots
 			_characterEffects = GetComponent<CharacterEffects>();
 
 			_health = _baseHealth;
-			_level.AddBot(gameObject);
+			_level.AddBot();
 		}
 
 		#endregion

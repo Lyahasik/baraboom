@@ -169,7 +169,7 @@ namespace Baraboom.Game.Characters.Player
 		[SerializeField] private int _baseExplosionRange;
 
 		[Inject] private GameEvents _gameEvents;
-		
+
 		private PlayerEffects _playerEffects;
 		private Logger _logger;
 		private AudioSource _powerUpSound;

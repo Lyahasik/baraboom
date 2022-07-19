@@ -13,7 +13,7 @@ namespace Baraboom.Game.UI
 		{
 			StartCoroutine(
 				Coroutines.LoadSceneWithDelay(
-					$"Level {_persistentPlayerData.LevelsCompleted}",
+					$"Level{_persistentPlayerData.LevelsCompleted + 1}",
 					UIConstants.ClickSoundDuration
 				)
 			);
