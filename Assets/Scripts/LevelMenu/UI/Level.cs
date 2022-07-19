@@ -15,7 +15,7 @@ namespace Baraboom.LevelMenu.UI
 		[SerializeField] private TMP_Text _levelName;
 		[SerializeField] private ActionPlayLevel _playerLevelAction;
 
-		[Inject] private PlayerData _playerData;
+		[Inject] private PersistentPlayerData _persistentPlayerData;
 
 		private void Awake()
 		{
@@ -23,7 +23,7 @@ namespace Baraboom.LevelMenu.UI
 			_levelName.text = $"LEVEL {_id}";
 			_playerLevelAction.LevelScene = $"Level{_id}";
 
-			if (_playerData.LevelsCompleted + 1 < _id)
+			if (_persistentPlayerData.LevelsCompleted + 1 < _id)
 			{
 				var canvasGroup = GetComponent<CanvasGroup>();
 

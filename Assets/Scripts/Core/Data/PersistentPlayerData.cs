@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Baraboom.Core.Data
 {
-	public class PlayerData : MonoBehaviour
+	public class PersistentPlayerData : MonoBehaviour
 	{
 		#region facade
 

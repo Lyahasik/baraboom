@@ -11,7 +11,7 @@ namespace Baraboom.Core
 			         .FromScriptableObjectResource("GameData")
 			         .AsSingle();
 
-			Container.Bind<PlayerData>()
+			Container.Bind<PersistentPlayerData>()
 			         .FromNewComponentOn(gameObject)
 			         .AsSingle();
 
