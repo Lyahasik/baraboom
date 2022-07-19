@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Baraboom.Game
+namespace Baraboom.Debug
 {
 	public static class ResetProgress
 	{

@@ -3,7 +3,7 @@ using Baraboom.Game.Characters.Bots;
 using UnityEditor;
 using UnityEngine;
 
-namespace Baraboom.Game
+namespace Baraboom.Debug
 {
 	public static class Win
 	{
