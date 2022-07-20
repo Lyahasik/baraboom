@@ -35,14 +35,16 @@ namespace Baraboom.Game.UI
 			if (_fixedDirection == null)
 				return;
 
+			if (eventData.delta.sqrMagnitude < 20) // Don't consider such small drag.
+				return;
+
 			var currentDirection = DetermineDirection(eventData.delta);
-			var deltaMagnitude = eventData.delta.magnitude;
 
 			if (currentDirection == _fixedDirection)
 			{
 				_lastDelta = _fixedDirection.Value.ToVector();
 			}
-			else if (deltaMagnitude > _offCourseTolerance)
+			else
 			{
 				_lastDelta = Vector2Int.zero;
 				_isDragging = false;
@@ -58,8 +60,6 @@ namespace Baraboom.Game.UI
 		#endregion
 
 		#region interior
-
-		[SerializeField] private float _offCourseTolerance;
 
 		private bool _isDragging;
 		private bool _canClick;
