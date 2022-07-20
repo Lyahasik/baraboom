@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _discretePosition: {x: 2, y: 0, z: 0}
+  _discretePosition: {x: -3, y: -2, z: -1}
 --- !u!114 &8805278636760350998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 2
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0

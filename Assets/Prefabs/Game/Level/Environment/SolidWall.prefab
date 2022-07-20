@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &743077179220471949
 Transform:
@@ -83,7 +83,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 2
   m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7779c6bf4ee74cc594ed2ef7a115c0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _discretePosition: {x: 0, y: 0, z: 0}
+  _discretePosition: {x: -7, y: -4, z: -1}
 --- !u!114 &-4907101482357838644
 MonoBehaviour:
   m_ObjectHideFlags: 0
