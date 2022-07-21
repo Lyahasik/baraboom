@@ -12006,7 +12006,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.5803922, g: 0.63673997, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -14884,7 +14884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6288f6b8e8414a9e72e1b6d2869556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offCourseTolerance: 2
 --- !u!114 &1610607089
 MonoBehaviour:
   m_ObjectHideFlags: 0

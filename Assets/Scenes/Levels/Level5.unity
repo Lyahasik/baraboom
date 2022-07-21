@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: a80dc962c4616da4f88c80a58e9c7958, type: 2}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: a10ef8883d600764480e66a87e7598c3, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: e4a0fee58621d7e4b82594cf66799e8c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5921,7 +5921,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.9134172, g: 0.5801887, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -5960,7 +5960,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -11559,7 +11559,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.5803922, g: 0.63673997, b: 1, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.25
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -11598,7 +11598,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -14466,7 +14466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6288f6b8e8414a9e72e1b6d2869556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offCourseTolerance: 2
 --- !u!114 &1610607089
 MonoBehaviour:
   m_ObjectHideFlags: 0
